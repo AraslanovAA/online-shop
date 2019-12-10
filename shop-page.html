@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    html,
+  body,
+  header,
+  .carousel{
+      height: 60vh;
+  }
+  @media (max-width: 740px){
+    html,
+    body,
+    header,
+    .carousel{
+      height: 60vh;
+    }
+  
+    @media (min-width: 800px) and (max-width: 850px){
+      html,
+    body,
+    header,
+    .carousel{
+      height: 60vh;
+    } 
+    }
+  }
+  
+  </style>
+</head>
+
+<body onload="funcOnLoad()">
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light green scrolling-navbar">
+<div class="container">
+  <a href="#" class="navbar-brand waves-effect">
+    <strong class="white-text">KEK</strong>
+  </a>
+  <button class="navbar-toggler" type="button"
+  data-toggle="collapse" data-target="#navbarContent"
+  aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+
+  </button>
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a href="#" class="nav-link waves-effect">Home</a>
+      </li>
+      <li class="nav-item">
+        <a id="products" class="nav-link waves-effect">Товары</a>
+      </li>
+      <li class="nav-item">
+        <a id="delivery" class="nav-link waves-effect">Доставка</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-flex-icons">
+      <li class="nav-item">
+        <a id='korzina' class="nav-link waves-effect">
+          <span id = "count_goods" class="badge red z-depth-1 mr-1">1</span>
+          <i class="fa fa-shopping-cart"></i>
+          <span class="clearfix d-none d-sm-inline-block">Корзина</span>
+        </a>
+      </li>
+      <li class="nav-item">
+          <a href="#" class="nav-link waves-effect">
+              <span class="clearfix d-none d-sm-inline-block" id="auth">Авторизация</span>
+          </a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+</nav>
+
+
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+        <div class="row wow rotateInUpLeft">
+            <div class="col-md-6 mb-4">
+                <img id = "picture1" src="" alt="футболка сомнительная 1" class="img-fluid">
+            </div>
+            <div class="col-md-6 mb-4 wow zoomIn">
+                <div class="p-4">
+                    <div class="mb-3">
+                        <a href="">
+                            <span id="category" class="badge purple mr-1">Категория 2</span>
+                        </a>
+                        <a href="">
+                                <span id="new_item" class="badge blue mr-1">New</span>
+                            </a>
+                            <a href="">
+                                    <span id="has_discount" class="badge red mr-1">Best seller</span>
+                                </a>
+                    </div>
+                    <p class="lead">
+                        <span class="mr-1">
+                            <del id="old_cost">200</del>
+                        </span>
+                        <span class="mr-1" id="curr_cost">
+                                100₽
+                            </span>
+                    </p>
+                    <p class="lead font-weight-bold"  id="product_name">Описание</p>
+                    <p id="description1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
+                         laboriosam amet magnam numquam a, nihil sit eligendi, doloribus 
+                         repudiandae omnis voluptas assumenda error neque eveniet 
+                         aperiam hic, impedit totam. Pariatur?</p>
+                        <form action="" class="d-flex justify-content-left">
+                            <input id = "inp" type="number" value="1" aria-label="Search:"
+                            style="width:100px" class="form-control">
+                            <button id= "addToCard" type="submit" class="btn btn-primary btn-md my-0 p">
+                              В корзину <i class="fa fa-shopping-cart ml-1"></i>
+                            </button>
+                        </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row d-flex justify-content-center wow slideInLeft">
+          <div class="col-md-6 text-center">
+            <h4 class="my-4 h4">Дополнительная информация</h4>
+            <p id="description2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis repellendus fugiat, neque ut dolor sint dolorum aspernatur quibusdam hic eligendi deleniti accusantium amet est assumenda eius cupiditate velit voluptatem dignissimos.</p>
+
+          </div>
+        </div>
+        
+        <div class="row wow fadeInUpBig">
+          <div class="col-lg-4 justify-content-center">
+            <img id="picture2" src="" alt="" class="img-fluid">
+          </div>
+        </div>
+
+
+    </div>
+</main>
+
+
+
+
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+    <div class="pt-4">
+      <a href="#" role="button" class="btn btn-outline-white">Online Shop 
+        <i class="fa fa-graduation-cap ml-2"></i></a>
+        <a href="#" role="button" class="btn btn-outline-white">FAQ 
+            <i class="fa fa-graduation-cap ml-2"></i></a>
+    </div>
+
+    <hr class="my-4">
+    <div class="pb-4">
+        <a href="#" class="waves-effect">
+            <i class="fab fa-instagram mr-3"></i>
+        </a>
+        <a href="#" class="waves-effect">
+            <i class="fab fa-facebook mr-3"></i>
+        </a>
+    </div>
+    <div class="footer-copyright py-3">
+      Online Shop Доставка по Кирову
+    </div>
+  </footer>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script>
+      new WOW().init();
+    </script>
+    <script type="text/javascript" src="js/scriptShopPage.js"></script>
+    <script type="text/javascript" src="js/navbarScript.js"></script>
+</body>
+
+</html>
