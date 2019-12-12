@@ -1,4 +1,13 @@
+/*
+TODO list:
+filters
+hash
+but merchandise from main page
+switch cursor on merchandise's block
+nginx
+alert??
 //убрать lorem? и поле поиска?
+*/
 var http = require('http');
 var express = require('express');
 var app = express();
@@ -13,6 +22,7 @@ app.use('/font', express.static('font'));
 app.get('/', function(req, res) { res.sendFile(__dirname + '/index.html'); });
 app.get('/auth', function(req, res) { res.sendFile(__dirname + '/registrandauth.html'); });
 app.get('/cart', function(req, res) { res.sendFile(__dirname + '/cart.html'); });
+app.get('/delivery', function(req, res) { res.sendFile(__dirname + '/delivery.html'); });
 for (let i = 1; i < 23; i++){
     let my_url = '/item'+i
 app.get(my_url, function(req, res) { res.sendFile(__dirname + '/shop-page.html'); });
@@ -26,22 +36,54 @@ var db = pgp(cn);
 //юзлесс бред(пока что)
 app.post('/kek',jsonParser, function(request,response){
     console.log('сервер зарегистрировал нажатие по кеку: ')
-    
+    var now = new Date();
+    console.log(now.toString())
 });
 
+//получаем все заказы пацана
+app.post('/giveThisUserDelivery',jsonParser, function(request,response){
+    console.log('сервер зарегистрировал попытку получить все заказы пацана: ')
+    console.log('hash kotoriy prishel:  ' + request.body.hash)
+    let inquiry = 'SELECT buyer_id, items, "when", address	FROM public.orders where buyer_id='+"'"+request.body.hash+"'"
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        console.log("из бд получили все заказы пацана: " + thisUserCard)
+        if(!request.body) return response.sendStatus(400);
+    response.json(thisUserCard)
+    })  
+});
 
-
-//добавляем заказ в таблицу заказов
+//добавляем заказ в таблицу заказов, попутно удаляя из таблицы корзина
 app.post('/makeOrder',jsonParser, function(request,response){
     console.log('сервер зарегистрировал попытку оформить заказ: ')
     console.log('hash kotoriy prishel:  ' + request.body.hash)
-    //наша задача взять все товары пацана из таблицы корзина
-    //добавить товары пацана в таблицу заказов
+    //взять количество товара из таблицы корзина, стоимость из таблицы товаров связанные по описание в таблицах
+    //  cоответствующие указанному хэшу в таблице корзины
+    //сформировать строку товаров для таблицы заказов и пополнить таблицу заказов
     //удалить все товары пацана из таблицы корзина - самое изи конечно же
-    let inquiry = 'SELECT product_description, count_prod FROM card where user_h = ' + "'" +request.body.hash+"'"
+    
+    let inquiry = 'SELECT gsd.additional_params, card.count_prod, gsd.current_cost, '+
+    'card.count_prod *gsd.current_cost as multiply FROM card, gsd WHERE'+
+    ' gsd.product_name = card.product_description AND card.user_h = '+"'" +request.body.hash+"'"
     db.any(inquiry).then(data => {
         var thisUserCard = JSON.stringify(data)
+        console.log("из бд получили корзину пользователя: " + data)
         console.log("из бд получили корзину пользователя: " + thisUserCard)
+        console.log(data.length)
+        var itemList= ''
+        var now = new Date();
+        var when = now.toString()
+        var address= request.body.address
+        //TODO:убедиться что мы не идем доабвлять товары в заказы из корщины, когда корзинка то пуста
+        for (let i = 0; i < data.length; i++){
+            itemList = itemList + data[i]["additional_params"]+':'+ data[i]['count_prod']+':' +
+            data[i]['current_cost'] +':' + data[i]['multiply']+';'
+        }
+        let inquiry2 = 'INSERT INTO public.orders(buyer_id, items,  "when", address)'+
+            'VALUES ('+"'"+request.body.hash+"'"+', '+"'"+itemList+"'"+', '+"'"+when+"'"+', '+"'"+address+"'"+');'
+        inquiry2 = inquiry2 + 'DELETE FROM public.card WHERE user_h = ' +"'"+request.body.hash+"'"+';'
+            db.any(inquiry2).then(data2=> {
+            })
         if(!request.body) return response.sendStatus(400);
     response.json(thisUserCard)
     })  

@@ -2,6 +2,7 @@ function funcOnLoad(){
     //берём хэшик -> собираем CorzinaPACANA
 // из неё создаём новый список с именами товаров
 //его снова даём на сервер, получаем список что пиздец конечно
+   // document.getElementById('tableID').style.display="initial"
     var flag = false
     var newDiv = document.createElement("tr");    
         newDiv.innerHTML = "<th>Товар</th><th>количество</th><th>Цена за штуку</th><th>Цена</th>";
@@ -104,7 +105,7 @@ function funcOnLoad(){
                     "</td><td>"+'Итого:'+"</td><td id = "+"'"+"summaryCostID"+"'"+">"+summCost+"</td>";
                     //document.getElementById('tableID').append(newDiv);
                     my_div = document.getElementById("tableId");
-                    document.body.appendChild( newDiv,my_div);
+                    document.getElementById('tableID').append(newDiv);
     }
     )
     request2.send(productList);

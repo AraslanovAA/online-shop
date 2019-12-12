@@ -106,19 +106,23 @@ document.getElementById('header').append(br6);
             //createMap(mapState, shortAddress);
             showMessage(address);
             document.getElementById("btn").addEventListener("click", function (e) {  e.preventDefault();
-                //TODO-----------------
                 var cookieString = document.cookie;
                 var splited = cookieString.split('=')
+                console.log('сплит по знаку равенства '+ splited)
+                console.log('изначальный печенька: ' + cookieString)
+                console.log('textConstent: '+document.getElementById('suggest').textContent)
+                console.log('textConstent: '+address)
                 let hash = splited[1]
-                let cur_hash = JSON.stringify({hash : hash});
+                let cur_hash = JSON.stringify({hash : hash, address : address});
                 var request = new XMLHttpRequest();
                 request.open('POST', "/makeOrder",true);
                 request.setRequestHeader("Content-Type", "application/json");
                 request.addEventListener("load", function(){
+                    document.location.href = '/delivery'
+
                 }
                 )
                 request.send(cur_hash);
-                //-------------------
             });
         }
 

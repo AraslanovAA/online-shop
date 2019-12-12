@@ -64,29 +64,30 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a href="#" class="nav-link waves-effect">Home</a>
+      <li id="home" class="nav-item active">
+        <a  class="nav-link waves-effect">Home</a>
       </li>
-      <li class="nav-item">
+      <li id="gsd" class="nav-item">
         <a id ="products"  class="nav-link waves-effect">Товары</a>
       </li>
-      <li class="nav-item">
-        <a id="delivery" class="nav-link waves-effect">Доставка</a>
-      </li>
+      
     </ul>
     <ul class="navbar-nav nav-flex-icons">
-      <li class="nav-item">
+      <li id = "cart" class="nav-item">
         <a id='korzina' class="nav-link waves-effect">
           <span id = "count_goods" class="badge red z-depth-1 mr-1">1</span>
           <i class="fa fa-shopping-cart"></i>
           <span class="clearfix d-none d-sm-inline-block">Корзина</span>
         </a>
       </li>
-      <li class="nav-item">
-          <a href="#" class="nav-link waves-effect">
-              <span class="clearfix d-none d-sm-inline-block" id="auth">Авторизация</span>
-          </a>
+      <li id="author" class="nav-item">
+        <a id="delivery" class="nav-link waves-effect">Мои заказы</a>
       </li>
+      <li id="deliv" class="nav-item">
+        <a href="#" class="nav-link waves-effect">
+            <span class="clearfix d-none d-sm-inline-block" id="auth">Авторизация</span>
+        </a>
+    </li>
     </ul>
   </div>
 
@@ -476,38 +477,28 @@
 
       <nav class="d-flex justify-content-center wow fadeIn">
         <ul class="pagination pg-blue">
-          <li class="page-item disabled">
-            <a href="" class="page-link" aria-label="Previous">
+          <li id="buttonPrevLi" class="page-item disabled">
+            <a  class="page-link" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item active">
-              <a href="" class="page-link" aria-label="Previous">
-                <span aria-hidden="true">1</span>
+          <li id = "buttonPageLi1" class="page-item active">
+              <a  class="page-link" aria-label="Previous">
+                <span id = "buttonPage1" aria-hidden="true">1</span>
               </a>
             </li>
-            <li class="page-item">
-                <a href="" class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">2</span>
+            <li id = "buttonPageLi2" class="page-item">
+              <a  class="page-link" aria-label="Previous">
+                  <span id = "buttonPage2" aria-hidden="true">2</span>
                 </a>
               </li>
-              <li class="page-item ">
-                  <a href="" class="page-link" aria-label="Previous">
-                    <span aria-hidden="true">3</span>
+              <li id = "buttonPageLi3" class="page-item ">
+                  <a  class="page-link" aria-label="Previous">
+                    <span id = "buttonPage3" aria-hidden="true">3</span>
                   </a>
                 </li>
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">4</span>
-                    </a>
-                  </li>
-                  <li class="page-item ">
-                      <a href="" class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">5</span>
-                      </a>
-                    </li>
-                    <li class="page-item">
-                        <a href="" class="page-link" aria-label="Next">
+                    <li id="buttonNextLi" class="page-item">
+                        <a class="page-link" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                         </a>
                       </li>
@@ -522,18 +513,18 @@
 
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
     <div class="pt-4">
-      <a href="#" role="button" class="btn btn-outline-white">Online Shop 
+      <a  role="button" class="btn btn-outline-white">Online Shop 
         <i class="fa fa-graduation-cap ml-2"></i></a>
-        <a href="#" role="button" class="btn btn-outline-white">FAQ 
+        <a role="button" class="btn btn-outline-white">FAQ 
             <i class="fa fa-graduation-cap ml-2"></i></a>
     </div>
 
     <hr class="my-4">
     <div class="pb-4">
-        <a href="#" class="waves-effect">
+        <a  class="waves-effect">
             <i class="fab fa-instagram mr-3"></i>
         </a>
-        <a href="#" class="waves-effect">
+        <a  class="waves-effect">
             <i class="fab fa-facebook mr-3"></i>
         </a>
     </div>

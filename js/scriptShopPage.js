@@ -29,7 +29,6 @@ id="curr_cost"
         request.open('POST', "/addToCard",true);
         request.setRequestHeader("Content-Type", "application/json");
         request.addEventListener("load", function(){
-        //TODO:обновить ярлычок на корзинке
         calculateNumOfGoods()
         }
         )
@@ -49,7 +48,6 @@ else{
 function funcOnLoad(){
     let index = window.location.href.indexOf('item')
     let numProduct = window.location.href.substring(index+4, window.location.href.length)
-
         let cur_id = JSON.stringify({IDProduct : numProduct});
         var request = new XMLHttpRequest();
         request.open('POST', "/allProductInfo",true);
