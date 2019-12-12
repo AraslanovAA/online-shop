@@ -1,9 +1,7 @@
 /*
 TODO list:
 filters
-hash
-but merchandise from main page
-switch cursor on merchandise's block
+buy merchandise from main page
 nginx
 alert??
 //убрать lorem? и поле поиска?

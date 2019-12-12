@@ -2,9 +2,21 @@
 
 
 
-document.getElementById("auth").addEventListener("click", function (e) {
+document.getElementById("deliv").addEventListener("click", function (e) {
     e.preventDefault();
-    document.location.href = '/auth'//TODO: сделать проверку а может стоит профиль поцика открыть
+    var cookieString = document.cookie;
+            var splited = cookieString.split('=')
+            let hash = splited[1]
+            if(( typeof hash === 'string')&&(hash !== '')){
+                document.cookie = "outhNShop=" 
+                getUserName()
+                document.location.href='/'
+            }
+            else{
+                document.location.href = '/auth'
+            }
+
+    
 }
     );
     document.getElementById("author").addEventListener("click", function (e) {
@@ -44,25 +56,30 @@ document.getElementById("auth").addEventListener("click", function (e) {
         }
 
         function getUserName(){//подгрузочка имени поцанчика
+            console.log('coookie: ' + document.cookie)
             let index = window.location.href.lastIndexOf('/')
     let numProduct = window.location.href.substring(index+1, window.location.href.length)
-    console.log('href: ' + numProduct)
+            let indexItem = window.location.href.indexOf('item')
+            
+            if(indexItem !== -1){
+                document.getElementById('deliv').setAttribute('class', 'nav-item' )
+                document.getElementById('cart').setAttribute('class', 'nav-item' )
+                document.getElementById('author').setAttribute('class', 'nav-item' )
+                document.getElementById('gsd').setAttribute('class', 'nav-item active' )
+            }
             if(numProduct === ''){
-                document.getElementById('home').setAttribute('class', 'nav-item' )
                 document.getElementById('deliv').setAttribute('class', 'nav-item' )
                 document.getElementById('cart').setAttribute('class', 'nav-item' )
                 document.getElementById('author').setAttribute('class', 'nav-item' )
                 document.getElementById('gsd').setAttribute('class', 'nav-item active' )
             }
             if(numProduct === 'delivery'){
-                document.getElementById('home').setAttribute('class', 'nav-item' )
                 document.getElementById('cart').setAttribute('class', 'nav-item' )
-                document.getElementById('author').setAttribute('class', 'nav-item' )
+                document.getElementById('author').setAttribute('class', 'nav-item active' )
                 document.getElementById('gsd').setAttribute('class', 'nav-item' )
-                document.getElementById('deliv').setAttribute('class', 'nav-item active' )
+                document.getElementById('deliv').setAttribute('class', 'nav-item' )
             }
             if(numProduct === 'cart'){
-                document.getElementById('home').setAttribute('class', 'nav-item' )
                 document.getElementById('author').setAttribute('class', 'nav-item' )
                 document.getElementById('gsd').setAttribute('class', 'nav-item' )
                 document.getElementById('deliv').setAttribute('class', 'nav-item' )
@@ -75,9 +92,14 @@ document.getElementById("auth").addEventListener("click", function (e) {
             console.log(typeof splited[1])
             //----------------------подгружаем имя поцикаА
             let hash = splited[1]
-            if(( typeof hash === 'string')&&(hash !== '')){
+            if(( typeof hash === 'string')&&(hash != '')){
                 document.getElementById('author').style.display = 'initial'
                 document.getElementById('auth').textContent = 'Выйти'
+                console.log('отправляем серверу hash: ' + hash)
+                if(hash[hash.length-1]===';'){
+                    hash = hash.substring(0,hash.length-1)
+                }
+                console.log('отправляем серверу hash: ' + hash)
             let cur_hash = JSON.stringify({hash : hash});
             var request = new XMLHttpRequest();
             request.open('POST', "/giveNameByHash",true);

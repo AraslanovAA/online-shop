@@ -12,6 +12,11 @@ function init() {
 
     function geocode() {
         var request = $('#suggest').val();
+        if(request === ''){
+            showError('Адрес не указан');
+            
+        }
+        else{
         ymaps.geocode(request).then(function (res) {
             var obj = res.geoObjects.get(0),
                 error, hint;
@@ -46,8 +51,9 @@ function init() {
             }
         }, function (e) {
             console.log(e)
+        
         })
-
+    }
     }
     function showResult(obj) {
         $('#suggest').removeClass('input_error');
