@@ -53,7 +53,7 @@
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-light green scrolling-navbar">
 <div class="container">
-  <div id="kekButton" >
+  <div >
     <strong class="white-text">Магазин сладостей</strong>
   </div>
   <button class="navbar-toggler" type="button"
@@ -188,17 +188,16 @@
   <main>
     <div class="container">
 
-
-      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 ">
         <span class="navbar-brand">Категории: </span>
         <button class="navbar-toggler" type="button"
-      data-toggle="collapse" data-target="#nextNav"
-       aria-controls="nextNav" aria-expanded="false" aria-label="Toggle navigation">
+      data-toggle="collapse" data-target="#nextNav1"
+       aria-controls="nextNav1" aria-expanded="false" aria-label="Toggle navigation">
 
           <span class="navbar-toggler-icon"></span>
           </button>
 
-  <div class="collapse navbar-collapse" id="nextNav">
+  <div class="collapse navbar-collapse" id="nextNav1">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" id="all_class">
         <a href="#" class="nav-link" id="all">All</a>
@@ -221,6 +220,74 @@
       </div>
     </form>
   </div>
+      </nav>
+
+
+      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 ml-2 mr-2 mt-3 mb-5">
+        <span class="navbar-brand">Фильтры: </span>
+        <button class="navbar-toggler" type="button"
+      data-toggle="collapse" data-target="#nextNav"
+       aria-controls="nextNav" aria-expanded="false" aria-label="Toggle navigation">
+
+          <span class="navbar-toggler-icon"></span>
+          </button>
+
+
+          <div class="collapse navbar-collapse mb-0 ml-6" id="nextNav"><h5 class="yellow-text">Цена:</h5>
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            <div class="ml-2 md-form my-0">
+            <input type="text" id="input_minimum" class="form-control mr-sm-2 white-text" style="width: 77px;" placeholder="минимум" aria-label="minimum">
+            </div>
+            </li>
+            <li class="nav-item">
+            <div class="ml-2 md-form my-0">
+            <input type="text" id="input_maximum" class="form-control mr-sm-2 white-text" style="width: 77px;" placeholder="максимум" aria-label="minimum">
+            </div>
+            </li>
+
+            <li class="nav-item">
+              <div class="btn-group">
+              <button id="button_general_country" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Производитель
+              </button>
+              <div id="menu1" class="dropdown-menu">
+
+                
+              </div>
+              </div>
+              </li>
+
+              <li class="nav-item">
+                <div class="btn-group">
+                <button id="button_general_color" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Вкус
+                </button>
+                <div id = "menu2" class="dropdown-menu">
+
+
+                </div>
+                </div>
+                </li>
+
+              </li>
+              <li><button id="button_reset" class=" btn btn-outline btn-dark nav-link">Сбросить</button></li>
+            
+              <form class="form-inline nav-item id="nextNav">
+                <button id="button_accept" class=" btn btn-outline btn-success nav-link">Применить</button>
+                </form>
+
+            </ul>
+          
+            
+          
+          </div>
+
+
+
+
+
+
       </nav>
 
       <section class=" text-center mb-4">

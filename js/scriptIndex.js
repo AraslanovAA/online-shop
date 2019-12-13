@@ -2,9 +2,14 @@ function funcOnLoad(){
     showAll(1)
     getUserName();
 };
-document.getElementById("kekButton").addEventListener("click", function (e) {
+/*
+
+*/
+document.getElementById('button_accept').addEventListener("click", function (e) {
     e.preventDefault();
     
+    //document.getElementById('button_general_color')
+    alert(document.getElementById('menu2').getElementsByTagName('div').length)
 }
     );
     
@@ -105,8 +110,152 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
             }
         }
             );
+    function createFabricatorDropDown(category){
 
-    
+
+        let cur_category = JSON.stringify({category: category});
+        var request = new XMLHttpRequest();
+        request.open('POST', "/fabricLoad",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            let recieved5 = JSON.parse(request.response);
+            //console.log('vkus1: '+request.response)
+            //console.log('vkus2: '+recieved5)
+
+            //удаляем из менюхи итемы если они там уже были
+            if(document.getElementById('menu1').getElementsByTagName('div').length !== 0){
+                let q = document.getElementById('menu1').getElementsByTagName('div').length-2
+                for(let u=0;u < q;u++){
+                    let nameForNone = 'menu1_item' +u.toString()
+                    var el = document.getElementById(nameForNone)
+                    el.parentNode.removeChild(el);
+                }
+                var el = document.getElementById('menu1_itemLine')
+                    el.parentNode.removeChild(el);
+                    var el = document.getElementById('menu1_itemAny')
+                    el.parentNode.removeChild(el);                                
+            }
+
+            //создаём новые итемы и добавляем им обработчики
+            for(let i=0;i<recieved5.length;i++){
+                var newDiv = document.createElement("div");   
+                let idName = 'menu1_item'+i.toString() 
+                newDiv.id=idName
+                newDiv.setAttribute('class','dropdown-item')
+                newDiv.innerHTML = recieved5[i]["proizvoditel"];
+                newDiv.setAttribute('style','cursor: pointer;')
+                document.getElementById('menu1').append(newDiv);
+
+                document.getElementById(idName).addEventListener("click", function (e) {
+                    e.preventDefault();
+for(let k=0;k< document.getElementById('menu1').getElementsByTagName('div').length -2;k++){
+let idCurrName = 'menu1_item'+k.toString() 
+document.getElementById(idCurrName).setAttribute('class','dropdown-item')
+}
+document.getElementById('menu1_itemAny').setAttribute('class','dropdown-item')
+document.getElementById(idName).setAttribute('class', 'dropdown-item active')
+                });
+            }
+            var newDiv = document.createElement("div");    
+                newDiv.id='menu1_itemLine'
+                newDiv.setAttribute('class','dropdown-divider')
+                document.getElementById('menu1').append(newDiv);
+                var newDiv = document.createElement("div");    
+
+                newDiv.id='menu1_itemAny'
+                newDiv.setAttribute('class','dropdown-item active')
+                newDiv.innerHTML = 'Любой'
+                newDiv.setAttribute('style','cursor: pointer;')
+                document.getElementById('menu1').append(newDiv);
+document.getElementById('menu1_itemAny').addEventListener("click", function (e) {
+e.preventDefault();
+for(let k=0;k< document.getElementById('menu1').getElementsByTagName('div').length -2;k++){
+let idCurrName = 'menu1_item'+k.toString() 
+document.getElementById(idCurrName).setAttribute('class','dropdown-item')
+}
+document.getElementById('menu1_itemAny').setAttribute('class','dropdown-item active')
+document.getElementById('menu1_item0').setAttribute('class','dropdown-item active')
+document.getElementById('menu1_item0').style.display='none'
+document.getElementById('menu1_item0').style.display='initial'
+document.getElementById('menu1_item0').setAttribute('style','weight:100%;')
+});
+
+           
+        })
+        request.send(cur_category);
+
+
+    }
+    function createVkusDropDown(category){
+
+                let cur_category = JSON.stringify({category: category});
+                        var request = new XMLHttpRequest();
+                        request.open('POST', "/vkusLoad",true);
+                        request.setRequestHeader("Content-Type", "application/json");
+                        request.addEventListener("load", function(){
+                            let recieved5 = JSON.parse(request.response);
+                            //console.log('vkus1: '+request.response)
+                            //console.log('vkus2: '+recieved5)
+
+                            //удаляем из менюхи итемы если они там уже были
+                            if(document.getElementById('menu2').getElementsByTagName('div').length !== 0){
+                                let q = document.getElementById('menu2').getElementsByTagName('div').length-2
+                                for(let u=0;u < q;u++){
+                                    let nameForNone = 'menu2_item' +u.toString()
+                                    var el = document.getElementById(nameForNone)
+                                    el.parentNode.removeChild(el);
+                                }
+                                var el = document.getElementById('menu2_itemLine')
+                                    el.parentNode.removeChild(el);
+                                    var el = document.getElementById('menu2_itemAny')
+                                    el.parentNode.removeChild(el);                                
+                            }
+
+                            //создаём новые итемы и добавляем им обработчики
+                            for(let i=0;i<recieved5.length;i++){
+                                var newDiv = document.createElement("div");   
+                                let idName = 'menu2_item'+i.toString() 
+                                newDiv.id=idName
+                                newDiv.setAttribute('class','dropdown-item')
+                                newDiv.innerHTML = recieved5[i]["vkus"];
+                                newDiv.setAttribute('style','cursor: pointer;')
+                                document.getElementById('menu2').append(newDiv);
+
+                                document.getElementById(idName).addEventListener("click", function (e) {
+                                    e.preventDefault();
+            for(let k=0;k< document.getElementById('menu2').getElementsByTagName('div').length -2;k++){
+                let idCurrName = 'menu2_item'+k.toString() 
+                document.getElementById(idCurrName).setAttribute('class','dropdown-item')
+            }
+            document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item')
+            document.getElementById(idName).setAttribute('class', 'dropdown-item active')
+                                });
+                            }
+                            var newDiv = document.createElement("div");    
+                                newDiv.id='menu2_itemLine'
+                                newDiv.setAttribute('class','dropdown-divider')
+                                document.getElementById('menu2').append(newDiv);
+                                var newDiv = document.createElement("div");    
+
+                                newDiv.id='menu2_itemAny'
+                                newDiv.setAttribute('class','dropdown-item active')
+                                newDiv.innerHTML = 'Любой'
+                                newDiv.setAttribute('style','cursor: pointer;')
+                                document.getElementById('menu2').append(newDiv);
+document.getElementById('menu2_itemAny').addEventListener("click", function (e) {
+ e.preventDefault();
+     for(let k=0;k< document.getElementById('menu2').getElementsByTagName('div').length -2;k++){
+         let idCurrName = 'menu2_item'+k.toString() 
+         document.getElementById(idCurrName).setAttribute('class','dropdown-item')
+         }
+document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item active')
+ });
+
+                           
+                        })
+                        request.send(cur_category);
+    }
+
     function showWaffles(numPage){
         document.getElementById('marmalade_class').setAttribute('class', 'nav-item')
         document.getElementById('croissants_class').setAttribute('class', 'nav-item')
@@ -122,6 +271,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                 request.addEventListener("load", function(){
                     let recieved = JSON.parse(request.response);
                     let recieved2 = JSON.parse(recieved)
+                    
                     var pages = Math.trunc(recieved2.length/8)
                     if(recieved2.length > pages*8){
                         pages=pages+1
@@ -164,6 +314,8 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         }
                     }
             }
+            createVkusDropDown(category)
+            createFabricatorDropDown(category)
                 })
                 request.send(cur_category);
     }
@@ -227,6 +379,8 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         }
                     }
             }
+            createVkusDropDown(category)
+            createFabricatorDropDown(category)
                 })
                 request.send(cur_category);
     }
@@ -288,6 +442,8 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         }
                     }
             }
+            createVkusDropDown(category)
+            createFabricatorDropDown(category)
                 })
                 request.send(cur_category);
     }
@@ -349,7 +505,10 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         }
                     }
             }
+            createVkusDropDown(category)
+            createFabricatorDropDown(category)
                 })
+                
                 request.send(cur_category);
     }
 
@@ -393,3 +552,4 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         document.getElementById("buttonPageLi3").setAttribute('class', 'page-item active')
                     }
                 }
+

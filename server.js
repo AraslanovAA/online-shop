@@ -1,6 +1,6 @@
 /*
 TODO list:
-filters
+filters - цена, производитель, вкус
 buy merchandise from main page
 nginx
 alert??
@@ -31,11 +31,43 @@ var pgp = require('pg-promise')();
 var cn = {host: 'localhost', port: 5432, database:'postgres', user:'postgres', password:'1'};
 var db = pgp(cn);
 
-//юзлесс бред(пока что)
-app.post('/kek',jsonParser, function(request,response){
-    console.log('сервер зарегистрировал нажатие по кеку: ')
-    var now = new Date();
-    console.log(now.toString())
+
+//спрашиваем у бд, а какие вообще у текущей категории есть производители
+app.post('/fabricLoad',jsonParser, function(request,response){
+    console.log('попытка считать все вкусы для категории: '+request.body.category)
+    let inquiry = ''
+    if(request.body.category ==='all'){
+        inquiry = 'SELECT DISTINCT proizvoditel FROM gsd'
+    }
+    else{
+        inquiry = 'SELECT DISTINCT proizvoditel FROM gsd where food_type = '+"'"+request.body.category+"'"
+    }
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        console.log("из бд получили всех производителей для ктаегории пацана: " + thisUserCard)
+        if(!request.body) return response.sendStatus(400);
+        response.json(data)
+        }) 
+});
+
+
+
+//спрашиваем у бд, а какие вообще у текущей категории есть вкусы
+app.post('/vkusLoad',jsonParser, function(request,response){
+    console.log('попытка считать все вкусы для категории: '+request.body.category)
+    let inquiry = ''
+    if(request.body.category ==='all'){
+        inquiry = 'SELECT DISTINCT vkus FROM gsd'
+    }
+    else{
+        inquiry = 'SELECT DISTINCT vkus FROM gsd where food_type = '+"'"+request.body.category+"'"
+    }
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        console.log("из бд получили все вкусы для ктаегории пацана: " + thisUserCard)
+        if(!request.body) return response.sendStatus(400);
+        response.json(data)
+        }) 
 });
 
 //получаем все заказы пацана
