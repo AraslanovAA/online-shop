@@ -32,23 +32,63 @@ var cn = {host: 'localhost', port: 5432, database:'postgres', user:'postgres', p
 var db = pgp(cn);
 
 
-//спрашиваем у бд, а какие вообще у текущей категории есть производители
-app.post('/fabricLoad',jsonParser, function(request,response){
-    console.log('попытка считать все вкусы для категории: '+request.body.category)
-    let inquiry = ''
-    if(request.body.category ==='all'){
-        inquiry = 'SELECT DISTINCT proizvoditel FROM gsd'
-    }
-    else{
-        inquiry = 'SELECT DISTINCT proizvoditel FROM gsd where food_type = '+"'"+request.body.category+"'"
-    }
+
+//спрашиваем у бд, а какие вообще есть производители у каждой категории
+app.post('/loadProizvoditelPerCategory',jsonParser, function(request,response){
+    console.log('попытка считать всех производителей для всех категорий: ')
+    let inquiry = 'SELECT DISTINCT proizvoditel , food_type FROM gsd'
     db.any(inquiry).then(data => {
         var thisUserCard = JSON.stringify(data)
-        console.log("из бд получили всех производителей для ктаегории пацана: " + thisUserCard)
+        console.log("из бд получили всех производителей для всех категорий: " + thisUserCard)
         if(!request.body) return response.sendStatus(400);
         response.json(data)
         }) 
 });
+
+//спрашиваем у бд, сколкьо произвоидетелй у каждой категории
+app.post('/fabricNumsEachCategory',jsonParser, function(request,response){
+    console.log('попытка посчитать всех производителей для всех категорий: ')
+    let inquiry = 'SELECT DISTINCT proizvoditel , food_type FROM gsd'
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        let numWaffs = 0
+        let numMarm = 0;
+        let numCrois = 0
+        let numAll = 0
+        for(let i =0;i<data.length;i++){
+            if(data[i]["food_type"] === 'вафли'){
+                numWaffs++
+            }
+            if(data[i]["food_type"] === 'мармелад'){
+                numMarm++
+            }
+            if(data[i]["food_type"] === 'круасаны'){
+                numCrois++
+            }
+        }
+        let str = ''
+        for(let i=0;i<data.length;i++){
+            str+=data[i]["proizvoditel"]+';'
+        }
+        str = str.substring(0,str.length-1)
+        var arr = str.split(';')
+        let result = [];
+
+         for (let str1 of arr) {
+            if (!result.includes(str1)) {
+            result.push(str1);
+            }
+        }
+        numAll = result.length
+        let numsEachCategory = numWaffs.toString()+';'+numMarm.toString()+';'+numCrois.toString()+';'+numAll.toString()
+        console.log("из бд получили всех производителей для всех категорий: " + thisUserCard)
+        console.log('количество произвоидтелей для каждой категории: '+numsEachCategory)
+        if(!request.body) return response.sendStatus(400);
+        response.json(numsEachCategory)
+        }) 
+});
+
+
 
 
 
