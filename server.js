@@ -45,6 +45,19 @@ app.post('/loadProizvoditelPerCategory',jsonParser, function(request,response){
         }) 
 });
 
+//спрашиваем у бд, а какие вообще есть вкусы у каждой категории
+app.post('/loadVkusPerCategory',jsonParser, function(request,response){
+    console.log('попытка считать все вкусы для всех категорий: ')
+    let inquiry = 'SELECT DISTINCT vkus , food_type FROM gsd'
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        console.log("из бд получили все вкусы для всех категорий: " + thisUserCard)
+        if(!request.body) return response.sendStatus(400);
+        response.json(data)
+        }) 
+});
+
+
 //спрашиваем у бд, сколкьо произвоидетелй у каждой категории
 app.post('/fabricNumsEachCategory',jsonParser, function(request,response){
     console.log('попытка посчитать всех производителей для всех категорий: ')
@@ -89,7 +102,48 @@ app.post('/fabricNumsEachCategory',jsonParser, function(request,response){
 });
 
 
+//спрашиваем у бд, сколкьо вкусов у каждой категории
+app.post('/tasteNumsEachCategory',jsonParser, function(request,response){
+    console.log('попытка посчитать всевкусы для всех категорий: ')
+    let inquiry = 'SELECT DISTINCT vkus , food_type FROM gsd'
+    db.any(inquiry).then(data => {
+        var thisUserCard = JSON.stringify(data)
+        let numWaffs = 0
+        let numMarm = 0;
+        let numCrois = 0
+        let numAll = 0
+        for(let i =0;i<data.length;i++){
+            if(data[i]["food_type"] === 'вафли'){
+                numWaffs++
+            }
+            if(data[i]["food_type"] === 'мармелад'){
+                numMarm++
+            }
+            if(data[i]["food_type"] === 'круасаны'){
+                numCrois++
+            }
+        }
+        let str = ''
+        for(let i=0;i<data.length;i++){
+            str+=data[i]["vkus"]+';'
+        }
+        str = str.substring(0,str.length-1)
+        var arr = str.split(';')
+        let result = [];
 
+         for (let str1 of arr) {
+            if (!result.includes(str1)) {
+            result.push(str1);
+            }
+        }
+        numAll = result.length
+        let numsEachCategory = numWaffs.toString()+';'+numMarm.toString()+';'+numCrois.toString()+';'+numAll.toString()
+        console.log("из бд получили все вкусы для всех категорий: " + thisUserCard)
+        console.log('количество вкусов для каждой категории: '+numsEachCategory)
+        if(!request.body) return response.sendStatus(400);
+        response.json(numsEachCategory)
+        }) 
+});
 
 
 //спрашиваем у бд, а какие вообще у текущей категории есть вкусы

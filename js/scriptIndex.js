@@ -1,5 +1,6 @@
 function funcOnLoad(){
     createProizvoditelDropDownFull()
+    createVkusDropDownFull()
     showAll(1)
     getUserName();
 };
@@ -10,7 +11,28 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
     e.preventDefault();
     
     //document.getElementById('button_general_color')
-    alert(document.getElementById('menu2').getElementsByTagName('div').length)
+    //alert(document.getElementById('menu2').getElementsByTagName('div').length)
+    //alert(document.querySelector('#input_minimum').value)
+    var textMin = document.querySelector('#input_minimum').value
+    var numTextMin = Number(textMin)
+    if(numTextMin ===''){
+        alert('min - пустая строка')
+    }
+    if(numTextMin == null){
+        alert('min - null')
+    }
+    if(typeof numTextMin != 'number'){
+        console.log('min - ne number')
+      }
+      else{
+          console.log(typeof numTextMin)
+          console.log('numTextMin: ' + numTextMin)
+      }
+    if(isNaN(numTextMin)){
+        console.log('shalost udalas')
+    }
+    //alert(document.querySelector('#input_maximum').value)
+    //alert(document.getElementById('input_minimum').valueAsNumber())
 }
     );
     
@@ -111,6 +133,325 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
             }
         }
             );
+
+
+            function createVkusDropDownFull(){
+                //let cur_category = JSON.stringify({category: category});
+                var request = new XMLHttpRequest();
+                request.open('POST', "/loadVkusPerCategory",true);
+                request.setRequestHeader("Content-Type", "application/json");
+                request.addEventListener("load", function(){
+                    let recieved5 = JSON.parse(request.response);
+                    console.log(request.response)
+                    //заполняем производителей вафель
+                    let waffNums = 0
+                    for(let i =0;i<recieved5.length;i++){
+                        if(recieved5[i]["food_type"]==='вафли'){
+        
+                            var newDiv = document.createElement("div");   
+                            let idName = 'menu2_itemWaff'+waffNums.toString() 
+                        newDiv.id=idName
+                        newDiv.setAttribute('class','dropdown-item')
+                        newDiv.innerHTML = recieved5[i]["vkus"];
+                        newDiv.setAttribute('style','cursor: pointer;')
+                        document.getElementById('menu2').append(newDiv);
+                        waffNums++;
+                        //обработчик нажатия на вафельку то есть меняем active class
+                            document.getElementById(idName).addEventListener("click", function (e) {
+                                e.preventDefault();
+                            //спрашиваем а сколько всего элментов этого типа
+                                var request = new XMLHttpRequest();
+                                request.open('POST', "/tasteNumsEachCategory",true);
+                                request.setRequestHeader("Content-Type", "application/json");
+                                request.addEventListener("load", function(){
+                                   var res = request.response
+                                   res  = res.substring(1,res.length-1)
+                                  var res1 = res.split(';')
+                                    for(let i=0;i<Number(res1[0]);i++){
+                                        let curr_name = 'menu2_itemWaff'+i.toString() 
+                                        document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                    }
+                                    document.getElementById('menu2_itemWaffAny').setAttribute('class','dropdown-item')
+                                    document.getElementById(idName).setAttribute('class','dropdown-item active')
+                                })
+                                 request.send();
+                            })
+                        }
+                    }
+        
+                    var newDiv = document.createElement("div");    
+                        newDiv.id='menu2_itemWaffLine'
+                        newDiv.setAttribute('class','dropdown-divider')
+                        document.getElementById('menu2').append(newDiv);
+        
+                    var newDiv = document.createElement("div");    
+                    newDiv.id='menu2_itemWaffAny'
+                    newDiv.setAttribute('class','dropdown-item active')
+                    newDiv.innerHTML = 'Любой'
+                    newDiv.setAttribute('style','cursor: pointer;')
+                    document.getElementById('menu2').append(newDiv);
+        
+                    document.getElementById('menu2_itemWaffAny').addEventListener("click", function (e) {
+                        e.preventDefault();
+                    //спрашиваем а сколько всего элментов этого типа
+                        var request = new XMLHttpRequest();
+                        request.open('POST', "/tasteNumsEachCategory",true);
+                        request.setRequestHeader("Content-Type", "application/json");
+                        request.addEventListener("load", function(){
+                           var res = request.response
+                           res  = res.substring(1,res.length-1)
+                          var res1 = res.split(';')
+                            for(let i=0;i<Number(res1[0]);i++){
+                                let curr_name = 'menu2_itemWaff'+i.toString() 
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                            }
+                            document.getElementById('menu2_itemWaffAny').setAttribute('class','dropdown-item active')
+                        })
+                         request.send();
+                    })
+                //заполняем производителей мармелада
+                let marmNums = 0
+                    for(let i =0;i<recieved5.length;i++){
+                        if(recieved5[i]["food_type"]==='мармелад'){
+        
+                            var newDiv = document.createElement("div");   
+                            let idName = 'menu2_itemMarm'+marmNums.toString() 
+                        newDiv.id=idName
+                        newDiv.setAttribute('class','dropdown-item')
+                        newDiv.innerHTML = recieved5[i]["vkus"];
+                        newDiv.setAttribute('style','cursor: pointer;')
+                        document.getElementById('menu2').append(newDiv);
+                        marmNums++;
+        
+                        document.getElementById(idName).addEventListener("click", function (e) {
+                            e.preventDefault();
+                        //спрашиваем а сколько всего элментов этого типа
+                            var request = new XMLHttpRequest();
+                            request.open('POST', "/tasteNumsEachCategory",true);
+                            request.setRequestHeader("Content-Type", "application/json");
+                            request.addEventListener("load", function(){
+                               var res = request.response
+                               res  = res.substring(1,res.length-1)
+                              var res1 = res.split(';')
+                                for(let i=0;i<Number(res1[1]);i++){
+                                    let curr_name = 'menu2_itemMarm'+i.toString() 
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }
+                                document.getElementById('menu2_itemMarmAny').setAttribute('class','dropdown-item')
+                                document.getElementById(idName).setAttribute('class','dropdown-item active')
+                            })
+                             request.send();
+                        })
+        
+                        }
+                    }
+        
+                    var newDiv = document.createElement("div");    
+                        newDiv.id='menu2_itemMarmLine'
+                        newDiv.setAttribute('class','dropdown-divider')
+                        document.getElementById('menu2').append(newDiv);
+        
+                    var newDiv = document.createElement("div");    
+                    newDiv.id='menu2_itemMarmAny'
+                    newDiv.setAttribute('class','dropdown-item active')
+                    newDiv.innerHTML = 'Любой'
+                    newDiv.setAttribute('style','cursor: pointer;')
+                    document.getElementById('menu2').append(newDiv);
+        
+                    document.getElementById('menu2_itemMarmAny').addEventListener("click", function (e) {
+                        e.preventDefault();
+                    //спрашиваем а сколько всего элментов этого типа
+                        var request = new XMLHttpRequest();
+                        request.open('POST', "/tasteNumsEachCategory",true);
+                        request.setRequestHeader("Content-Type", "application/json");
+                        request.addEventListener("load", function(){
+                           var res = request.response
+                           res  = res.substring(1,res.length-1)
+                          var res1 = res.split(';')
+                            for(let i=0;i<Number(res1[1]);i++){
+                                let curr_name = 'menu2_itemMarm'+i.toString() 
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                            }
+                            document.getElementById('menu2_itemMarmAny').setAttribute('class','dropdown-item active')
+                        })
+                         request.send();
+                    })
+        
+                //заполняем производителей круасанов
+                let croisNums = 0
+                    for(let i =0;i<recieved5.length;i++){
+                        if(recieved5[i]["food_type"]==='круасаны'){
+        
+                            var newDiv = document.createElement("div");   
+                            let idName = 'menu2_itemCrois'+croisNums.toString() 
+                        newDiv.id=idName
+                        newDiv.setAttribute('class','dropdown-item')
+                        newDiv.innerHTML = recieved5[i]["vkus"];
+                        newDiv.setAttribute('style','cursor: pointer;')
+                        document.getElementById('menu2').append(newDiv);
+                        croisNums++;
+        
+                        document.getElementById(idName).addEventListener("click", function (e) {
+                            e.preventDefault();
+                        //спрашиваем а сколько всего элментов этого типа
+                            var request = new XMLHttpRequest();
+                            request.open('POST', "/tasteNumsEachCategory",true);
+                            request.setRequestHeader("Content-Type", "application/json");
+                            request.addEventListener("load", function(){
+                               var res = request.response
+                               res  = res.substring(1,res.length-1)
+                              var res1 = res.split(';')
+                                for(let i=0;i<Number(res1[2]);i++){
+                                    let curr_name = 'menu2_itemCrois'+i.toString() 
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }
+                                document.getElementById('menu2_itemCroisAny').setAttribute('class','dropdown-item')
+                                document.getElementById(idName).setAttribute('class','dropdown-item active')
+                            })
+                             request.send();
+                        })
+        
+                        }
+                    }
+        
+                    var newDiv = document.createElement("div");    
+                        newDiv.id='menu2_itemCroisLine'
+                        newDiv.setAttribute('class','dropdown-divider')
+                        document.getElementById('menu2').append(newDiv);
+        
+                    var newDiv = document.createElement("div");    
+                    newDiv.id='menu2_itemCroisAny'
+                    newDiv.setAttribute('class','dropdown-item active')
+                    newDiv.innerHTML = 'Любой'
+                    newDiv.setAttribute('style','cursor: pointer;')
+                    document.getElementById('menu2').append(newDiv);
+        
+                    document.getElementById('menu2_itemCroisAny').addEventListener("click", function (e) {
+                        e.preventDefault();
+                    //спрашиваем а сколько всего элментов этого типа
+                        var request = new XMLHttpRequest();
+                        request.open('POST', "/tasteNumsEachCategory",true);
+                        request.setRequestHeader("Content-Type", "application/json");
+                        request.addEventListener("load", function(){
+                           var res = request.response
+                           res  = res.substring(1,res.length-1)
+                          var res1 = res.split(';')
+                            for(let i=0;i<Number(res1[2]);i++){
+                                let curr_name = 'menu2_itemCrois'+i.toString() 
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                            }
+                            document.getElementById('menu2_itemCroisAny').setAttribute('class','dropdown-item active')
+                        })
+                         request.send();
+                    })
+        
+                //заполняем производителей для всех категорий, избавляемся от повторяющихся ъуъ
+                let str = ''
+                for(let i=0;i<recieved5.length;i++){
+                    str+=recieved5[i]["vkus"]+';'
+                }
+                str = str.substring(0,str.length-1)
+                var arr = str.split(';')
+                let result = [];
+        
+                 for (let str1 of arr) {
+                    if (!result.includes(str1)) {
+                    result.push(str1);
+                    }
+                }
+                let allNum = 0;
+                for(let i =0;i<result.length;i++){//основной цикл заполнения all
+                    var newDiv = document.createElement("div");   
+                    let idName = 'menu2_itemAll'+allNum.toString() 
+                newDiv.id=idName
+                newDiv.setAttribute('class','dropdown-item')
+                newDiv.innerHTML = result[i]
+                newDiv.setAttribute('style','cursor: pointer;')
+                document.getElementById('menu2').append(newDiv);
+                allNum++;
+        
+                document.getElementById(idName).addEventListener("click", function (e) {
+                    e.preventDefault();
+                //спрашиваем а сколько всего элментов этого типа
+                    var request = new XMLHttpRequest();
+                    request.open('POST', "/tasteNumsEachCategory",true);
+                    request.setRequestHeader("Content-Type", "application/json");
+                    request.addEventListener("load", function(){
+                       var res = request.response
+                       res  = res.substring(1,res.length-1)
+                      var res1 = res.split(';')
+                        for(let i=0;i<Number(res1[3]);i++){
+                            let curr_name = 'menu2_itemAll'+i.toString() 
+                            document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                        }
+                        document.getElementById('menu2_itemAllAny').setAttribute('class','dropdown-item')
+                        document.getElementById(idName).setAttribute('class','dropdown-item active')
+                    })
+                     request.send();
+                })
+        
+                }
+        
+                var newDiv = document.createElement("div");    
+                        newDiv.id='menu2_itemAllLine'
+                        newDiv.setAttribute('class','dropdown-divider')
+                        document.getElementById('menu2').append(newDiv);
+        
+                    var newDiv = document.createElement("div");    
+                    newDiv.id='menu2_itemAllAny'
+                    newDiv.setAttribute('class','dropdown-item active')
+                    newDiv.innerHTML = 'Любой'
+                    newDiv.setAttribute('style','cursor: pointer;')
+                    document.getElementById('menu2').append(newDiv);
+        
+                    document.getElementById('menu2_itemAllAny').addEventListener("click", function (e) {
+                        e.preventDefault();
+                    //спрашиваем а сколько всего элментов этого типа
+                        var request = new XMLHttpRequest();
+                        request.open('POST', "/tasteNumsEachCategory",true);
+                        request.setRequestHeader("Content-Type", "application/json");
+                        request.addEventListener("load", function(){
+                           var res = request.response
+                           res  = res.substring(1,res.length-1)
+                          var res1 = res.split(';')
+                            for(let i=0;i<Number(res1[3]);i++){
+                                let curr_name = 'menu2_itemAll'+i.toString() 
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                            }
+                            document.getElementById('menu2_itemAllAny').setAttribute('class','dropdown-item active')
+                        })
+                         request.send();
+                    })
+        
+                })
+                request.send();
+            }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function createProizvoditelDropDownFull(){
         //let cur_category = JSON.stringify({category: category});
         var request = new XMLHttpRequest();
@@ -405,6 +746,17 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
         request.send();
     }
 
+
+
+
+
+
+
+
+
+
+
+
     function createFabricatorDropDown1(category){
 
         var request = new XMLHttpRequest();
@@ -502,75 +854,115 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
 
 
 
-    function createVkusDropDown(category){
 
-                let cur_category = JSON.stringify({category: category});
-                        var request = new XMLHttpRequest();
-                        request.open('POST', "/vkusLoad",true);
-                        request.setRequestHeader("Content-Type", "application/json");
-                        request.addEventListener("load", function(){
-                            let recieved5 = JSON.parse(request.response);
-                            //console.log('vkus1: '+request.response)
-                            //console.log('vkus2: '+recieved5)
 
-                            //удаляем из менюхи итемы если они там уже были
-                            if(document.getElementById('menu2').getElementsByTagName('div').length !== 0){
-                                let q = document.getElementById('menu2').getElementsByTagName('div').length-2
-                                for(let u=0;u < q;u++){
-                                    let nameForNone = 'menu2_item' +u.toString()
-                                    var el = document.getElementById(nameForNone)
-                                    el.parentNode.removeChild(el);
-                                }
-                                var el = document.getElementById('menu2_itemLine')
-                                    el.parentNode.removeChild(el);
-                                    var el = document.getElementById('menu2_itemAny')
-                                    el.parentNode.removeChild(el);                                
-                            }
 
-                            //создаём новые итемы и добавляем им обработчики
-                            for(let i=0;i<recieved5.length;i++){
-                                var newDiv = document.createElement("div");   
-                                let idName = 'menu2_item'+i.toString() 
-                                newDiv.id=idName
-                                newDiv.setAttribute('class','dropdown-item')
-                                newDiv.innerHTML = recieved5[i]["vkus"];
-                                newDiv.setAttribute('style','cursor: pointer;')
-                                document.getElementById('menu2').append(newDiv);
 
-                                document.getElementById(idName).addEventListener("click", function (e) {
-                                    e.preventDefault();
-            for(let k=0;k< document.getElementById('menu2').getElementsByTagName('div').length -2;k++){
-                let idCurrName = 'menu2_item'+k.toString() 
-                document.getElementById(idCurrName).setAttribute('class','dropdown-item')
+
+    function createTastesDropDown1(category){
+
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            //во-первых, убираем отображение всех элементов
+            var res1 = res.split(';')
+
+            for(let i=0;i<Number(res1[0]);i++){
+                let nameWaff = 'menu2_itemWaff' + i.toString()
+                document.getElementById(nameWaff).style.display = 'none'
             }
-            document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item')
-            document.getElementById(idName).setAttribute('class', 'dropdown-item active')
-                                });
-                            }
-                            var newDiv = document.createElement("div");    
-                                newDiv.id='menu2_itemLine'
-                                newDiv.setAttribute('class','dropdown-divider')
-                                document.getElementById('menu2').append(newDiv);
-                                var newDiv = document.createElement("div");    
-
-                                newDiv.id='menu2_itemAny'
-                                newDiv.setAttribute('class','dropdown-item active')
-                                newDiv.innerHTML = 'Любой'
-                                newDiv.setAttribute('style','cursor: pointer;')
-                                document.getElementById('menu2').append(newDiv);
-document.getElementById('menu2_itemAny').addEventListener("click", function (e) {
- e.preventDefault();
-     for(let k=0;k< document.getElementById('menu2').getElementsByTagName('div').length -2;k++){
-         let idCurrName = 'menu2_item'+k.toString() 
-         document.getElementById(idCurrName).setAttribute('class','dropdown-item')
-         }
-document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item active')
- });
-
-                           
-                        })
-                        request.send(cur_category);
+            for(let i=0;i<Number(res1[1]);i++){
+                let nameMarm = 'menu2_itemMarm' + i.toString()
+                document.getElementById(nameMarm).style.display = 'none'
+            }
+            for(let i=0;i<Number(res1[2]);i++){
+                let nameCrois = 'menu2_itemCrois' + i.toString()
+                document.getElementById(nameCrois).style.display = 'none'
+            }
+            for(let i=0;i<Number(res1[3]);i++){
+                let nameAll = 'menu2_itemAll' + i.toString()
+                document.getElementById(nameAll).style.display = 'none'
+            }
+            document.getElementById('menu2_itemWaffLine').style.display = 'none'
+            document.getElementById('menu2_itemWaffAny').style.display = 'none'
+            document.getElementById('menu2_itemMarmLine').style.display = 'none'
+            document.getElementById('menu2_itemMarmAny').style.display = 'none'
+            document.getElementById('menu2_itemCroisLine').style.display = 'none'
+            document.getElementById('menu2_itemCroisAny').style.display = 'none'
+            document.getElementById('menu2_itemAllLine').style.display = 'none'
+            document.getElementById('menu2_itemAllAny').style.display = 'none'
+            //а теперь полетели отобразим те элементы которые нам нужны в данный момент
+            if(category ==='вафли'){
+                for(let i = 0;i< Number(res1[0]);i++){
+                    let currName = 'menu2_itemWaff' + i.toString()
+                    document.getElementById(currName).style.display = 'initial'
+                    document.getElementById(currName).setAttribute('style','width=100%;cursor: pointer;')
+                }
+                document.getElementById('menu2_itemWaffLine').style.display = 'initial'
+                document.getElementById('menu2_itemWaffAny').style.display = 'initial'
+                document.getElementById('menu2_itemWaffLine').setAttribute('style','width=100%;cursor: pointer;')
+                document.getElementById('menu2_itemWaffAny').setAttribute('style','width=100%;cursor: pointer;')
+            }
+            if(category ==='мармелад'){
+                for(let i = 0;i< Number(res1[1]);i++){
+                    let currName = 'menu2_itemMarm' + i.toString()
+                    document.getElementById(currName).style.display = 'initial'
+                    document.getElementById(currName).setAttribute('style','width=100%;cursor: pointer;')
+                }
+                document.getElementById('menu2_itemMarmLine').style.display = 'initial'
+                document.getElementById('menu2_itemMarmAny').style.display = 'initial'
+                document.getElementById('menu2_itemMarmLine').setAttribute('style','width=100%;cursor: pointer;')
+                document.getElementById('menu2_itemMarmAny').setAttribute('style','width=100%;cursor: pointer;')
+            }
+            if(category ==='круасаны'){
+                for(let i = 0;i< Number(res1[2]);i++){
+                    let currName = 'menu2_itemCrois' + i.toString()
+                    document.getElementById(currName).style.display = 'initial'
+                    document.getElementById(currName).setAttribute('style','width=100%;cursor: pointer;')
+                }
+                document.getElementById('menu2_itemCroisLine').style.display = 'initial'
+                document.getElementById('menu2_itemCroisAny').style.display = 'initial'
+                document.getElementById('menu2_itemCroisLine').setAttribute('style','width=100%;cursor: pointer;')
+                document.getElementById('menu2_itemCroisAny').setAttribute('style','width=100%;cursor: pointer;')
+            }
+            if(category ==='круасаны'){
+                for(let i = 0;i< Number(res1[2]);i++){
+                    let currName = 'menu2_itemCrois' + i.toString()
+                    document.getElementById(currName).style.display = 'initial'
+                    document.getElementById(currName).setAttribute('style','width=100%;cursor: pointer;')
+                }
+                document.getElementById('menu2_itemCroisLine').style.display = 'initial'
+                document.getElementById('menu2_itemCroisAny').style.display = 'initial'
+                document.getElementById('menu2_itemCroisLine').setAttribute('style','width=100%;cursor: pointer;')
+                document.getElementById('menu2_itemCroisAny').setAttribute('style','width=100%;cursor: pointer;')
+            }
+            if(category ==='all'){
+                for(let i = 0;i< Number(res1[3]);i++){
+                    let currName = 'menu2_itemAll' + i.toString()
+                    document.getElementById(currName).style.display = 'initial'
+                    document.getElementById(currName).setAttribute('style','width=100%;cursor: pointer;')
+                }
+                document.getElementById('menu2_itemAllLine').style.display = 'initial'
+                document.getElementById('menu2_itemAllAny').style.display = 'initial'
+                document.getElementById('menu2_itemAllLine').setAttribute('style','width=100%;cursor: pointer;')
+                document.getElementById('menu2_itemAllAny').setAttribute('style','width=100%;cursor: pointer;')
+            }
+        })
+        request.send();
     }
+
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+//-------К-О-Н-Е-Ц---О-Б-Р-А-Б-О-Т-Ч-И-К-О-В-----Ф-И-Л-Ь-Т-Р-О-В------------------------------
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+   
 
     function showWaffles(numPage){
         document.getElementById('marmalade_class').setAttribute('class', 'nav-item')
@@ -579,6 +971,7 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
         document.getElementById('waffles_class').setAttribute('class', 'nav-item active')
 
         let category= 'вафли'
+        
         let cur_category = JSON.stringify({category: category});
                 var request = new XMLHttpRequest();
                 let recieved = ''
@@ -630,7 +1023,8 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
                         }
                     }
             }
-            createVkusDropDown(category)
+            let cat = 'вафли'
+            createTastesDropDown1(cat)
             createFabricatorDropDown1(category)
                 })
                 request.send(cur_category);
@@ -645,6 +1039,7 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
             document.getElementById('marmalade_class').setAttribute('class', 'nav-item active')
 
             let category= 'мармелад'
+            
             let cur_category = JSON.stringify({category: category});
                 var request = new XMLHttpRequest();
                 let recieved = ''
@@ -695,7 +1090,8 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
                         }
                     }
             }
-            createVkusDropDown(category)
+            let cat= 'мармелад'
+            createTastesDropDown1(cat)
             createFabricatorDropDown1(category)
                 })
                 request.send(cur_category);
@@ -708,6 +1104,7 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
                 document.getElementById('croissants_class').setAttribute('class', 'nav-item active')
                
                 let category= 'круасаны'
+                
                 let cur_category = JSON.stringify({category: category});
                 var request = new XMLHttpRequest();
                 let recieved = ''
@@ -758,7 +1155,8 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
                         }
                     }
             }
-            createVkusDropDown(category)
+            let cat= 'круасаны'
+            createTastesDropDown1(cat)
             createFabricatorDropDown1(category)
                 })
                 request.send(cur_category);
@@ -771,6 +1169,7 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
         document.getElementById('all_class').setAttribute('class', 'nav-item active')
 
         let category= 'all'
+        
         let cur_category = JSON.stringify({category: category});
     var request = new XMLHttpRequest();
     let recieved = ''
@@ -821,9 +1220,10 @@ document.getElementById('menu2_itemAny').setAttribute('class','dropdown-item act
                         }
                     }
             }
-            
+            let cat= 'all'
+            createTastesDropDown1(category)
             createFabricatorDropDown1(category)
-            //createVkusDropDown(category)
+            
             
                 })
                 
