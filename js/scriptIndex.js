@@ -4,9 +4,106 @@ function funcOnLoad(){
     showAll(1)
     getUserName();
 };
-/*
 
-*/
+document.getElementById("button_reset").addEventListener("click", function (e) {
+    e.preventDefault();//чистим куки текущей выбранной категории, вызываем без фильтров
+    document.querySelector('#input_minimum').value = ''.toString()
+    document.querySelector('#input_maximum').value = ''.toString()
+    if(document.getElementById('all_class').getAttribute('class') ==='nav-item active'){
+        document.cookie = "Amin="
+        document.cookie = "Amax="
+        document.cookie = "Arder="
+        document.cookie = "Avkus="
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            var res1 = res.split(';')
+            for(let i=0;i<Number(res1[3]);i++){
+                let curr_name = 'menu2_itemAll'+i.toString() 
+                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                }
+            document.getElementById('menu2_itemAllAny').setAttribute('class','dropdown-item active')
+            showAll(1)
+        })
+        request.send();
+
+    }
+    if(document.getElementById('waffles_class').getAttribute('class') ==='nav-item active'){
+        document.cookie = "Wmin="
+        document.cookie = "Wmax="
+        document.cookie = "Wrder="
+        document.cookie = "Wvkus="
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            var res1 = res.split(';')
+            for(let i=0;i<Number(res1[0]);i++){
+                let curr_name = 'menu2_itemWaff'+i.toString() 
+                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                }
+            document.getElementById('menu2_itemWaffAny').setAttribute('class','dropdown-item active')
+            showWaffles(1)
+        })
+        request.send();
+
+        
+    }
+    if(document.getElementById('marmalade_class').getAttribute('class') ==='nav-item active'){
+        document.cookie = "Mmin="
+        document.cookie = "Mmax="
+        document.cookie = "Mrder="
+        document.cookie = "Mvkus="
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            var res1 = res.split(';')
+            for(let i=0;i<Number(res1[1]);i++){
+                let curr_name = 'menu2_itemMarm'+i.toString() 
+                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                }
+            document.getElementById('menu2_itemMarmAny').setAttribute('class','dropdown-item active')
+            showMarmalade(1)
+        })
+        request.send();
+
+        
+    }
+    if(document.getElementById('croissants_class').getAttribute('class') ==='nav-item active'){
+        document.cookie = "Cmin="
+        document.cookie = "Cmax="
+        document.cookie = "Crder="
+        document.cookie = "Cvkus="
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            var res1 = res.split(';')
+            for(let i=0;i<Number(res1[2]);i++){
+                let curr_name = 'menu2_itemCrois'+i.toString() 
+                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                }
+            document.getElementById('menu2_itemCroisAny').setAttribute('class','dropdown-item active')
+            showCroissants(1)
+        })
+        request.send();
+
+
+        
+    }
+
+        });
+
 document.getElementById('button_accept').addEventListener("click", function (e) {
     e.preventDefault();
     
@@ -15,24 +112,165 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
     //alert(document.querySelector('#input_minimum').value)
     var textMin = document.querySelector('#input_minimum').value
     var numTextMin = Number(textMin)
+    var textMax = document.querySelector('#input_maximum').value
+    var numTextMax = Number(textMax)
+    let flag = true
     if(numTextMin ===''){
         alert('min - пустая строка')
+        flag = false
     }
     if(numTextMin == null){
         alert('min - null')
+        flag = false
     }
     if(typeof numTextMin != 'number'){
-        console.log('min - ne number')
-      }
-      else{
-          console.log(typeof numTextMin)
-          console.log('numTextMin: ' + numTextMin)
+        alert('min - ne number')
+        flag = false
       }
     if(isNaN(numTextMin)){
-        console.log('shalost udalas')
+        alert('NaN')
+        flag = false
     }
-    //alert(document.querySelector('#input_maximum').value)
-    //alert(document.getElementById('input_minimum').valueAsNumber())
+    if(numTextMax ===''){
+        alert('min - пустая строка')
+        flag = false
+    }
+    if(numTextMax == null){
+        alert('min - null')
+        flag = false
+    }
+    if(typeof numTextMax != 'number'){
+        alert('min - ne number')
+        flag = false
+      }
+    if(isNaN(numTextMax)){
+        alert('NaN')
+        flag = false
+    }
+    if(numTextMin < 0 ){
+        alert('Указано недопустимое значение  минимальной цены')
+        flag = false
+    }
+    if(numTextMax < 0 ){
+        alert('Указано недопустимое значение  максимальной цены')
+        flag = false
+    }
+    if(flag === true){
+        
+        if(numTextMax === 0 ){
+            numTextMax = 99999
+        }
+        if(numTextMax < numTextMin){
+            document.querySelector('#input_maximum').value = numTextMin.toString()
+            numTextMax = numTextMin
+        }
+        let category = ''
+        if(document.getElementById('all_class').getAttribute('class') ==='nav-item active'){
+            category = 'all'
+        }
+        if(document.getElementById('waffles_class').getAttribute('class') ==='nav-item active'){
+            category = 'вафли'
+        }
+        if(document.getElementById('marmalade_class').getAttribute('class') ==='nav-item active'){
+            category = 'мармелад'
+        }
+        if(document.getElementById('croissants_class').getAttribute('class') ==='nav-item active'){
+            category = 'круасаны'
+        }
+        var request = new XMLHttpRequest();
+        request.open('POST', "/tasteNumsEachCategory",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            var res = request.response
+            res  = res.substring(1,res.length-1)
+            var res1 = res.split(';')
+            let numVkus = 0
+            let activeNameVkus = ''
+            if(category==='вафли'){
+                numVkus = res1[0]
+                for(let i =0;i <numVkus;i++){
+                    let name = 'menu2_itemWaff'+i.toString()
+                    if(document.getElementById(name).getAttribute('class')==='dropdown-item active'){
+                        activeNameVkus = document.getElementById(name).textContent
+                    }
+                }
+                if(document.getElementById('menu2_itemWaffAny').getAttribute('class') ==='dropdown-item active'){
+                    activeNameVkus ='-'
+                }
+            }
+            if(category==='мармелад'){
+                numVkus = res1[1]
+                for(let i =0;i <numVkus;i++){
+                    let name = 'menu2_itemMarm'+i.toString()
+                    if(document.getElementById(name).getAttribute('class')==='dropdown-item active'){
+                        activeNameVkus = document.getElementById(name).textContent
+                    }
+                }
+                if(document.getElementById('menu2_itemMarmAny').getAttribute('class') ==='dropdown-item active'){
+                    activeNameVkus ='-'
+                }
+            }
+            if(category==='круасаны'){
+                numVkus = res1[2]
+                for(let i =0;i <numVkus;i++){
+                    let name = 'menu2_itemCrois'+i.toString()
+                    if(document.getElementById(name).getAttribute('class')==='dropdown-item active'){
+                        activeNameVkus = document.getElementById(name).textContent
+                    }
+                }
+                if(document.getElementById('menu2_itemCroisAny').getAttribute('class') ==='dropdown-item active'){
+                    activeNameVkus ='-'
+                }
+            }
+            if(category==='all'){
+                numVkus = res1[3]
+                for(let i =0;i <numVkus;i++){
+                    let name = 'menu2_itemAll'+i.toString()
+                    if(document.getElementById(name).getAttribute('class')==='dropdown-item active'){
+                        activeNameVkus = document.getElementById(name).textContent
+                    }
+                }
+                if(document.getElementById('menu2_itemAllAny').getAttribute('class') ==='dropdown-item active'){
+                    activeNameVkus ='-'
+                }
+            }
+            //TODO: сюда добавляем проверку на сортировку цены вниз или вверх
+            let sortCost = 'ASC'
+            
+            if(category ==='вафли'){
+                
+                document.cookie = "Wmin=" + numTextMin.toString();
+                document.cookie = "Wmax=" + numTextMax.toString();
+                document.cookie = "Wrder=" + sortCost;
+                document.cookie = "Wvkus=" + activeNameVkus;
+                showWaffles(numPage = 1)
+            }
+            if(category ==='мармелад'){
+                document.cookie = "Mmin=" + numTextMin.toString();
+                document.cookie = "Mmax=" + numTextMax.toString();
+                document.cookie = "Mrder=" + sortCost;
+                document.cookie = "Mvkus=" + activeNameVkus;
+                showMarmalade(numPage = 1)
+            }
+            if(category ==='круасаны'){
+                document.cookie = "Cmin=" + numTextMin.toString();
+                document.cookie = "Cmax=" + numTextMax.toString();
+                document.cookie = "Crder=" + sortCost;
+                document.cookie = "Cvkus=" + activeNameVkus;
+                showCroissants(numPage = 1)
+            }
+            if(category ==='all'){
+                document.cookie = "Amin=" + numTextMin.toString();
+                document.cookie = "Amax=" + numTextMax.toString();
+                document.cookie = "Arder=" + sortCost;
+                document.cookie = "Avkus=" + activeNameVkus;
+
+                showAll(numPage = 1)
+            }
+        }
+        )
+        request.send();
+    }
 }
     );
     
@@ -49,7 +287,6 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
         request.addEventListener("load", function(){
             let recieved = JSON.parse(request.response);
             let recieved2 = JSON.parse(recieved)
-        console.log('получили от сервереа id продукта: ' + recieved2[0]["id_product"]);
         document.location.href = '/item'+recieved2[0]["id_product"];
         }
         )
@@ -61,20 +298,128 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
 
 document.getElementById("all").addEventListener("click", function (e) {//выбор категории all
     e.preventDefault();
-    showAll(1)    
+    let minCost = 0
+    let maxCost = 99999
+    let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Amin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                minCost = parsingArr[1]
+            }
+            if(cookieSplited0[i].indexOf('Amax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                maxCost = parsingArr[1]
+            }
+        }
+        if(Number(maxCost) !== 99999){
+            document.querySelector('#input_maximum').value = maxCost.toString()
+        }
+        else{
+            document.querySelector('#input_maximum').value = ''
+        }
+        if(Number(minCost)!== 0){
+            document.querySelector('#input_minimum').value = minCost.toString()
+        }
+        else{
+            document.querySelector('#input_minimum').value = ''.toString()
+        }
+    
+                showAll(numPage = 1)
 });
 document.getElementById("waffles").addEventListener("click", function (e) {//выбор категории вафли
     e.preventDefault();
-        showWaffles(1)
+    let minCost = 0
+    let maxCost = 99999
+    let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Wmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                minCost = parsingArr[1]
+            }
+            if(cookieSplited0[i].indexOf('Wmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                maxCost = parsingArr[1]
+            }
+        }
+        if(Number(maxCost) !== 99999){
+            document.querySelector('#input_maximum').value = maxCost.toString()
+        }
+        else{
+            document.querySelector('#input_maximum').value = ''
+        }
+        if(Number(minCost)!== 0){
+            document.querySelector('#input_minimum').value = minCost.toString()
+        }
+        else{
+            document.querySelector('#input_minimum').value = ''.toString()
+        }
+
+    showWaffles(numPage = 1)
         });
 
 document.getElementById("marmalade").addEventListener("click", function (e) {//выбор категории вафли
     e.preventDefault();
-    showMarmalade(1)
+    let minCost = 0
+    let maxCost = 99999
+    let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Mmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                minCost = parsingArr[1]
+            }
+            if(cookieSplited0[i].indexOf('Mmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                maxCost = parsingArr[1]
+            }
+        }
+        if(Number(maxCost) !== 99999){
+            document.querySelector('#input_maximum').value = maxCost.toString()
+        }
+        else{
+            document.querySelector('#input_maximum').value = ''
+        }
+        if(Number(minCost)!== 0){
+            document.querySelector('#input_minimum').value = minCost.toString()
+        }
+        else{
+            document.querySelector('#input_minimum').value = ''.toString()
+        }
+
+                showMarmalade(numPage = 1)
     });
 document.getElementById("croissants").addEventListener("click", function (e) {//выбор категории вафли
     e.preventDefault();
-     showCroissants(1)
+    let minCost = 0
+    let maxCost = 99999
+    let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Cmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                minCost = parsingArr[1]
+            }
+            if(cookieSplited0[i].indexOf('Cmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                maxCost = parsingArr[1]
+            }
+        }
+        if(Number(maxCost) !== 99999){
+            document.querySelector('#input_maximum').value = maxCost.toString()
+        }
+        else{
+            document.querySelector('#input_maximum').value = ''
+        }
+        if(Number(minCost)!== 0){
+            document.querySelector('#input_minimum').value = minCost.toString()
+        }
+        else{
+            document.querySelector('#input_minimum').value = ''.toString()
+        }
+
+    showCroissants(numPage = 1)
     });
 
 // обработчики кнопок страниц товаров
@@ -142,7 +487,6 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                 request.setRequestHeader("Content-Type", "application/json");
                 request.addEventListener("load", function(){
                     let recieved5 = JSON.parse(request.response);
-                    console.log(request.response)
                     //заполняем производителей вафель
                     let waffNums = 0
                     for(let i =0;i<recieved5.length;i++){
@@ -459,7 +803,6 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
         request.setRequestHeader("Content-Type", "application/json");
         request.addEventListener("load", function(){
             let recieved5 = JSON.parse(request.response);
-            console.log(request.response)
             //заполняем производителей вафель
             let waffNums = 0
             for(let i =0;i<recieved5.length;i++){
@@ -971,8 +1314,38 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
         document.getElementById('waffles_class').setAttribute('class', 'nav-item active')
 
         let category= 'вафли'
-        
-        let cur_category = JSON.stringify({category: category});
+        let minCost= 0
+        let maxCost  =10000
+        let sortOrder = 'ASC'
+        let vkus = '-'
+        let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Wmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                    minCost = parsingArr[1]
+                }
+                
+            }
+            if(cookieSplited0[i].indexOf('Wmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                maxCost = parsingArr[1]
+                }
+            }
+            if(cookieSplited0[i].indexOf('Wrder')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                sortOrder = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Wvkus')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                vkus = parsingArr[1]
+            }}
+        }
+        let cur_category = JSON.stringify({category: category, minCost : minCost, maxCost : maxCost, sortOrder : sortOrder, vkus : vkus});
                 var request = new XMLHttpRequest();
                 let recieved = ''
                 request.open('POST', "/loadMainPage",true);
@@ -1039,8 +1412,35 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
             document.getElementById('marmalade_class').setAttribute('class', 'nav-item active')
 
             let category= 'мармелад'
-            
-            let cur_category = JSON.stringify({category: category});
+            let minCost= 0
+        let maxCost  =10000
+        let sortOrder = 'ASC'
+        let vkus = '-'
+        let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Mmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                minCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Mmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                maxCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Mrder')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                sortOrder = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Mvkus')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                vkus = parsingArr[1]
+            }}
+        }
+        let cur_category = JSON.stringify({category: category, minCost : minCost, maxCost : maxCost, sortOrder : sortOrder, vkus : vkus});
                 var request = new XMLHttpRequest();
                 let recieved = ''
                 request.open('POST', "/loadMainPage",true);
@@ -1104,8 +1504,35 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                 document.getElementById('croissants_class').setAttribute('class', 'nav-item active')
                
                 let category= 'круасаны'
-                
-                let cur_category = JSON.stringify({category: category});
+                let minCost= 0
+        let maxCost  =10000
+        let sortOrder = 'ASC'
+        let vkus = '-'
+        let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Cmin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                minCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Cmax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                maxCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Crder')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                sortOrder = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Cvkus')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                vkus = parsingArr[1]
+            }}
+        }
+        let cur_category = JSON.stringify({category: category, minCost : minCost, maxCost : maxCost, sortOrder : sortOrder, vkus : vkus});
                 var request = new XMLHttpRequest();
                 let recieved = ''
                 request.open('POST', "/loadMainPage",true);
@@ -1169,8 +1596,41 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
         document.getElementById('all_class').setAttribute('class', 'nav-item active')
 
         let category= 'all'
-        
-        let cur_category = JSON.stringify({category: category});
+        let minCost= 0
+        let maxCost  =10000
+        let sortOrder = 'ASC'
+        let vkus = '-'
+        let cookieString = document.cookie
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Amin')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                minCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Amax')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                maxCost = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Arder')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                sortOrder = parsingArr[1]
+            }}
+            if(cookieSplited0[i].indexOf('Avkus')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                vkus = parsingArr[1]
+            }}
+        }
+        /*
+        console.log('minCost: '+minCost)
+        console.log('maxCost: '+maxCost)
+        console.log('sortOrder: '+sortOrder)
+        console.log('vkus: '+vkus)
+        */
+        let cur_category = JSON.stringify({category: category, minCost : minCost, maxCost : maxCost, sortOrder : sortOrder, vkus : vkus});
     var request = new XMLHttpRequest();
     let recieved = ''
     request.open('POST', "/loadMainPage",true);

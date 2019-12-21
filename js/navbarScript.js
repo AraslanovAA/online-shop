@@ -5,8 +5,14 @@
 document.getElementById("deliv").addEventListener("click", function (e) {
     e.preventDefault();
     var cookieString = document.cookie;
-            var splited = cookieString.split('=')
-            let hash = splited[1]
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
             if(( typeof hash === 'string')&&(hash !== '')){
                 document.cookie = "outhNShop=" 
                 getUserName()
@@ -39,17 +45,23 @@ document.getElementById("deliv").addEventListener("click", function (e) {
 
         function calculateNumOfGoods(){//показываем количество позиций рядос тележкой
             var cookieString = document.cookie;
-            var splited = cookieString.split('=')
-            let hash = splited[1]
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
             let cur_hash = JSON.stringify({hash : hash});
             var request = new XMLHttpRequest();
+
             request.open('POST', "/giveNumGoods",true);
             request.setRequestHeader("Content-Type", "application/json");
             request.addEventListener("load", function(){
                 let recieved = JSON.parse(request.response);
                 let recieved2 = JSON.parse(recieved)
                 document.getElementById('count_goods').textContent=recieved2[0]["count"]
-                console.log(recieved2[0]["count"])
             }
             )
             request.send(cur_hash);
@@ -87,11 +99,18 @@ document.getElementById("deliv").addEventListener("click", function (e) {
             }
 
             var cookieString = document.cookie;
-            var splited = cookieString.split('=')
-            console.log(splited[1])
-            console.log(typeof splited[1])
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
+
+            console.log(hash)
+            console.log(typeof hash)
             //----------------------подгружаем имя поцикаА
-            let hash = splited[1]
             if(( typeof hash === 'string')&&(hash != '')){
                 document.getElementById('author').style.display = 'initial'
                 document.getElementById('auth').textContent = 'Выйти'
@@ -150,12 +169,16 @@ document.getElementById("deliv").addEventListener("click", function (e) {
             }
     
     console.log('href: ' + numProduct)
-            var cookieString = document.cookie;
-            var splited = cookieString.split('=')
-            console.log(splited[1])
-            console.log(typeof splited[1])
+    var cookieString = document.cookie;
+    var cookieParsed = cookieString.split(';')
+    let hash=''
+    for(let i =0;i<cookieParsed.length;i++){
+        if(cookieParsed[i].indexOf('outhNShop')!==-1){
+            var parsingArr = cookieParsed[i].split('=')
+            hash = parsingArr[1]
+        }
+    }
             //----------------------подгружаем имя поцикаА
-            let hash = splited[1]
             if(( typeof hash === 'string')&&(hash !== '')){
                 document.getElementById('author').style.display = 'initial'
                 document.getElementById('auth').textContent = 'Выйти'

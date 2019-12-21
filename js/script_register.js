@@ -113,12 +113,14 @@ document.getElementById('header').append(br6);
             showMessage(address);
             document.getElementById("btn").addEventListener("click", function (e) {  e.preventDefault();
                 var cookieString = document.cookie;
-                var splited = cookieString.split('=')
-                console.log('сплит по знаку равенства '+ splited)
-                console.log('изначальный печенька: ' + cookieString)
-                console.log('textConstent: '+document.getElementById('suggest').textContent)
-                console.log('textConstent: '+address)
-                let hash = splited[1]
+        var cookieParsed = cookieString.split(';')
+        let hash=''
+        for(let i =0;i<cookieParsed.length;i++){
+            if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                var parsingArr = cookieParsed[i].split('=')
+                hash = parsingArr[1]
+            }
+        }
                 let cur_hash = JSON.stringify({hash : hash, address : address});
                 var request = new XMLHttpRequest();
                 request.open('POST', "/makeOrder",true);

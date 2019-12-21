@@ -2,8 +2,14 @@ function funcOnLoad(){
 //кароч берем по хэшику находим заказы пацана парсим, для кажого отдельная таблика
     var flag = false
     var cookieString = document.cookie;
-    var splited = cookieString.split('=')
-    let hash = splited[1]
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
     let cur_hash = JSON.stringify({hash : hash});
     var request = new XMLHttpRequest();
     request.open('POST', "/giveThisUserDelivery",true);

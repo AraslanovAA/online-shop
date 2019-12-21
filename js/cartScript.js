@@ -10,9 +10,15 @@ function funcOnLoad(){
         //my_div = document.getElementById("tableId");
         //document.body.appendChild( newDiv,my_div);
 
-    var cookieString = document.cookie;
-    var splited = cookieString.split('=')
-    let hash = splited[1]
+        var cookieString = document.cookie;
+        var cookieParsed = cookieString.split(';')
+        let hash=''
+        for(let i =0;i<cookieParsed.length;i++){
+            if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                var parsingArr = cookieParsed[i].split('=')
+                hash = parsingArr[1]
+            }
+        }
     let cur_hash = JSON.stringify({hash : hash});
     var request = new XMLHttpRequest();
     request.open('POST', "/giveThisUserCard",true);
@@ -77,8 +83,14 @@ function funcOnLoad(){
                         //берём хешик пацана, берём addit_param 
                         var addName = document.getElementById(rowAddParam).textContent
                         var cookieString = document.cookie;
-                        var splited = cookieString.split('=')
-                        let hash = splited[1]
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
                         let forDeleteInfo = JSON.stringify({hash : hash,addName:addName});
                         var request = new XMLHttpRequest();
                         request.open('POST', "/deleteCartItem",true);

@@ -383,17 +383,27 @@ app.post('/allProductInfo',jsonParser, function(request,response){
 //подгрузка страницы товаров с указанной категорией
 app.post('/loadMainPage',jsonParser, function(request,response){
 
+    let inquiry = ''
     if(request.body.category === 'all'){
-        let inquiry = 'SELECT short_name, additional_params, picture1, current_cost, old_cost FROM gsd'
-    db.any(inquiry).then(data => {
-        var abc = JSON.stringify(data)
-        if(!request.body) return response.sendStatus(400);
-    response.json(abc)
-    })
+        inquiry = 'SELECT short_name, additional_params, picture1, current_cost, old_cost FROM gsd where '
     }
+    else
+        {
+    inquiry = 'SELECT short_name,  additional_params, picture1, current_cost, old_cost FROM gsd where food_type='+"'"+request.body.category+"'  AND "
+        }
+        inquiry = inquiry + " current_cost between " + request.body.minCost + " and " + request.body.maxCost
 
-    else{
-    let inquiry = 'SELECT short_name,  additional_params, picture1, current_cost, old_cost FROM gsd where food_type='+"'"+request.body.category+"'"
+    if(request.body.vkus !== '-'){
+        inquiry = inquiry + "AND vkus = '"+request.body.vkus+"'"
+    }
+    
+    if(request.body.sortOrder ==='ASC'){
+        inquiry = inquiry + ' ORDER BY current_cost ASC'
+    }
+    if(request.body.sortOrder ==='DESC'){
+        inquiry = inquiry + ' ORDER BY current_cost DESC'
+    }
+    console.log('конечный запрос: ' + inquiry)
     db.any(inquiry).then(data => {
         if(data[0] == null){
             console.log("Доказано, что налл")
@@ -407,7 +417,6 @@ app.post('/loadMainPage',jsonParser, function(request,response){
     response.json(abc)
         }
     })
-        }
 });
 
 //регистрация нового пользователя
@@ -449,7 +458,7 @@ app.post('/checkRegistratedEmail',jsonParser, function(request,response){
     })
 });
 
-//получение из базы пароля по соответствующему email и возвращаем результат авторизовался успешно или нет
+//получение из базы хэша по соответствующему email и возвращаем результат авторизовался успешно или нет
 app.post('/author',jsonParser, function(request,response){
     console.log('сервер зарегистрировал попытку авторизации пацана')
     let inquiry = 'SELECT password_user  FROM   buyers where email=' + "'"+request.body.email+"'"

@@ -18,9 +18,15 @@ id="curr_cost"
         var count_product = parseInt(document.getElementById("inp").value );
         if(count_product > 0 ){
     
-    var cookieString = document.cookie;
-            var splited = cookieString.split('=')
-            let hash = splited[1]//берём хэшик из печеньки
+            var cookieString = document.cookie;
+            var cookieParsed = cookieString.split(';')
+            let hash=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash = parsingArr[1]
+                }
+            }
 
     var prod_name = document.getElementById("product_name").textContent
             //---------------------------------------------отправка зпроса серверу, чтобы сохранить инфу в бд
