@@ -1,0 +1,102 @@
+CREATE TABLE public.gsd
+(
+    id_product integer NOT NULL,
+    food_type text COLLATE pg_catalog."default",
+    product_name text COLLATE pg_catalog."default" NOT NULL,
+    current_cost integer,
+    old_cost integer,
+    description1 text COLLATE pg_catalog."default",
+    description2 text COLLATE pg_catalog."default",
+    picture1 text COLLATE pg_catalog."default",
+    picture2 text COLLATE pg_catalog."default",
+    additional_params text COLLATE pg_catalog."default",
+    short_name text COLLATE pg_catalog."default",
+    proizvoditel text COLLATE pg_catalog."default",
+    vkus text COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.gsd
+    OWNER to postgres;
+
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (1, 'вафли', '160г, «Lucky Rolls», вафельные рулетики со вкусом сгущённого молока', 5, 10, 'Хрустящие вафельные рулетики со вкусом сгущённого молока.', 'Энергетическая ценность на 100 г белки:5г жиры:24г углеводы 66г', 'https://api.magonline.ru/thumbnail/370x370/01/855/1855.webp', 'https://cdn.st100sp.com/pictures/057146728', '160г, «Lucky Rolls», сгущённое молоко', 'Рулетики', 'Lucky Rolls','сгущёнка');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (3, 'вафли', '290г, «Яшкино», вафли «Голландские» с карамельной начинкой', 56, 56, 'Песочные вафли с нежной карамельной начинкой.', 'Энергетическая ценность на 100 г белки:5 жиры:15 углеводы:67 ', 'https://api.magonline.ru/thumbnail/370x370/00/506/506.webp', 'https://images.spasibovsem.ru/responses/original/img-14366895688744pg', '290г, «Яшкино» вафли карамель', '«Голландские»', 'Яшкино','карамель');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (8, 'вафли', '«Lucky Rolls»(коробка 2,5 кг)Рулетики вафельные со вкусом сгущённого молока ', 432, 432, 'Хрустящие вафельные рулетики со вкусом сгущенного молока.', 'Энергетическая ценность на 100 г жиры:5г белки:24г углеводы:66г', 'https://api.magonline.ru/thumbnail/370x370/00/394/394.webp', 'http://orehovo-konditer.ru/products_foto/2016012608173396.jpg', 'коробка 2,5 кг, сгущённое молоко', 'рулетики сгущёнка', 'Lucky Rolls','сгущёнка');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (5, 'вафли', '«Джумка»(коробка 1,5 кг)Вафли с воздушной кукурузой', 374, 450, 'Хрустящая вафля с нежной сливочной начинкой,
+вафля в мягкой карамели и воздушными кукурузными шариками.', 'Энергетическая ценность на 100 г жиры:5г белки:24г углеводы:62г', 'https://api.magonline.ru/thumbnail/370x370/00/739/739.webp', 'http://water36.ru/photoz/42/699248/dzhumka.jpg', '(коробка 1,5 кг) воздушная кукуруза', 'Воздушные', 'Джумка','сливки');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (6, 'вафли', '«Дымка»(коробка 2 кг)Вафли в карамели, в молочно-шоколадной глазури', 463, 463, 'Многослойная вафля с начинкой из натурального какао.', 'Энергетическая ценность на 100 г жиры:4г белки:25г углеводы:62г', 'https://api.magonline.ru/thumbnail/370x370/00/473/473.webp', 'https://api.magonline.ru/thumbnail/370x370/00/557/557.webp', 'коробка 2 кг, карамель шоколад', 'Вафли карамель', 'Дымка','карамель');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (9, 'вафли', '«Дымка»(коробка 4 кг) Трубочки вафельные «Лесной орех»', 748, 748, 'Хрустящие вафельные трубочки с шоколадно-ореховой начинкой.', 'Энергетическая ценность на 100 г жиры:5г белки:22г углеводы:65г', 'https://api.magonline.ru/thumbnail/370x370/02/155/2155.webp', 'http://cosmosshop.kz/sites/default/files/img_5716.jpg', 'коробка 4 кг, трубочки "Лесной орех"', 'трубочки орех', 'Дымка','лесной орех');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (7, 'вафли', '«Дымка»(коробка 3,78 кг)Вафельный сэндвич с шоколадной начинкой', 748, 748, 'Хрустящие вафли с щедрой прослойкой воздушной шоколадной глазури.', 'Энергетическая ценность на 100 г жиры:5г белки:27г углеводы:58г', 'https://api.magonline.ru/thumbnail/370x370/00/698/698.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS07wpXqebbAttwwwUxHsSYa_yzDsOn1ZJ-ZOjIAuzZZZB-o4hG', '(коробка 3,78 кг) шоколадная начинка', 'Вафли шоколад', 'Дымка','шоколад');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (4, 'вафли', '«Дымка»,40г, Вафли «Зебра»', 20, 32, 'Семислойные вафли с ванильной прослойкой и начинкой из натурального какао.', 'Энергетическая ценность на 100 г белки:5 жиры:27 углеводы:63', 'https://api.magonline.ru/thumbnail/370x370/00/178/178.webp', 'http://gazetki.by/uploads/2017/01/21/58830553b042d.jpg', '40г, Вафли «Зебра» ваниль какао', 'Вафли «Зебра»', 'Дымка','шоколад');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (14, 'мармелад', '«Haribo»(упаковка 1 кг)Мармелад жевательный со вкусом маракуйи, граната, персика, винограда, малины и груши', 171, 171, 'Жевательный мармелад со вкусом маракуйи, граната, персика, винограда, малины и груши.
+Вкусный и полезный мармелад в форме динозавриков.
+Жевательный мармелад гармонично вписывается в систему здорового питания:
+- в мармеладе отсутствуют жиры
+- нет искусственных красителей
+- в основе лакомства натуральный сок ягод и фруктов.', 'Энергетическая ценность на 100 г жиры:1г белки:0г углеводы:71г', 'https://api.magonline.ru/thumbnail/370x370/00/863/863.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRAiHZyJcvg21OYkRReMDzgz2_RgM7wczo8EaP-4fWYC2vJ7i5y', 'упаковка 1кг, динозавры фрукты', 'мармелад фрукты', 'Haribo','мультифрукт');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (11, 'мармелад', '(упаковка 1 кг)«КрутФрут», мармелад жевательный в форме забавных бутылочек', 199, 199, 'Жевательный мармелад с двойными вкусами: кола и лайм, вишня и кола, кола и ваниль.Мармелад в форме забавных бутылочек.', 'Энергетическая ценность на 100 г жиры:5г
+белки:0г углеводы:72г', 'https://api.magonline.ru/thumbnail/370x370/00/980/980.webp', 'https://piratmarmelad.ru/catalog/product/zhevatelniy-marmelad-kola-butilochka-w800-h800.jpg', '1кг, «КрутФрут», бутылочки фрукты', 'бутылочки фрукты', 'КрутФрут','кола и фрукты');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (16, 'мармелад', '(упаковка 1 кг)Мармелад жевательный со вкусом манго', 212, 212, 'Жевательный мармелад со вкусом тропического манго.
+В основе мармелада в виде сердечек натуральный яблочный сок.
+Мармелад посыпан измельченным сахаром.
+Жевательный мармелад гармонично вписывается в систему здорового питания:
+- в мармеладе отсутствуют жиры
+- нет искусственных красителей
+- в основе лакомства натуральный сок ягод и фруктов.', 'Энергетическая ценность на 100 г жиры:5г белки:0г углеводы:73г', 'https://api.magonline.ru/thumbnail/370x370/00/494/494.webp', 'https://irecommend.ru/sites/default/files/imagecache/copyright1/user-images/37339/AcQvzKqkyIF5ahVL32EC7Q.jpg', 'упаковка 1кг, мармелад вкус манго', 'мармелад манго', 'Haribo','манго');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (2, 'вафли', '250г, «Яшкино», торт вафельный с орехом, глазированный', 57, 57, 'Торт из хрустящих рассыпчатых вафель с начинкой из какао и обжаренного дробленого фундука.', 'Энергетическая ценность на 100 г белки:6г жиры:32г углеводы:56г', 'https://api.magonline.ru/thumbnail/370x370/00/153/153.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLQVeOmPwhtfNgyZZ48VAUvV2hpapmmN9quCwim83rqqWPJg49', '250г, «Яшкино», торт ореховый', 'торт вафельный', 'Яшкино','шоколад и фундук');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (13, 'мармелад', '70 г, Мармелад жевательный со вкусом вишни и маракуйи,  черной смородины и апельсина', 16, 16, 'Жевательный мармелад в виде забавных змеек.
+Мармелад со вкусом вишни и маракуйи, колы и лайма, черной смородины и апельсина.
+Жевательный мармелад гармонично вписывается в систему здорового питания:
+- в мармеладе отсутствуют жиры
+- нет искусственных красителей
+- в основе лакомства натуральный сок фруктов
+- желатин улучшает состояние кожи и волос
+- пектин выводит токсины', 'Энергетическая ценность на 100 г жиры:1г белки:0г углеводы:76г', 'https://api.magonline.ru/thumbnail/370x370/01/842/1842.webp', 'https://www.delaempokupki.ru/data/cache/2016may/20/48/152876_71333-450x0.jpg', 'упаковка 70 г, фруктовые змейки ', 'мармелад вечеринка', 'Haribo','мультифрукт');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (12, 'мармелад', '(упаковка 1 кг)«Маяма», мармелад жевательный со вкусами персика и апельсина, клубники и банана, черной смородины и лимона.', 151, 151, 'Жевательный мармелад со вкусами персика и апельсина, клубники и банана, черной смородины и лимона.
+        Мармелад в виде змеек, посыпанный измельченным сахаром с небольшим добавлением яблочной кислоты.', 'Энергетическая ценность на 100 г жиры:5г белки:0г углеводы:77г', 'https://api.magonline.ru/thumbnail/370x370/01/851/1851.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRyZXIBu_16pDVhyCv5lPQKQ9xEL51vuVqfEmTHMt9-o0axyCSd', 'упаковка 1кг, «Маяма», змейки', 'мармелад фрукты', 'Маяма', 'мультифрукт');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (15, 'мармелад', '(упаковка 1 кг)«Маяма», мармелад жевательный со вкусом клубника со сливками', 172, 172, 'Жевательный мармелад со вкусом клубника со сливками.
+Мармелад содержит фруктовый сок и посыпан измельченным сахаром.', 'Энергетическая ценность на 100 г жиры:4г белки:0г углеводы:74г', 'https://api.magonline.ru/thumbnail/370x370/00/754/754.webp', 'https://kazanexpress.hb.bizmrg.com/bf8qm88n0a7fj52qmtf0/original.jpg', 'упаковка 1кг, клубника со сливками', 'клубника со сливками', 'Маяма','клубника');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (22, 'круасаны', '«Яшкино», мини-круассаны с клубничным джемом, 180 г', 45, 45, 'Мини-круассаны из воздушного теста
+на натуральной закваске.
+Начинка из клубничного джема без красителей и искусственных ароматизаторов.', 'Энергетическая ценность на 100 г белки:7г жиры:17г углеводы: 59г', 'https://api.magonline.ru/thumbnail/370x370/01/204/1204.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT4E2yJKSogQq8WzB20AwHKdDZWgcdLv1j2pMKusuKV_RFBure5', '180г, «Яшкино», клубничный джем', 'круасаны клубника', 'Яшкино','клубника');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (17, 'мармелад', '70 г,«Маяма», мармелад жевательный в форме обитателей подводного мира', 13, 13, 'Жевательный мармелад со вкусом черной и красной смородины, яблока, черешни и фруктового коктейля
+Вкусный и полезный мармелад в форме обитателей подводного мира.', 'Энергетическая ценность на 100 г белки:1г жиры:0г углеводы:71г', 'https://api.magonline.ru/thumbnail/370x370/00/729/729.webp', 'https://www.nomnomka.ru/wa-data/public/shop/products/09/07/709/images/8038/0120106.jpg.600.jpg', '70 г, «Маяма», со вкусом фруктов', 'подводный мир','Маяма' ,'мультифрукт');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (10, 'мармелад', '30 г, «КрутФрут», мармелад жевательный в форме машинок', 6, 10, 'Жевательный мармелад со вкусом малины и граната, персика и апельсина, вишни и маракуйи, груши и яблока, черной смородины и мяты, экзотических фруктов.Вкусный и полезный мармелад в форме
+транспорта.', 'ломает зубы не хуже боксёров', 'https://api.magonline.ru/thumbnail/370x370/00/945/945.webp', 'https://sun9-21.userapi.com/c851132/v851132347/1dc94b/EHSSYo7q3Rw.jpg', '30 г, «КрутФрут», машинки фрукты', 'Машинки','КрутФрут' , 'мультифрукт');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (18, 'круасаны', '«Яшкино», круассаны со сливочным кремом, 45 г', 11, 11, 'Круассаны из воздушного теста на натуральной закваске.
+Начинка из сливочного крема не содержит красителей.
+Благодаря удобной упаковке, круассан удобно брать с собой.', 'Энергетическая ценность на 100 г белки:6г жиры:20г углеводы: 50г', 'https://api.magonline.ru/thumbnail/370x370/01/239/1239.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRE7PLz4uwLPAxB2BCkBcEVO0mStaxwxoG7xbwP0zMkf4i-XoAQ', '45г, «Яшкино», сливочный крем', 'круасан сливки', 'Яшкино','сливки');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (19, 'круасаны', '«Яшкино», круассаны с шоколадным кремом, 45 г', 11, 11, 'Круассаны из воздушного теста на натуральной закваске.
+Начинка из шоколадного крема без красителей и искусственных ароматизаторов.
+Благодаря удобной упаковке, круассан удобно брать с собой.', 'Энергетическая ценность на 100 г белки:6г жиры:21г углеводы: 50г', 'https://api.magonline.ru/thumbnail/370x370/01/240/1240.webp', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTOoqtdIIunCvnPpv2yVNZzS-ur9vqd2fLeH8k3_kl-8cW-Sdf2', '45г, «Яшкино», шоколадный крем', 'круасан шоколад','Яшкино' ,'шоколад');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (20, 'круасаны', '«Яшкино», мини-круассаны со сливочным кремом, 180 г', 45, 45, 'Мини-круассаны из воздушного теста
+на натуральной закваске.
+Начинка из сливочного крема без красителей.', 'Энергетическая ценность на 100 г белки:6г жиры:21г углеводы: 54г', 'https://api.magonline.ru/thumbnail/370x370/01/205/1205.webp', 'http://prodopt96.ru/images/upload/67fb16b06a0cc6ea3bb4bc1687b67aba.jpg', '180г, «Яшкино», со вкусом крем', 'круасаны сливки', 'Яшкино','сливки');
+
+INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (21, 'круасаны', '«Яшкино», мини-круассаны с шоколадным кремом, 180 г', 45, 45, 'Мини-круассаны из воздушного теста
+на натуральной закваске.
+Начинка из шоколадного крема без красителей и искусственных ароматизаторов.', 'Энергетическая ценность на 100 г белки:7г жиры:22г углеводы: 53г', 'https://api.magonline.ru/thumbnail/370x370/01/206/1206.webp', 'https://loolan.shop/api/v1/images/5c6533180a975a31f90c5fc4.jpg?size=700', '180г, «Яшкино», шоколадный крем', 'круасаны шоколад', 'Яшкино','шоколад');
