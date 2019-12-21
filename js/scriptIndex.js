@@ -233,7 +233,6 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
                     activeNameVkus ='-'
                 }
             }
-            //TODO: сюда добавляем проверку на сортировку цены вниз или вверх
             let sortCost = ''
             if(document.getElementById('ASC').getAttribute('class') ==='dropdown-item active'){
                 sortCost = 'ASC'
@@ -279,11 +278,12 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
     }
 }
     );
-    
+
 
     for (let i = 0; i < 8; i++){//обработка нажатия на элемент, отправляем серверу запрос получаем id продукта его пихаем url чтоб потом знать какую загрузить страницу
         let item_name = 'item'+i
-    document.getElementById(item_name).addEventListener("click", function (e) {
+        let pressed_item = 'item'+i.toString()+'_img'
+    document.getElementById(pressed_item).addEventListener("click", function (e) {
         e.preventDefault();
         let item_additional_param = document.getElementById(item_name+'_text').textContent
         let cur_name = JSON.stringify({cur_additional_param : item_additional_param});
@@ -301,6 +301,99 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
         );
 
 }
+
+for(let i=0;i<8;i++){//обработка нажатия на элемент, отправляем серверу запрос получаем id продукта его пихаем url чтоб потом знать какую загрузить страницу
+    let item_name='item'+i.toString()
+    let pressed_item = 'item'+i.toString()+'_description'
+    document.getElementById(pressed_item).addEventListener("click", function (e) {
+        e.preventDefault();
+        let item_additional_param = document.getElementById(item_name+'_text').textContent
+        let cur_name = JSON.stringify({cur_additional_param : item_additional_param});
+        var request = new XMLHttpRequest();
+        request.open('POST', "/giveIdProduct",true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function(){
+            let recieved = JSON.parse(request.response);
+            let recieved2 = JSON.parse(recieved)
+        document.location.href = '/item'+recieved2[0]["id_product"];
+        }
+        )
+        request.send(cur_name);
+    }
+        );
+}
+
+for(let i=0;i<8;i++){
+    let item_name='item'+i.toString()
+    let pressed_item = 'addToCard'+i.toString()
+    let inp ='inp'+i.toString()
+
+    document.getElementById(pressed_item).addEventListener("click", function (e) {
+        e.preventDefault();
+        if( document.getElementById("auth").textContent !== 'Авторизация' ){
+    
+            let count_product0 = parseInt(document.getElementById(inp).value );
+            let count_product = Number(count_product0)
+            if(count_product > 0 ){
+        
+                var cookieString = document.cookie;
+                var cookieParsed = cookieString.split(';')
+                let hash=''
+                for(let i =0;i<cookieParsed.length;i++){
+                    if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                        var parsingArr = cookieParsed[i].split('=')
+                        hash = parsingArr[1]
+                    }
+                }
+    
+        let prod_name = document.getElementById(item_name+'_text').textContent
+        let additParam = JSON.stringify({prod_name : prod_name});
+            var request = new XMLHttpRequest();
+            request.open('POST', "/giveFoolName",true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.addEventListener("load", function(){
+                let recieved = JSON.parse(request.response);
+                console.log(recieved)
+                if(recieved !==''){
+            //TODO обработать получить prod_name Нормальный
+
+//---------------------------------------------отправка зпроса серверу, чтобы сохранить инфу в бд
+
+let cur_order = JSON.stringify({prod_name : recieved, hash : hash, count_product : count_product});
+var request2 = new XMLHttpRequest();
+request2.open('POST', "/addToCard",true);
+request2.setRequestHeader("Content-Type", "application/json");
+request2.addEventListener("load", function(){
+calculateNumOfGoods()
+}
+)
+request2.send(cur_order);
+    //-------------------------------------------------------------------------------------------------
+
+}
+
+
+            }
+            )
+            request.send(additParam);
+                
+            }
+            else{
+                alert('Ошибка при указании количества товара')
+            }
+    }
+    else{
+        alert('Пожалуйста авторизуйтесь')
+    }
+    }
+        );
+
+
+
+}
+
+
+
 
 document.getElementById("ASC").addEventListener("click", function (e) {//выбор категории all
     e.preventDefault();

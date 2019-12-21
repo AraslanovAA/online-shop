@@ -1,10 +1,10 @@
 /*
 TODO list:
-filters - цена, производитель, вкус
-buy merchandise from main page
 nginx
 alert??
-//убрать lorem? и поле поиска?
+добавить в корзину и заказы сообщение типо соре пока пусто, но ты купи что-нибудь будет не пусто
+добавить формочку аля - я юзаю твой кукиш
+отследить инпут на странице товара, чтоб там не навводили фигни какой-то
 */
 var http = require('http');
 var express = require('express');
@@ -237,7 +237,6 @@ app.post('/deleteCartItem',jsonParser, function(request,response){
     db.any(inquiry).then(data => {
         var prodDescription = JSON.stringify(data)
         var delitingProdName = data[0]["product_name"]
-
         let inquiry2 = 'DELETE FROM public.card   WHERE  user_h = ' + "'" +request.body.hash+"'" +
                                     ' AND product_description=' +"'"+delitingProdName+"';"
             db.any(inquiry2).then(data2 => {
@@ -292,6 +291,19 @@ app.post('/giveNumGoods',jsonParser, function(request,response){
     })  
 });
 
+
+//получаем полное имя товара по короткому
+app.post('/giveFoolName',jsonParser, function(request,response){
+    console.log('---Поптыка получить фулл имя---')
+    console.log('нам дали '+ request.body.prod_name)
+    let inquiry = 'SELECT product_name FROM public.gsd where additional_params = ' + "'" +request.body.prod_name+"'"
+    db.any(inquiry).then(data => {
+        var prod_name = JSON.stringify(data[0]["product_name"])
+        console.log('----result '+ data[0]["product_name"])
+        if(!request.body) return response.sendStatus(400);
+    response.json(data[0]["product_name"])
+    })  
+});
 
 
 

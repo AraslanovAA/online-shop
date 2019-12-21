@@ -1,0 +1,72 @@
+CREATE TABLE public.card
+(
+    user_h text COLLATE pg_catalog."default",
+    product_description text COLLATE pg_catalog."default",
+    count_prod integer
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.card
+    OWNER to postgres;
+
+//-------------------------------
+
+CREATE TABLE public.buyers
+(
+    id_buyer integer,
+    first_name text COLLATE pg_catalog."default",
+    last_name text COLLATE pg_catalog."default",
+    email text COLLATE pg_catalog."default",
+    password_user text COLLATE pg_catalog."default",
+    address text COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.buyers
+    OWNER to postgres;
+//-------------------------------
+
+CREATE TABLE public.orders
+(
+    buyer_id text COLLATE pg_catalog."default",
+    items text COLLATE pg_catalog."default",
+    "when" text COLLATE pg_catalog."default",
+    address text COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.orders
+    OWNER to postgres;
+//-------------------------------
+CREATE TABLE public.gsd
+(
+    id_product integer NOT NULL,
+    food_type text COLLATE pg_catalog."default",
+    product_name text COLLATE pg_catalog."default" NOT NULL,
+    current_cost integer,
+    old_cost integer,
+    description1 text COLLATE pg_catalog."default",
+    description2 text COLLATE pg_catalog."default",
+    picture1 text COLLATE pg_catalog."default",
+    picture2 text COLLATE pg_catalog."default",
+    additional_params text COLLATE pg_catalog."default",
+    short_name text COLLATE pg_catalog."default",
+    proizvoditel text COLLATE pg_catalog."default",
+    vkus text COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.gsd
+    OWNER to postgres;

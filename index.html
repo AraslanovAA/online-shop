@@ -54,7 +54,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light green scrolling-navbar">
 <div class="container">
   <div >
-    <strong class="white-text">Магазин сладостей   </strong>
+    <strong class="white-text">Магазин сладостей</strong>
   </div>
   <button class="navbar-toggler" type="button"
   data-toggle="collapse" data-target="#navbarContent"
@@ -73,7 +73,7 @@
     <ul class="navbar-nav nav-flex-icons">
       <li id = "cart" class="nav-item">
         <a id='korzina' class="nav-link waves-effect">
-          <span id = "count_goods" class="badge red z-depth-1 mr-1">0</span>
+          <span id = "count_goods" class="badge red z-depth-1 mr-1"></span>
           <i class="fa fa-shopping-cart"></i>
           <span class="clearfix d-none d-sm-inline-block">Корзина</span>
         </a>
@@ -105,18 +105,18 @@
         justify-content-center align-items-center">
         <div class="text-center white-text mx-5 wow fadeIn">
           <h1 class="mb-4">
-            <strong>Ты что правдо заработаешь?!</strong>
+            <strong>Вафли</strong>
           </h1>
 
           <p>
-            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat, et.</strong>
+            <strong>Вафли – очень вкусное и популярное лакомство.</strong>
           </p>
 
           <p class="mb-4 d-none d-md-block">
-            <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et iusto commodi ut distinctio fugiat excepturi?</strong>
+            <strong>Как и все мучные кондитерские изделия, вафли прекрасно подходят к чаю и кофе.</strong>
           </p>
           <a href="#" class="btn btn-outline-white btn-lg">
-            Lorem, ipsum dolor. <i class="fa fa-graduation-cap ml-2"></i>
+            Подробная инфомрация. <i class="fa fa-graduation-cap ml-2"></i>
           </a>
         </div>
       </div>  
@@ -130,18 +130,18 @@
           justify-content-center align-items-center">
           <div class="text-center white-text mx-5 wow fadeIn">
             <h1 class="mb-4">
-              <strong>Ты что правдо заработаешь?!</strong>
+              <strong>Мармелад</strong>
             </h1>
   
             <p>
-              <strong>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat, et.</strong>
+              <strong>Мармелад - сладкий продукт который любят взрослые и дети.</strong>
             </p>
   
             <p class="mb-4 d-none d-md-block">
-              <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et iusto commodi ut distinctio fugiat excepturi?</strong>
+              <strong>Из всех сладостей это разноцветное кушанье считается наиболее «правильным» и полезным. Его питательность обусловлена натуральным составом.</strong>
             </p>
             <a href="#" class="btn btn-outline-white btn-lg">
-              Lorem, ipsum dolor. <i class="fa fa-graduation-cap ml-2"></i>
+              Подробная инфомрация. <i class="fa fa-graduation-cap ml-2"></i>
             </a>
           </div>
         </div>  
@@ -155,18 +155,18 @@
             justify-content-center align-items-center">
             <div class="text-center white-text mx-5 wow fadeIn">
               <h1 class="mb-4">
-                <strong>Ты что правдо заработаешь?!</strong>
+                <strong>Круасаны</strong>
               </h1>
     
               <p>
-                <strong>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat, et.</strong>
+                <strong>небольшое мучное кондитерское изделие, булочка в форме полумесяца.</strong>
               </p>
     
               <p class="mb-4 d-none d-md-block">
-                <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et iusto commodi ut distinctio fugiat excepturi?</strong>
+                <strong>Готовятся из слоёного теста с содержанием сливочного масла не менее 82 % жирности.</strong>
               </p>
               <a href="#" class="btn btn-outline-white btn-lg">
-                Lorem, ipsum dolor. <i class="fa fa-graduation-cap ml-2"></i>
+                Подробная информация. <i class="fa fa-graduation-cap ml-2"></i>
               </a>
             </div>
           </div>  
@@ -213,12 +213,7 @@
             </li>
     </ul>
 
-    <form class="form-inline">
-      <div class="md-form my-0">
-        <input type="text" class="form-control mr-sm-2"
-         placeholder="Search" aria-label="Search">
-      </div>
-    </form>
+    
   </div>
       </nav>
 
@@ -297,21 +292,18 @@
           <div id ="item0" class=" col-lg-3 col-md-6 mb-4 ">
             <div  class="card" style="height: 100%;cursor: pointer;">
 
-              <div class="view overlay">
+              <div id ="item0_img" class="view overlay">
                 <img class="card-img-top" height="250" id = "item0_pic" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                 <a href="#">
                   <div class="mask rgba-white-slight"></div>
                 </a>
               </div>
               
-
-              <div class="card-body text-center">
+              <div id="item0_description" class="card-body text-center">
                 <a href="" class="grey-text">
                   <h5 id ="item0_text">none</h5>
                 </a>
 
-                
-                
                 <h5>
                     <strong>
                         <a href="#">
@@ -325,6 +317,17 @@
                   </h4>
                 
               </div>
+              <div>
+                <form action="" class="d-flex justify-content-center"  >
+                  <input id = "inp0" type="number" value="1" aria-label="Search:"
+                  style="width:40%;" class="form-control">
+                  <button id= "addToCard0" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                     <i class="fa fa-shopping-cart ml-1"></i>
+                  </button>
+              </form>
+              </div>
+
+              
             </div>
           </div>
 
@@ -332,14 +335,14 @@
           <div id ="item1" class="col-lg-3 col-md-6 mb-4">
               <div  class="card" style="height: 100%;cursor: pointer;">
   
-                <div class="view overlay">
+                <div id ="item1_img" class="view overlay">
                   <img class="card-img-top" height="250" id="item1_pic" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                   <a href="">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
   
-                <div class="card-body text-center">
+                <div id="item1_description" class="card-body text-center">
                   <a href="" class="grey-text">
                     <h5 id="item1_text">none</h5>
                   </a>
@@ -356,20 +359,31 @@
                     <strong id="item1_cost">none</strong>
                   </h4>
                 </div>
+
+                <div>
+                  <form action="" class="d-flex justify-content-center"  >
+                    <input id = "inp1" type="number" value="1" aria-label="Search:"
+                    style="width:40%;" class="form-control">
+                    <button id= "addToCard1" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                       <i class="fa fa-shopping-cart ml-1"></i>
+                    </button>
+                </form>
+                </div>
+
               </div>
             </div>
 
             <div id="item2" class="col-lg-3 col-md-6 mb-4 ">
               <div  class="card" style="height: 100%;cursor: pointer;">
     
-                  <div class="view overlay">
+                  <div id ="item2_img" class="view overlay">
                     <img id="item2_pic" height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                     <a href="">
                       <div class="mask rgba-white-slight"></div>
                     </a>
                   </div>
     
-                  <div class="card-body text-center">
+                  <div id="item2_description" class="card-body text-center">
                     <a href="" class="grey-text">
                       <h5 id="item2_text">none</h5>
                     </a>
@@ -386,20 +400,31 @@
                       <strong id="item2_cost">none</strong>
                     </h4>
                   </div>
+
+                  <div>
+                    <form action="" class="d-flex justify-content-center"  >
+                      <input id = "inp2" type="number" value="1" aria-label="Search:"
+                      style="width:40%;" class="form-control">
+                      <button id= "addToCard2" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                         <i class="fa fa-shopping-cart ml-1"></i>
+                      </button>
+                  </form>
+                  </div>
+
                 </div>
               </div>
 
                 <div  id="item3" class="col-lg-3 col-md-6 mb-4">
                   <div  class="card" style="height: 100%;cursor: pointer;">
 
-              <div class="view overlay">
+              <div id ="item3_img" class="view overlay">
                 <img id="item3_pic" height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                 <a href="">
                   <div class="mask rgba-white-slight"></div>
                 </a>
               </div>
 
-              <div class="card-body text-center">
+              <div id="item3_description" class="card-body text-center">
                 <a href="" class="grey-text">
                   <h5 id="item3_text">none</h5>
                 </a>
@@ -416,6 +441,17 @@
                   <strong id="item3_cost">none</strong>
                 </h4>
               </div>
+
+              <div>
+                <form action="" class="d-flex justify-content-center"  >
+                  <input id = "inp3" type="number" value="1" aria-label="Search:"
+                  style="width:40%;" class="form-control">
+                  <button id= "addToCard3" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                     <i class="fa fa-shopping-cart ml-1"></i>
+                  </button>
+              </form>
+              </div>
+
             </div>
           </div>
           
@@ -425,14 +461,14 @@
             <div id="item4" class="col-lg-3 col-md-6 mb-4 child-active">
               <div  class="card" style="height: 100%;cursor: pointer;">
     
-                  <div class="view overlay">
+                  <div id ="item4_img" class="view overlay">
                     <img id="item4_pic"  height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                     <a href="">
                       <div class="mask rgba-white-slight"></div>
                     </a>
                   </div>
     
-                  <div class="card-body text-center">
+                  <div id="item4_description" class="card-body text-center">
                     <a href="" class="grey-text">
                       <h5 id="item4_text">none</h5>
                     </a>
@@ -449,19 +485,30 @@
                       <strong id="item4_cost">none</strong>
                     </h4>
                   </div>
+
+                  <div>
+                    <form action="" class="d-flex justify-content-center"  >
+                      <input id = "inp4" type="number" value="1" aria-label="Search:"
+                      style="width:40%;" class="form-control">
+                      <button id= "addToCard4" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                         <i class="fa fa-shopping-cart ml-1"></i>
+                      </button>
+                  </form>
+                  </div>
+
                 </div>
               </div>
               <div id="item5" class="col-lg-3 col-md-6 mb-4 child-active">
                 <div  class="card" style="height: 100%;cursor: pointer;">
       
-                    <div class="view overlay">
+                    <div id ="item5_img" class="view overlay">
                       <img id="item5_pic"  height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                       <a href="">
                         <div class="mask rgba-white-slight"></div>
                       </a>
                     </div>
       
-                    <div class="card-body text-center">
+                    <div id="item5_description" class="card-body text-center">
                       <a href="" class="grey-text">
                         <h5 id="item5_text">none</h5>
                       </a>
@@ -478,19 +525,30 @@
                         <strong id="item5_cost">none</strong>
                       </h4>
                     </div>
+
+                    <div>
+                      <form action="" class="d-flex justify-content-center"  >
+                        <input id = "inp5" type="number" value="1" aria-label="Search:"
+                        style="width:40%;" class="form-control">
+                        <button id= "addToCard5" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                           <i class="fa fa-shopping-cart ml-1"></i>
+                        </button>
+                    </form>
+                    </div>
+
                   </div>
                 </div>
                 <div id="item6" class="col-lg-3 col-md-6 mb-4 child-active">
                   <div  class="card" style="height: 100%;cursor: pointer;">
         
-                      <div class="view overlay">
+                      <div id ="item6_img" class="view overlay">
                         <img id="item6_pic" height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                         <a href="">
                           <div class="mask rgba-white-slight"></div>
                         </a>
                       </div>
         
-                      <div class="card-body text-center">
+                      <div id="item6_description" class="card-body text-center">
                         <a href="" class="grey-text">
                           <h5 id="item6_text">none</h5>
                         </a>
@@ -507,19 +565,31 @@
                           <strong id="item6_cost">none</strong>
                         </h4>
                       </div>
+
+
+                      <div>
+                        <form action="" class="d-flex justify-content-center"  >
+                          <input id = "inp6" type="number" value="1" aria-label="Search:"
+                          style="width:40%;" class="form-control">
+                          <button id= "addToCard6" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                             <i class="fa fa-shopping-cart ml-1"></i>
+                          </button>
+                      </form>
+                      </div>
+
                     </div>
                   </div>
                   <div id="item7" class="col-lg-3 col-md-6 mb-4 child-active">
                     <div  class="card" style="height: 100%;cursor: pointer;">
           
-                        <div class="view overlay">
+                        <div id ="item7_img" class="view overlay">
                           <img id="item7_pic" height="250" class="card-img-top" src="https://www.stihi.ru/pics/2011/02/12/1500.jpg" alt="White">
                           <a href="">
                             <div class="mask rgba-white-slight"></div>
                           </a>
                         </div>
           
-                        <div class="card-body text-center">
+                        <div id="item7_description" class="card-body text-center">
                           <a href="" class="grey-text">
                             <h5 id="item7_text">none</h5>
                           </a>
@@ -536,6 +606,18 @@
                             <strong id="item7_cost">none</strong>
                           </h4>
                         </div>
+
+
+                        <div>
+                          <form action="" class="d-flex justify-content-center"  >
+                            <input id = "inp7" type="number" value="1" aria-label="Search:"
+                            style="width:40%;" class="form-control">
+                            <button id= "addToCard7" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
+                               <i class="fa fa-shopping-cart ml-1"></i>
+                            </button>
+                        </form>
+                        </div>
+
                       </div>
                     </div>
         </div> 

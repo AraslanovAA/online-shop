@@ -1,28 +1,3 @@
-CREATE TABLE public.gsd
-(
-    id_product integer NOT NULL,
-    food_type text COLLATE pg_catalog."default",
-    product_name text COLLATE pg_catalog."default" NOT NULL,
-    current_cost integer,
-    old_cost integer,
-    description1 text COLLATE pg_catalog."default",
-    description2 text COLLATE pg_catalog."default",
-    picture1 text COLLATE pg_catalog."default",
-    picture2 text COLLATE pg_catalog."default",
-    additional_params text COLLATE pg_catalog."default",
-    short_name text COLLATE pg_catalog."default",
-    proizvoditel text COLLATE pg_catalog."default",
-    vkus text COLLATE pg_catalog."default"
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.gsd
-    OWNER to postgres;
-
-
 INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (1, 'вафли', '160г, ЂLucky Rollsї, вафельные рулетики со вкусом сгущЄнного молока', 5, 10, '’руст¤щие вафельные рулетики со вкусом сгущЄнного молока.', 'Ёнергетическа¤ ценность на 100 г белки:5г жиры:24г углеводы 66г', 'https://api.magonline.ru/thumbnail/370x370/01/855/1855.webp', 'https://cdn.st100sp.com/pictures/057146728', '160г, ЂLucky Rollsї, сгущЄнное молоко', '–улетики', 'Lucky Rolls','сгущЄнка');
 
 INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (3, 'вафли', '290г, Ђяшкиної, вафли Ђ√олландскиеї с карамельной начинкой', 56, 56, 'ѕесочные вафли с нежной карамельной начинкой.', 'Ёнергетическа¤ ценность на 100 г белки:5 жиры:15 углеводы:67 ', 'https://api.magonline.ru/thumbnail/370x370/00/506/506.webp', 'https://images.spasibovsem.ru/responses/original/img-14366895688744pg', '290г, Ђяшкиної вафли карамель', 'Ђ√олландскиеї', 'яшкино','карамель');
@@ -83,7 +58,7 @@ INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_c
 ¬кусный и полезный мармелад в форме обитателей подводного мира.', 'Ёнергетическа¤ ценность на 100 г белки:1г жиры:0г углеводы:71г', 'https://api.magonline.ru/thumbnail/370x370/00/729/729.webp', 'https://www.nomnomka.ru/wa-data/public/shop/products/09/07/709/images/8038/0120106.jpg.600.jpg', '70 г, Ђћа¤маї, со вкусом фруктов', 'подводный мир','ћа¤ма' ,'мультифрукт');
 
 INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (10, 'мармелад', '30 г, Ђ рут‘рутї, мармелад жевательный в форме машинок', 6, 10, '∆евательный мармелад со вкусом малины и граната, персика и апельсина, вишни и маракуйи, груши и ¤блока, черной смородины и м¤ты, экзотических фруктов.¬кусный и полезный мармелад в форме
-транспорта.', 'Ёнергетическа¤ ценность на 100 г белки:1г жиры:0г углеводы:71г', 'https://api.magonline.ru/thumbnail/370x370/00/945/945.webp', 'http://¤кташ.рф/image/cache/data/28092016/10197-500x500.jpg', '30 г, Ђ рут‘рутї, машинки фрукты', 'ћашинки',' рут‘рут' , 'мультифрукт');
+транспорта.', 'ломает зубы не хуже боксЄров', 'https://api.magonline.ru/thumbnail/370x370/00/945/945.webp', 'https://sun9-21.userapi.com/c851132/v851132347/1dc94b/EHSSYo7q3Rw.jpg', '30 г, Ђ рут‘рутї, машинки фрукты', 'ћашинки',' рут‘рут' , 'мультифрукт');
 
 INSERT INTO public.gsd( id_product, food_type, product_name, current_cost, old_cost, description1, description2, picture1, picture2, additional_params, short_name, proizvoditel, vkus)VALUES (18, 'круасаны', 'Ђяшкиної, круассаны со сливочным кремом, 45 г', 11, 11, ' руассаны из воздушного теста на натуральной закваске.
 Ќачинка из сливочного крема не содержит красителей.
