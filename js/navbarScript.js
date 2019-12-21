@@ -68,7 +68,6 @@ document.getElementById("deliv").addEventListener("click", function (e) {
         }
 
         function getUserName(){//подгрузочка имени поцанчика
-            console.log('coookie: ' + document.cookie)
             let index = window.location.href.lastIndexOf('/')
     let numProduct = window.location.href.substring(index+1, window.location.href.length)
             let indexItem = window.location.href.indexOf('item')
@@ -107,18 +106,14 @@ document.getElementById("deliv").addEventListener("click", function (e) {
                     hash = parsingArr[1]
                 }
             }
-
-            console.log(hash)
-            console.log(typeof hash)
             //----------------------подгружаем имя поцикаА
             if(( typeof hash === 'string')&&(hash != '')){
                 document.getElementById('author').style.display = 'initial'
                 document.getElementById('auth').textContent = 'Выйти'
-                console.log('отправляем серверу hash: ' + hash)
                 if(hash[hash.length-1]===';'){
                     hash = hash.substring(0,hash.length-1)
                 }
-                console.log('отправляем серверу hash: ' + hash)
+                
             let cur_hash = JSON.stringify({hash : hash});
             var request = new XMLHttpRequest();
             request.open('POST', "/giveNameByHash",true);
@@ -128,7 +123,6 @@ document.getElementById("deliv").addEventListener("click", function (e) {
                 if((typeof a === 'string')&&(a !=='')){
                 let recieved3 = JSON.parse(request.response);
                 let recieved4 = JSON.parse(recieved3)
-                console.log('получили от сервера имя пацана' + recieved4[0]["first_name"])
                 document.getElementById('delivery').textContent=recieved4[0]["first_name"];
                 calculateNumOfGoods();
             }
@@ -145,7 +139,6 @@ document.getElementById("deliv").addEventListener("click", function (e) {
         function getUserNameNoCart(){//подгрузочка имени поцанчика
             let index = window.location.href.lastIndexOf('/')
     let numProduct = window.location.href.substring(index+1, window.location.href.length)
-    console.log('href: ' + numProduct)
             if(numProduct === ''){
                 document.getElementById('home').setAttribute('class', 'nav-item' )
                 document.getElementById('deliv').setAttribute('class', 'nav-item' )
@@ -168,7 +161,6 @@ document.getElementById("deliv").addEventListener("click", function (e) {
                 document.getElementById('cart').setAttribute('class', 'nav-item active' )
             }
     
-    console.log('href: ' + numProduct)
     var cookieString = document.cookie;
     var cookieParsed = cookieString.split(';')
     let hash=''
@@ -191,7 +183,6 @@ document.getElementById("deliv").addEventListener("click", function (e) {
                 if((typeof a === 'string')&&(a !=='')){
                 let recieved3 = JSON.parse(request.response);
                 let recieved4 = JSON.parse(recieved3)
-                console.log('получили от сервера имя пацана' + recieved4[0]["first_name"])
                 document.getElementById('auth').textContent=recieved4[0]["first_name"];
             }
             }
