@@ -18,13 +18,24 @@ function funcOnLoad(){
         var CorzinaPACANA = request.response
         let recieved = JSON.parse(request.response);
         let recieved2 = JSON.parse(recieved)
-        console.log(request.response)
-        console.log(recieved)
+
         console.log(recieved2)//TODO:првоерить, что хоть что-то пришло иначе и эксепшн словить можно
+        if(recieved2.length === 0){
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute('class', 'row d-flex justify-content-center wow slideInLeft')
+            newDiv.setAttribute('style','visibility: visible; animation-name: slideInLeft;')
+            newDiv.innerHTML = '<div class='+"'"+'col-md-6 text-center wow slideInLeft'+"'"+'>'+
+            '<h4 class='+"'"+'my-4 h4'+"'"+'>Ой, кажется вы ещё ничего не купили.'+'</h4>' +
+            '<p >Оформите заказ и ваши покупки появятся здесь.'+'</p></div>'
+            document.getElementById('emptyCart').append(newDiv);
+        }
+        else{
+            
         for(let i =0;i<recieved2.length;i++){
+
             var tableID= 'table'+i
             console.log(i)
-            var newDiv = document.createElement("div");
+            
             var addr = recieved2[i]["address"]
             var addr2 = addr.split(' ')
             if(addr2[0]===addr2[1]){
@@ -37,6 +48,8 @@ function funcOnLoad(){
             var date = recieved2[i]["when"]
             var splitedDate = date.split(' ')
             date = splitedDate[1] +' ' +splitedDate[2] +' ' + splitedDate[3] +' ' +splitedDate[4]
+            
+            var newDiv = document.createElement("div");
             newDiv.setAttribute('class', 'row d-flex justify-content-center wow slideInLeft')
             newDiv.setAttribute('style','visibility: visible; animation-name: slideInLeft;')
             newDiv.innerHTML = '<div class='+"'"+'col-md-6 text-center'+"'"+'>'+
@@ -73,6 +86,7 @@ function funcOnLoad(){
         var newDiv = document.createElement("br")
         document.body.append(newDiv)
         }
+    }
     }
     )
     request.send(cur_hash);

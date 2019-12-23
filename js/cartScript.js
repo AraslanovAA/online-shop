@@ -4,11 +4,8 @@ function funcOnLoad(){
 //его снова даём на сервер, получаем список что пиздец конечно
    // document.getElementById('tableID').style.display="initial"
     var flag = false
-    var newDiv = document.createElement("tr");    
-        newDiv.innerHTML = "<th>Товар</th><th>количество</th><th>Цена за штуку</th><th>Цена</th>";
-        document.getElementById('tableID').append(newDiv);
-        //my_div = document.getElementById("tableId");
-        //document.body.appendChild( newDiv,my_div);
+    
+
 
         var cookieString = document.cookie;
         var cookieParsed = cookieString.split(';')
@@ -29,6 +26,10 @@ function funcOnLoad(){
         let recieved2 = JSON.parse(recieved)
 
         if(recieved.length !==2){
+            var newDiv = document.createElement("tr");    
+        newDiv.innerHTML = "<th>Товар</th><th>количество</th><th>Цена за штуку</th><th>Цена</th>";
+        document.getElementById('tableID').append(newDiv);
+
         let k = 0;
         var listProductName = ''
         while(recieved2[k]!= null){
@@ -122,7 +123,18 @@ function funcOnLoad(){
     )
     request2.send(productList);
 }else{
+//-------------------------------------------------------------
+
+
     //TODO:что делать будем в случае если товаров корзинке нет? надо может показать пацану хоть что-нибудь ? но пока не до этого
+    var newDiv = document.createElement("div");
+            newDiv.setAttribute('class', 'row d-flex justify-content-center wow slideInLeft')
+            newDiv.setAttribute('style','visibility: visible; animation-name: slideInLeft;')
+            newDiv.innerHTML = '<div class='+"'"+'col-md-6 text-center wow slideInLeft'+"'"+'>'+
+            '<h4 class='+"'"+'my-4 h4'+"'"+'>Ой, кажется ваша корзина пуста.'+'</h4>' +
+            '<p >Выберите интересующие вас товары и они появятся здесь.'+'</p></div>'
+            document.getElementById('emptyCart').append(newDiv);
+    //------------------------------------------------------------
 }
     }
     )

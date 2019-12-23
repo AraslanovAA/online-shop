@@ -1,7 +1,22 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>сайтик</title>
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+ 
 <style>
 a:hover,a:focus{
  outline: none;
@@ -168,8 +183,17 @@ a:hover,a:focus{
 @media only screen and (max-width: 479px){
  .tab{ padding: 40px 20px; }
 }
-</style>
 
+</style>
+</head>
+
+<body onload="funcOnLoad()" background="https://freefrontend.com/assets/img/css-background-patterns/css-dot-pattern-grid-background.png">
+
+    <div id="createAlert">
+
+
+
+    </div>
 <div class="container tab-content">
  <div class="row">
  <div class="col-md-offset-3 col-md-6">
@@ -186,11 +210,11 @@ a:hover,a:focus{
  <form class="form-horizontal">
  <div class="form-group">
  <label for="exampleInputEmail1">username</label>
- <input type="email" class="form-control" id="signInUsername">
+ <input charset="utf-8" type="email" maxlength="50" class="form-control" id="signInUsername">
  </div>
  <div class="form-group">
  <label for="exampleInputPassword1">Password</label>
- <input type="password" class="form-control" id="signInPassword">
+ <input charset="utf-8" type="password" maxlength="50" class="form-control" id="signInPassword">
  </div>
 
  <div class="form-group">
@@ -205,19 +229,19 @@ a:hover,a:focus{
  <form class="form-horizontal">
  <div class="form-group">
  <label for="exampleInputEmail1" >First Name</label>
- <input type="text" class="form-control" id="signUpFirstName">
+ <input charset="utf-8" maxlength="50" type="text" class="form-control" id="signUpFirstName">
  </div>
  <div class="form-group">
  <label for="exampleInputEmail1" >Last Name</label>
- <input type="text" class="form-control" id="signUpSecondName">
+ <input charset="utf-8" maxlength="50" type="text" class="form-control" id="signUpSecondName">
  </div>
  <div class="form-group">
  <label for="exampleInputEmail1" >Email address</label>
- <input type="email" class="form-control" id="signUpEmail">
+ <input charset="utf-8" maxlength="50" type="email" class="form-control" id="signUpEmail">
  </div>
  <div class="form-group">
  <label for="exampleInputPassword1" >Password</label>
- <input type="password" class="form-control" id="signUpPassword">
+ <input charset="utf-8" maxlength="50" type="password" class="form-control" id="signUpPassword">
  </div>
  <div class="form-group">
  <button type="submit" class="btn btn-default" id="signUp">Sign up</button>
@@ -232,3 +256,6 @@ a:hover,a:focus{
 </div><!-- /.container -->
 <script type="text/javascript" src="js/registrationScript.js"></script>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+</body>
+
+</html>

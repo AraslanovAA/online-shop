@@ -1,4 +1,5 @@
 /*
+
 id="signInUsername"
 id="signInPassword"
 id="signIn"
@@ -9,7 +10,29 @@ id="signUpEmail"
 id="signUpPassword"
 id="signUp"
 */
+function funcOnLoad(){
+    var newDiv = document.createElement("div");   
+            newDiv.innerHTML =  "<div class='alert alert-danger alert-dismissible' role='alert' id='alertTextContent'>"+
+            "<button id='alertClose' type='button' class='close' ><span id='alertHide' aria-hidden='true'>&times;</span></button>"+
+            "<div id='continent' style='text-align: center;'></div>"+
+            "</div>"
+            document.getElementById('createAlert').append(newDiv);
+            newDiv.id='alertDisplay'
+            document.getElementById('alertDisplay').style.display ='none'
+            document.getElementById('alertClose').addEventListener("click", function (e) {
+                e.preventDefault();
+                document.getElementById('alertDisplay').style.display = 'none'
+            })
 
+            
+}
+function showAlert(text){
+        document.getElementById('alertDisplay').style.display = 'initial'
+        document.getElementById('alertClose').style.display = 'initial'
+        document.getElementById('alertHide').style.display = 'initial'
+        document.getElementById('continent').textContent = text.toString()
+        window.scrollTo(0,0)
+}
 function CheckEmptySignUp(){
     let signUpFirstName = document.getElementById("signUpFirstName").value
     if(signUpFirstName ===''){return false}
@@ -27,7 +50,7 @@ document.getElementById("signUp").addEventListener("click", function (e) {//вы
     if(CheckEmptySignUp()){
         var r = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!r.test(document.getElementById("signUpEmail").value)) {
-            alert("E-mail некорректен")
+            showAlert("E-mail некорректен")
         }
         else{
                 let cur_email = document.getElementById("signUpEmail").value
@@ -57,7 +80,6 @@ document.getElementById("signUp").addEventListener("click", function (e) {//вы
                             req.addEventListener("load", function(){
                                 let recieved = JSON.parse(req.response);
                                 console.log(recieved)//вывожу в консоль id пользователя, зачем информация утеряна конечно
-                                alert("Новый пользователь появился? рил?")
                                 document.cookie = "outhNShop=" + passw;
                                 document.location.href = '/'
                                 })
@@ -65,14 +87,14 @@ document.getElementById("signUp").addEventListener("click", function (e) {//вы
                                 
                         }
                         else{
-                            alert("ЪУЪ УУУ СУКА БУБУН не трожь мыло занято")
+                            showAlert("Данная почта уже используется")
                             }
                 })
                 request.send(trynna_email);
     }//законили проверку корректности email
 }//закончили проверку пустых полей
 else{
-    alert('заполните все поля')
+    showAlert('заполните все поля')
 }
 });
     
@@ -105,14 +127,14 @@ document.getElementById("signIn").addEventListener("click", function (e) {
                         document.location.href = '/'
                     }
                     else{
-                        alert("Авторизация не пройдена, попробуйте снова")
+                        showAlert("Авторизация не пройдена, попробуйте снова")
                     }
                 })
                 request.send(trynna_user);
         //------------------------------------------------
     }
     else{
-        alert('заполните все поля')
+        showAlert('заполните все поля')
     }
     
 });

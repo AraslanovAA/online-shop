@@ -15,8 +15,26 @@ id="curr_cost"
     e.preventDefault();
     if( document.getElementById("auth").textContent !== 'Авторизация' ){
 
-        var count_product = parseInt(document.getElementById("inp").value );
-        if(count_product > 0 ){
+        let count_product0 = parseInt(document.getElementById("inp").value );
+            let count_product = Number(count_product0)
+            flag = true
+            if(count_product ===''){
+                showAlert('количество товаров не указано')
+                flag = false
+            }
+            if(count_product == null){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+            }
+            if(typeof count_product != 'number'){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+              }
+            if(isNaN(count_product)){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+            }
+            if((count_product > 0 )&&(flag ===true)){
     
             var cookieString = document.cookie;
             var cookieParsed = cookieString.split(';')
@@ -36,22 +54,57 @@ id="curr_cost"
         request.setRequestHeader("Content-Type", "application/json");
         request.addEventListener("load", function(){
         calculateNumOfGoods()
+        calculateNumOfGoods()
         }
         )
         request.send(cur_order);
             //-------------------------------------------------------------------------------------------------
         }
         else{
-            alert('Ошибка при указании количества товара')
+            showAlert('Ошибка при указании количества товара')
         }
 }
 else{
-    alert('Пожалуйста авторизуйтесь')
+    showAlert('Пожалуйста авторизуйтесь')
 }
 }
     );
 
+    function showAlert(text){
+        document.getElementById('kekekkeke').style.display = 'initial'
+        document.getElementById('buttClose').style.display = 'initial'
+        document.getElementById('hideArea').style.display = 'initial'
+        document.getElementById('buttClose').setAttribute('class', 'close')
+        document.getElementById('buttClose').setAttribute('type', 'button')
+         document.getElementById('classID').setAttribute('class' ,' pt-4')
+                    document.getElementById('textAlert').textContent = text.toString()
+                    window.scrollTo(0,0)
+    }
+
 function funcOnLoad(){
+
+    var newDiv = document.createElement("div");   
+    newDiv.innerHTML = "<br><br><br>"+
+    "<div  id='alertDisplay' class='alert alert-warning alert-dismissible fade show' role='alert' style='text-align: center;'>"+
+"<div id='textAlert'></div> "+
+"<button id='buttClose' type='button' class='close'>"+
+"<span id='hideArea' aria-hidden='true'>&times;</span>"+
+"</button></div>"
+    document.getElementById('createAlert').append(newDiv);
+    newDiv.id='kekekkeke'
+
+   document.getElementById('kekekkeke').style.display = 'none'
+  document.getElementById('classID').setAttribute('class' ,'mt-5 pt-4')
+    document.getElementById('buttClose').addEventListener("click", function (e) {
+        e.preventDefault();
+
+            document.getElementById('kekekkeke').style.display = 'none'   
+            document.getElementById('classID').setAttribute('class' ,'mt-5 pt-4')
+    })
+
+
+
+
     let index = window.location.href.indexOf('item')
     let numProduct = window.location.href.substring(index+4, window.location.href.length)
         let cur_id = JSON.stringify({IDProduct : numProduct});

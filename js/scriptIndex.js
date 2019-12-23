@@ -1,8 +1,66 @@
 function funcOnLoad(){
     createVkusDropDownFull()
+
+    var newDiv = document.createElement("div");   
+            newDiv.innerHTML = "<br><br><br>"+
+            "<div  id='alertDisplay' class='alert alert-warning alert-dismissible fade show' role='alert' style='text-align: center;'>"+
+  "<div id='textAlert'></div> "+
+  "<button id='buttClose' type='button' class='close'>"+
+    "<span id='hideArea' aria-hidden='true'>&times;</span>"+
+  "</button></div>"
+            document.getElementById('createAlert').append(newDiv);
+            newDiv.id='kekekkeke'
+            document.getElementById('kekContent2').style.display = 'initial'
+            document.getElementById('kekContent3').style.display = 'initial'
+            document.getElementById('kekContent4').style.display = 'initial'
+           document.getElementById('kekekkeke').style.display = 'none'
+            
+            document.getElementById('buttClose').addEventListener("click", function (e) {
+                e.preventDefault();
+                if(document.getElementById('textAlert').textContent ==='Сайт использует ваши куки для корректной работы'){
+                    document.cookie = "Cookie=da" 
+                }
+                document.getElementById('kekContent2').style.display = 'initial'
+            document.getElementById('kekContent3').style.display = 'initial'
+            document.getElementById('kekContent4').style.display = 'initial'
+            document.getElementById('kekekkeke').style.display = 'none'   
+            })
+
+
     showAll(1)
     getUserName();
+    let useCookie = 'net'
+    let cookieString = document.cookie
+    console.log(cookieString)
+        var cookieSplited0 = cookieString.split(';')
+        for(let i =0;i<cookieSplited0.length;i++){
+            if(cookieSplited0[i].indexOf('Cookie')!==-1){
+                var parsingArr = cookieSplited0[i].split('=')
+                if(parsingArr[1]!==''){
+                    useCookie ='da'
+                }
+            }
+        }
+        if(useCookie ==='net'){
+            showAlert('Сайт использует ваши куки для корректной работы')
+        }
+
+
+
+
 };
+function showAlert(text){
+    document.getElementById('kekekkeke').style.display = 'initial'
+    document.getElementById('buttClose').style.display = 'initial'
+    document.getElementById('hideArea').style.display = 'initial'
+    document.getElementById('buttClose').setAttribute('class', 'close')
+    document.getElementById('buttClose').setAttribute('type', 'button')
+                document.getElementById('kekContent2').style.display = 'none'
+                document.getElementById('kekContent3').style.display = 'none'
+                document.getElementById('kekContent4').style.display = 'none' 
+                document.getElementById('textAlert').textContent = text.toString()
+                window.scrollTo(0,0)
+}
 
 document.getElementById("button_reset").addEventListener("click", function (e) {
     e.preventDefault();//чистим куки текущей выбранной категории, вызываем без фильтров
@@ -103,6 +161,12 @@ document.getElementById("button_reset").addEventListener("click", function (e) {
 
         });
 
+     
+//navbar-light green
+       
+
+
+
 document.getElementById('button_accept').addEventListener("click", function (e) {
     e.preventDefault();
     
@@ -115,43 +179,43 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
     var numTextMax = Number(textMax)
     let flag = true
     if(numTextMin ===''){
-        alert('min - пустая строка')
+        showAlert('min - введена пустая строка')
         flag = false
     }
     if(numTextMin == null){
-        alert('min - null')
+        showAlert('min - введёно не число')
         flag = false
     }
     if(typeof numTextMin != 'number'){
-        alert('min - ne number')
+        showAlert('min - введено не число')
         flag = false
       }
     if(isNaN(numTextMin)){
-        alert('NaN')
+        showAlert('min - введено не число')
         flag = false
     }
     if(numTextMax ===''){
-        alert('min - пустая строка')
+        showAlert('max - введена пустая строка')
         flag = false
     }
     if(numTextMax == null){
-        alert('min - null')
+        showAlert('max - введёно не число')
         flag = false
     }
     if(typeof numTextMax != 'number'){
-        alert('min - ne number')
+        showAlert('max - введено не число')
         flag = false
       }
     if(isNaN(numTextMax)){
-        alert('NaN')
+        showAlert('max - введено не число')
         flag = false
     }
     if(numTextMin < 0 ){
-        alert('Указано недопустимое значение  минимальной цены')
+        showAlert('Указано недопустимое значение  минимальной цены')
         flag = false
     }
     if(numTextMax < 0 ){
-        alert('Указано недопустимое значение  максимальной цены')
+        showAlert('Указано недопустимое значение  максимальной цены')
         flag = false
     }
     if(flag === true){
@@ -279,7 +343,6 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
 }
     );
 
-
     for (let i = 0; i < 8; i++){//обработка нажатия на элемент, отправляем серверу запрос получаем id продукта его пихаем url чтоб потом знать какую загрузить страницу
         let item_name = 'item'+i
         let pressed_item = 'item'+i.toString()+'_img'
@@ -334,7 +397,24 @@ for(let i=0;i<8;i++){
     
             let count_product0 = parseInt(document.getElementById(inp).value );
             let count_product = Number(count_product0)
-            if(count_product > 0 ){
+            flag = true
+            if(count_product ===''){
+                showAlert('количество товаров не указано')
+                flag = false
+            }
+            if(count_product == null){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+            }
+            if(typeof count_product != 'number'){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+              }
+            if(isNaN(count_product)){
+                showAlert('некорректно указано количество товаров')
+                flag = false
+            }
+            if((count_product > 0 )&&(flag ===true)){
         
                 var cookieString = document.cookie;
                 var cookieParsed = cookieString.split(';')
@@ -364,6 +444,10 @@ var request2 = new XMLHttpRequest();
 request2.open('POST', "/addToCard",true);
 request2.setRequestHeader("Content-Type", "application/json");
 request2.addEventListener("load", function(){
+    console.log(request2.response)
+    let res2 = JSON.parse(request2.response)
+    console.log(res2)
+calculateNumOfGoods()
 calculateNumOfGoods()
 }
 )
@@ -379,11 +463,11 @@ request2.send(cur_order);
                 
             }
             else{
-                alert('Ошибка при указании количества товара')
+                showAlert('Ошибка при указании количества товара')
             }
     }
     else{
-        alert('Пожалуйста авторизуйтесь')
+        showAlert('Пожалуйста авторизуйтесь')
     }
     }
         );
@@ -1055,7 +1139,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                             document.getElementById(param_name2+'_cost').textContent='none'
                                 document.getElementById(param_name2+'_discount').textContent='';
                         }
-                        alert('товаров не найдено')
+                        showAlert('товаров не найдено')
                     }
                     else{
                         let i =0 + (numPage-1)*8
@@ -1148,7 +1232,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                             document.getElementById(param_name2+'_cost').textContent='none'
                                 document.getElementById(param_name2+'_discount').textContent='';
                         }
-                        alert('товаров не найдено')
+                        showAlert('товаров не найдено')
                     }
                     else{
                         let i =0 + (numPage-1)*8
@@ -1239,7 +1323,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                             document.getElementById(param_name2+'_cost').textContent='none'
                                 document.getElementById(param_name2+'_discount').textContent='';
                         }
-                        alert('товаров не найдено')
+                        showAlert('товаров не найдено')
                     }
                     else{
                         let i =0 + (numPage-1)*8
@@ -1336,7 +1420,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                             document.getElementById(param_name2+'_cost').textContent='none'
                                 document.getElementById(param_name2+'_discount').textContent='';
                         }
-                        alert('товаров не найдено')
+                        showAlert('товаров не найдено')
                     }
                     else{
                         let i =0 + (numPage-1)*8
