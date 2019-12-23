@@ -26,27 +26,24 @@ function funcOnLoad(){
             document.getElementById('kekekkeke').style.display = 'none'   
             })
 
-
-    showAll(1)
-    getUserName();
-    let useCookie = 'net'
-    let cookieString = document.cookie
-    console.log(cookieString)
-        var cookieSplited0 = cookieString.split(';')
-        for(let i =0;i<cookieSplited0.length;i++){
-            if(cookieSplited0[i].indexOf('Cookie')!==-1){
-                var parsingArr = cookieSplited0[i].split('=')
-                if(parsingArr[1]!==''){
-                    useCookie ='da'
+            let useCookie = 'net'
+            let cookieString = document.cookie
+            console.log(cookieString)
+                var cookieSplited0 = cookieString.split(';')
+                for(let i =0;i<cookieSplited0.length;i++){
+                    if(cookieSplited0[i].indexOf('Cookie')!==-1){
+                        var parsingArr = cookieSplited0[i].split('=')
+                        if(parsingArr[1]!==''){
+                            useCookie ='da'
+                        }
+                    }
                 }
-            }
-        }
-        if(useCookie ==='net'){
-            showAlert('Сайт использует ваши куки для корректной работы')
-        }
+                if(useCookie ==='net'){
+                    showAlert('Сайт использует ваши куки для корректной работы')
+                }
 
-
-
+    
+    getUserName();
 
 };
 function showAlert(text){
@@ -966,7 +963,127 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                         })
                          request.send();
                     })
-        
+
+
+                    let cookieString = document.cookie
+                        let Amin_start = 0
+                        let Amax_start = 99999
+                        let Avkus_start = '-'
+
+                        let Wvkus_start = '-'
+
+                        let Mvkus_start = '-'
+
+                        let Cvkus_start = '-'
+                        var cookieSplited0 = cookieString.split(';')
+                        for(let i =0;i<cookieSplited0.length;i++){
+                            if(cookieSplited0[i].indexOf('Amin')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Amin_start = parsingArr[1]
+                                }
+                            }
+                            if(cookieSplited0[i].indexOf('Amax')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Amax_start = parsingArr[1]
+                                }
+                            }
+                            if(cookieSplited0[i].indexOf('Avkus')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Avkus_start = parsingArr[1]
+                                }
+                            }
+
+                            if(cookieSplited0[i].indexOf('Wvkus')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Wvkus_start = parsingArr[1]
+                                }
+                            }
+
+                            if(cookieSplited0[i].indexOf('Mvkus')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Mvkus_start = parsingArr[1]
+                                }
+                            }
+
+                            if(cookieSplited0[i].indexOf('Cvkus')!==-1){
+                                var parsingArr = cookieSplited0[i].split('=')
+                                if(parsingArr[1]!==''){
+                                    Cvkus_start = parsingArr[1]
+                                }
+                            }
+
+                        }
+                    if(Number(Amin_start) !== 0){
+                    document.querySelector('#input_minimum').value = Amin_start.toString()
+                    }
+                    if(Number(Amax_start) !== 99999){
+                    document.querySelector('#input_maximum').value = Amax_start.toString()
+                    }
+                    //let curr_name = 'menu2_itemCrois'+i.toString() 
+                    var request3 = new XMLHttpRequest();
+                        request3.open('POST', "/tasteNumsEachCategory",true);
+                        request3.setRequestHeader("Content-Type", "application/json");
+                        request3.addEventListener("load", function(){
+                           var res = request3.response
+                           res  = res.substring(1,res.length-1)
+                          var res1 = res.split(';')
+                          if(Avkus_start !=='-'){
+                            for(let i=0;i<Number(res1[3]);i++){
+                                let curr_name = 'menu2_itemAll'+i.toString() 
+                                if(document.getElementById(curr_name).textContent !== Avkus_start){
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }else{
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item active')
+                                }
+                            }
+                            document.getElementById('menu2_itemAllAny').setAttribute('class','dropdown-item')
+                        }
+
+                        if(Wvkus_start !=='-'){
+                            for(let i=0;i<Number(res1[0]);i++){
+                                let curr_name = 'menu2_itemWaff'+i.toString() 
+                                if(document.getElementById(curr_name).textContent !== Wvkus_start){
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }else{
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item active')
+                                }
+                            }
+                            document.getElementById('menu2_itemWaffAny').setAttribute('class','dropdown-item')
+                        }
+
+                        if(Mvkus_start !=='-'){
+                            for(let i=0;i<Number(res1[1]);i++){
+                                let curr_name = 'menu2_itemMarm'+i.toString() 
+                                if(document.getElementById(curr_name).textContent !== Mvkus_start){
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }else{
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item active')
+                                }
+                            }
+                            document.getElementById('menu2_itemMarmAny').setAttribute('class','dropdown-item')
+                        }
+
+
+                        if(Cvkus_start !=='-'){
+                            for(let i=0;i<Number(res1[2]);i++){
+                                let curr_name = 'menu2_itemCrois'+i.toString() 
+                                if(document.getElementById(curr_name).textContent !== Cvkus_start){
+                                document.getElementById(curr_name).setAttribute('class','dropdown-item')
+                                }else{
+                                    document.getElementById(curr_name).setAttribute('class','dropdown-item active')
+                                }
+                            }
+                            document.getElementById('menu2_itemCroisAny').setAttribute('class','dropdown-item')
+                        }
+                        showAll(1)
+                        })
+                         request3.send();
+                    
                 })
                 request.send();
             }
@@ -1133,11 +1250,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                     if(recieved ==='false'){
                         for(let k = 0; k < 8;k++){
                             let param_name2='item'+k 
-                            document.getElementById(param_name2 +'_pic').src='https://www.stihi.ru/pics/2011/02/12/1500.jpg'
-                            document.getElementById(param_name2 + '_text').textContent='none'
-                             document.getElementById(param_name2 + '_text2').textContent='none'
-                            document.getElementById(param_name2+'_cost').textContent='none'
-                                document.getElementById(param_name2+'_discount').textContent='';
+                            document.getElementById(param_name2).style.display = "none"
                         }
                         showAlert('товаров не найдено')
                     }
@@ -1226,11 +1339,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                     if(recieved ==='false'){
                         for(let k = 0; k < 8;k++){
                             let param_name2='item'+k 
-                            document.getElementById(param_name2 +'_pic').src='https://www.stihi.ru/pics/2011/02/12/1500.jpg'
-                            document.getElementById(param_name2 + '_text').textContent='none'
-                             document.getElementById(param_name2 + '_text2').textContent='none'
-                            document.getElementById(param_name2+'_cost').textContent='none'
-                                document.getElementById(param_name2+'_discount').textContent='';
+                            document.getElementById(param_name2).style.display = "none"
                         }
                         showAlert('товаров не найдено')
                     }
@@ -1317,11 +1426,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                     if(recieved ==='false'){
                         for(let k = 0; k < 8;k++){
                             let param_name2='item'+k 
-                            document.getElementById(param_name2 +'_pic').src='https://www.stihi.ru/pics/2011/02/12/1500.jpg'
-                            document.getElementById(param_name2 + '_text').textContent='none'
-                             document.getElementById(param_name2 + '_text2').textContent='none'
-                            document.getElementById(param_name2+'_cost').textContent='none'
-                                document.getElementById(param_name2+'_discount').textContent='';
+                            document.getElementById(param_name2).style.display = "none"
                         }
                         showAlert('товаров не найдено')
                     }
@@ -1414,11 +1519,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                     if(recieved ==='false'){
                         for(let k = 0; k < 8;k++){
                             let param_name2='item'+k 
-                            document.getElementById(param_name2 +'_pic').src='https://www.stihi.ru/pics/2011/02/12/1500.jpg'
-                            document.getElementById(param_name2 + '_text').textContent='none'
-                             document.getElementById(param_name2 + '_text2').textContent='none'
-                            document.getElementById(param_name2+'_cost').textContent='none'
-                                document.getElementById(param_name2+'_discount').textContent='';
+                            document.getElementById(param_name2).style.display = "none"
                         }
                         showAlert('товаров не найдено')
                     }
