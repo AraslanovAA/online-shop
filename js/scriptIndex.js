@@ -17,9 +17,6 @@ function funcOnLoad(){
             
             document.getElementById('buttClose').addEventListener("click", function (e) {
                 e.preventDefault();
-                if(document.getElementById('textAlert').textContent ==='Сайт использует ваши куки для корректной работы'){
-                    document.cookie = "Cookie=da" 
-                }
                 document.getElementById('kekContent2').style.display = 'initial'
             document.getElementById('kekContent3').style.display = 'initial'
             document.getElementById('kekContent4').style.display = 'initial'
@@ -39,13 +36,27 @@ function funcOnLoad(){
                     }
                 }
                 if(useCookie ==='net'){
-                    showAlert('Сайт использует ваши куки для корректной работы')
+                    $('#modalCookie').modal({
+                        keyboard: false,
+                        show: true,
+                        focus:true,
+                        backdrop:false
+                      })
+                    //showAlert('Сайт использует ваши куки для корректной работы')
                 }
 
     
     getUserName();
 
 };
+
+document.getElementById('buttCookieAgree').addEventListener("click", function (e) {
+    e.preventDefault();
+
+     $('#modalCookie').modal('hide')
+      document.cookie = "Cookie=da"
+})
+
 function showAlert(text){
     document.getElementById('kekekkeke').style.display = 'initial'
     document.getElementById('buttClose').style.display = 'initial'
