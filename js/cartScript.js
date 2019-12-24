@@ -16,6 +16,7 @@ function funcOnLoad(){
                 hash = parsingArr[1]
             }
         }
+
     let cur_hash = JSON.stringify({hash : hash});
     var request = new XMLHttpRequest();
     request.open('POST', "/giveThisUserCard",true);
@@ -26,6 +27,7 @@ function funcOnLoad(){
         let recieved2 = JSON.parse(recieved)
 
         if(recieved.length !==2){
+            document.getElementById('header').style.visibility = 'visible'
             var newDiv = document.createElement("tr");    
         newDiv.innerHTML = "<th>Товар</th><th>количество</th><th>Цена за штуку</th><th>Цена</th>";
         document.getElementById('tableID').append(newDiv);
@@ -139,6 +141,8 @@ function funcOnLoad(){
     }
     )
     request.send(cur_hash);
+
+
    getUserName();    
 }
 

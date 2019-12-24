@@ -10,6 +10,7 @@ function funcOnLoad(){
                     hash = parsingArr[1]
                 }
             }
+    if(hash !==''){
     let cur_hash = JSON.stringify({hash : hash});
     var request = new XMLHttpRequest();
     request.open('POST', "/giveThisUserDelivery",true);
@@ -91,4 +92,7 @@ function funcOnLoad(){
     )
     request.send(cur_hash);
    getUserName();    
+}else{
+    document.location.href = '/'
+}
 }

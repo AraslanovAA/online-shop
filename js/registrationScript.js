@@ -45,8 +45,16 @@ function CheckEmptySignUp(){
     return true
 }
 
+document.getElementById("politeAccess").addEventListener("click", function (e) {//выбор категории вафли
+    e.preventDefault();
+    document.location.href = '/polite'
+})
+
+
 document.getElementById("signUp").addEventListener("click", function (e) {//выбор категории вафли
     e.preventDefault();
+   // alert(document.getElementById('politeInput').value)
+   if(document.getElementById('checkbox1').checked === true){
     if(CheckEmptySignUp()){
         var r = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!r.test(document.getElementById("signUpEmail").value)) {
@@ -96,6 +104,10 @@ document.getElementById("signUp").addEventListener("click", function (e) {//вы
 else{
     showAlert('заполните все поля')
 }
+   }
+   else{
+       showAlert('необходимо принять пользовательское соглашение')
+   }
 });
     
 function CheckEmptySignIn(){
@@ -108,6 +120,7 @@ function CheckEmptySignIn(){
 
 document.getElementById("signIn").addEventListener("click", function (e) {
     e.preventDefault();
+    
     if(CheckEmptySignIn()){
         console.log("данные клиента вроде как не пустые")
         //------------------------------------------------проверка, что пацан есть в базе

@@ -15,8 +15,7 @@ id="curr_cost"
     e.preventDefault();
     if( document.getElementById("auth").textContent !== 'Авторизация' ){
 
-        let count_product0 = parseInt(document.getElementById("inp").value );
-            let count_product = Number(count_product0)
+            let count_product = Number(document.getElementById("inp").value)
             flag = true
             if(count_product ===''){
                 showAlert('количество товаров не указано')

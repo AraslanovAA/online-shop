@@ -1,7 +1,5 @@
 /*
 TODO list:
-прикрутить чекбокс польз соглашения
-при загрузке главно страницы не сразу должны установить вкус типо любой и оставить инпуты пустыми, а заполнить из куки
 nginx
 */
 var http = require('http');
@@ -19,6 +17,7 @@ app.get('/', function(req, res) { res.sendFile(__dirname + '/index.html'); });
 app.get('/auth', function(req, res) { res.sendFile(__dirname + '/registrandauth.html'); });
 app.get('/cart', function(req, res) { res.sendFile(__dirname + '/cart.html'); });
 app.get('/delivery', function(req, res) { res.sendFile(__dirname + '/delivery.html'); });
+app.get('/polite', function(req, res) { res.sendFile(__dirname + '/polite.html'); });
 for (let i = 1; i < 23; i++){
     let my_url = '/item'+i
 app.get(my_url, function(req, res) { res.sendFile(__dirname + '/shop-page.html'); });
