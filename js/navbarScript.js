@@ -123,7 +123,7 @@ document.getElementById("deliv").addEventListener("click", function (e) {
                 if((typeof a === 'string')&&(a !=='')){
                 let recieved3 = JSON.parse(request.response);
                 let recieved4 = JSON.parse(recieved3)
-                document.getElementById('delivery').textContent=recieved4[0]["first_name"];
+                document.getElementById('delivery').textContent='Доставка'//recieved4[0]["first_name"];
                 calculateNumOfGoods();
             }
             }

@@ -3,10 +3,58 @@ function funcOnLoad(){
 // из неё создаём новый список с именами товаров
 //его снова даём на сервер, получаем список что пиздец конечно
    // document.getElementById('tableID').style.display="initial"
+    //подписываем - здравствуй пацан
+    var cookieString = document.cookie;
+            var cookieParsed = cookieString.split(';')
+            let hash2=''
+            for(let i =0;i<cookieParsed.length;i++){
+                if(cookieParsed[i].indexOf('outhNShop')!==-1){
+                    var parsingArr = cookieParsed[i].split('=')
+                    hash2 = parsingArr[1]
+                }
+            }
+            //----------------------подгружаем имя поцикаА
+            if(( typeof hash2 === 'string')&&(hash2 != '')){
+                document.getElementById('author').style.display = 'initial'
+                document.getElementById('auth').textContent = 'Выйти'
+                if(hash2[hash2.length-1]===';'){
+                    hash2 = hash2.substring(0,hash2.length-1)
+                }
+                
+            let cur_hash = JSON.stringify({hash : hash2});
+            var request6 = new XMLHttpRequest();
+            request6.open('POST', "/giveNameByHash",true);
+            request6.setRequestHeader("Content-Type", "application/json");
+            request6.addEventListener("load", function(){
+                var a = request6.response
+
+                if((typeof a === 'string')&&(a !=='')){
+                let recieved3 = JSON.parse(request6.response);
+                let recieved4 = JSON.parse(recieved3)
+                var newDiv = document.createElement("div");
+            newDiv.setAttribute('class', 'row  justify-content-center ')
+            newDiv.innerHTML = '<div class='+"'"+' text-center '+"'"+'>'+
+            '<h4 class='+"'"+'my-4 h4'+"'"+'>Здравствуйте, '+recieved4[0]["first_name"].toString()+'!</h4>' +
+            '</div>'
+            document.getElementById('helloUser').append(newDiv);
+            }
+            }
+            )
+            request6.send(cur_hash);
+        }
+        else{
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute('class', 'row d-flex justify-content-center wow slideInLeft')
+            newDiv.setAttribute('style','visibility: visible; animation-name: slideInLeft;')
+            newDiv.innerHTML = '<div class='+"'"+'col-md-6 text-center wow slideInLeft'+"'"+'>'+
+            '<h4 class='+"'"+'my-4 h4'+"'"+'>Мы ещё не знакомы, пожалуйста авторизуйтесь.'+'</h4>' +
+            '</div>'
+            document.getElementById('helloUser').append(newDiv);
+        }
+
+
+   //подписали, здравствуй, пацан
     var flag = false
-    
-
-
         var cookieString = document.cookie;
         var cookieParsed = cookieString.split(';')
         let hash=''
@@ -63,7 +111,6 @@ function funcOnLoad(){
                 t++
             }
             //можем формировать строку таблицы помоему?
-            console.log('row: ' + prodAddParam +';  ' + prodCount+';  ' + prodCost+';  ' + prodCost*prodCount)
             flag = true
             var newDiv = document.createElement("tr");   
                     let picID = 'pic' + u.toString()

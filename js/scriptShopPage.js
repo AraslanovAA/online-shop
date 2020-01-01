@@ -10,6 +10,13 @@ id="picture2"
 id="old_cost"
 id="curr_cost"
     */
+   function isInteger(num) {
+    return (num ^ 0) === num;
+  }
+  $('#inp').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
 
    document.getElementById("addToCard").addEventListener("click", function (e) {
     e.preventDefault();
@@ -32,6 +39,10 @@ id="curr_cost"
             if(isNaN(count_product)){
                 showAlert('некорректно указано количество товаров')
                 flag = false
+            }
+            if( !isInteger(count_product)){
+                flag = false
+                showAlert('некорректно указано количество товаров')
             }
             if((count_product > 0 )&&(flag ===true)){
     

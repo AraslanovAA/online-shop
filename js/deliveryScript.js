@@ -1,4 +1,54 @@
 function funcOnLoad(){
+//подписываем - здравствуй пацан
+var cookieString = document.cookie;
+var cookieParsed = cookieString.split(';')
+let hash2=''
+for(let i =0;i<cookieParsed.length;i++){
+    if(cookieParsed[i].indexOf('outhNShop')!==-1){
+        var parsingArr = cookieParsed[i].split('=')
+        hash2 = parsingArr[1]
+    }
+}
+//----------------------подгружаем имя поцикаА
+if(( typeof hash2 === 'string')&&(hash2 != '')){
+    document.getElementById('author').style.display = 'initial'
+    document.getElementById('auth').textContent = 'Выйти'
+    if(hash2[hash2.length-1]===';'){
+        hash2 = hash2.substring(0,hash2.length-1)
+    }
+    
+let cur_hash = JSON.stringify({hash : hash2});
+var request6 = new XMLHttpRequest();
+request6.open('POST', "/giveNameByHash",true);
+request6.setRequestHeader("Content-Type", "application/json");
+request6.addEventListener("load", function(){
+    var a = request6.response
+    if((typeof a === 'string')&&(a !=='')){
+    let recieved3 = JSON.parse(request6.response);
+    let recieved4 = JSON.parse(recieved3)
+    var newDiv = document.createElement("div");
+newDiv.setAttribute('class', 'row  justify-content-center ')
+newDiv.innerHTML = '<div class='+"'"+' text-center '+"'"+'>'+
+'<h4 class='+"'"+'my-4 h4'+"'"+'>Здравствуйте, '+recieved4[0]["first_name"].toString()+'!</h4>' +
+'</div>'
+document.getElementById('helloUser').append(newDiv);
+}
+}
+)
+request6.send(cur_hash);
+}
+//подписали, здравствуй, пацан
+
+
+
+
+
+
+
+
+
+
+
 //кароч берем по хэшику находим заказы пацана парсим, для кажого отдельная таблика
     var flag = false
     var cookieString = document.cookie;
@@ -20,7 +70,6 @@ function funcOnLoad(){
         let recieved = JSON.parse(request.response);
         let recieved2 = JSON.parse(recieved)
 
-        console.log(recieved2)//TODO:првоерить, что хоть что-то пришло иначе и эксепшн словить можно
         if(recieved2.length === 0){
             var newDiv = document.createElement("div");
             newDiv.setAttribute('class', 'row d-flex justify-content-center wow slideInLeft')
@@ -35,7 +84,6 @@ function funcOnLoad(){
         for(let i =0;i<recieved2.length;i++){
 
             var tableID= 'table'+i
-            console.log(i)
             
             var addr = recieved2[i]["address"]
             var addr2 = addr.split(' ')
@@ -56,11 +104,12 @@ function funcOnLoad(){
             newDiv.innerHTML = '<div class='+"'"+'col-md-6 text-center'+"'"+'>'+
             '<h4 class='+"'"+'my-4 h4'+"'"+'>'+addr+'</h4>' +
             '<p >'+date+'</p></div>'
-            document.body.append(newDiv)
+            document.getElementById('emptyCart').append(newDiv);
+            
 
             var newDiv = document.createElement("table");
             newDiv.id = tableID
-            document.body.append(newDiv)
+            document.getElementById('emptyCart').append(newDiv);
             var newDiv = document.createElement("tr");    
         newDiv.innerHTML = "<th>Товар</th><th>количество</th><th>Цена за штуку</th><th>Цена</th>";
         document.getElementById(tableID).append(newDiv);
@@ -79,13 +128,13 @@ function funcOnLoad(){
                 newDiv.innerHTML = "<td>"+"</td><td>"+"</td><td>"+"Общая:"+"</td><td>"+currTableCost+"</td>"
                 document.getElementById(tableID).append(newDiv);
                 var newDiv = document.createElement("hr")
-                document.body.append(newDiv)
+                document.getElementById('emptyCart').append(newDiv);
 
 
 
 
         var newDiv = document.createElement("br")
-        document.body.append(newDiv)
+        document.getElementById('emptyCart').append(newDiv);
         }
     }
     }

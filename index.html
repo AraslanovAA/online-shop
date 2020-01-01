@@ -19,6 +19,12 @@
     html,
   body,
   header,
+  .btnN {
+  border-radius: 5px;
+}
+  .myactive {
+    background: #c3dbee;
+  }
   .carousel{
       height: 60vh;
   }
@@ -74,7 +80,7 @@
 
 
   
-<nav class="navbar fixed-top navbar-expand-lg  navbar-light green scrolling-navbar">
+<nav class="navbar fixed-top navbar-expand-lg  navbar-dark  scrolling-navbar" style="background-color: #666666;">
 <div class="container">
   <div >
     <strong class="white-text">Магазин сладостей</strong>
@@ -136,8 +142,8 @@
   <main>
     <div class="container">
 
-      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 ">
-        <span class="navbar-brand">Категории: </span>
+      <nav class="navbar navbar-expand-lg navbar-dark   lighten-3 mt-3 " style="background-color: #e3f2fd;">
+        <span class="navbar-brand black-text">Категории: </span>
         <button class="navbar-toggler" type="button"
       data-toggle="collapse" data-target="#nextNav1"
        aria-controls="nextNav1" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,16 +154,17 @@
   <div class="collapse navbar-collapse" id="nextNav1">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" id="all_class">
-        <a href="#" class="nav-link" id="all">All</a>
+        <a  class="nav-link black-text waves-effect waves-indigo" id="all" >All</a>
       </li>
-      <li class="nav-item active"  id="waffles_class">
-          <a href="#" class="nav-link" id="waffles">Вафли</a>
+      <li class="nav-item"  id="waffles_class">
+        <a  class="nav-link black-text waves-effect waves-indigo" id="waffles">Вафли</a>
+          
         </li>
         <li class="nav-item" id="marmalade_class">
-            <a href="#" class="nav-link" id="marmalade">Мармелад</a>
+            <a  class="nav-link black-text waves-effect waves-indigo" id="marmalade">Мармелад</a>
           </li>
           <li class="nav-item" id="croissants_class">
-              <a href="#" class="nav-link" id="croissants">Круасаны</a>
+              <a  class="nav-link black-text waves-effect waves-indigo" id="croissants">Круасаны</a>
             </li>
     </ul>
 
@@ -166,8 +173,8 @@
       </nav>
 
 
-      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 ml-2 mr-2 mt-3 mb-5">
-        <span class="navbar-brand">Фильтры: </span>
+      <nav class="navbar navbar-expand-lg navbar-light  lighten-3 ml-2 mr-2 mt-3 mb-5" style="background-color: #e3f2fd; align-items: center;">
+        <span class="navbar-brand  " >Фильтры: </span>
         <button class="navbar-toggler" type="button"
       data-toggle="collapse" data-target="#nextNav"
        aria-controls="nextNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,22 +183,23 @@
           </button>
 
 
-          <div class="collapse navbar-collapse mb-0 ml-6" id="nextNav"><h5 class="yellow-text">Цена:</h5>
+          <div class="collapse navbar-collapse ml-6 mt" id="nextNav"><h5 class="black-text my-1">Цена:</h5>
             <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-            <div class="ml-2 md-form my-0">
-            <input charset="utf-8" type="text" maxlength="5" id="input_minimum" class="form-control mr-sm-2 white-text" style="width: 77px;" placeholder="минимум" aria-label="minimum">
+            <div class="ml-3 md-form my-1">
+               
+            <input charset="utf-8" type="number" min="0" max ="99999" maxlength="5" id="input_minimum" class="form-control  black-text" style="width: 77px;" placeholder="мин" aria-label="minimum">
             </div>
             </li>
             <li class="nav-item">
-            <div class="ml-2 md-form my-0">
-            <input charset="utf-8" type="text" maxlength="5" id="input_maximum"  class="form-control mr-sm-2 white-text" style="width: 77px;" placeholder="максимум" aria-label="minimum">
+            <div class="ml-3 mr-3 md-form my-1" style="margin-bottom: 0 !important;">
+            <input charset="utf-8" type="number" min="0" max ="99999" maxlength="5" id="input_maximum"  class="form-control black-text" style="width: 77px;margin-bottom: 0 !important;" placeholder="макс" aria-label="minimum">
             </div>
             </li>
 
             <li class="nav-item">
               <div class="btn-group">
-              <button id="button_general_country" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button id="button_general_country" type="button" class="btn btnN btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Сортировка
               </button>
               <div id="menu1" class="dropdown-menu">
@@ -204,7 +212,7 @@
 
               <li class="nav-item">
                 <div class="btn-group">
-                <button id="button_general_color" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="button_general_color" type="button" class="btn btnN btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Вкус
                 </button>
                 <div id = "menu2" class="dropdown-menu">
@@ -215,10 +223,10 @@
                 </li>
 
               </li>
-              <li><button id="button_reset" class=" btn btn-outline btn-dark nav-link">Сбросить</button></li>
+              <li><button id="button_reset" class=" btn btnN btn-outline btn-dark nav-link white-text">Сбросить</button></li>
             
               <form class="form-inline nav-item id="nextNav">
-                <button id="button_accept" class=" btn btn-outline btn-success nav-link">Применить</button>
+                <button id="button_accept" class=" btn btnN btn-outline btn-success nav-link">Применить</button>
                 </form>
 
             </ul>
@@ -267,7 +275,7 @@
               </div>
               <div>
                 <form action="" class="d-flex justify-content-center"  >
-                  <input  charset="utf-8" id = "inp0" type="text" maxlength="3" value="1" aria-label="Search:"
+                  <input   charset="utf-8" id = "inp0" type="number" min="1" max ="100000" maxlength="6" value="1" aria-label="Search:"
                   style="width:40%;" class="form-control">
                   <button id= "addToCard0" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                      <i class="fa fa-shopping-cart ml-1"></i>
@@ -310,7 +318,7 @@
 
                 <div>
                   <form action="" class="d-flex justify-content-center"  >
-                    <input charset="utf-8" id = "inp1" type="text" maxlength="3" value="1" aria-label="Search:"
+                    <input charset="utf-8" id = "inp1" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                     style="width:40%;" class="form-control">
                     <button id= "addToCard1" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                        <i class="fa fa-shopping-cart ml-1"></i>
@@ -351,7 +359,7 @@
 
                   <div>
                     <form action="" class="d-flex justify-content-center"  >
-                      <input charset="utf-8" id = "inp2" type="text" maxlength="3" value="1" aria-label="Search:"
+                      <input charset="utf-8" id = "inp2" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                       style="width:40%;" class="form-control">
                       <button id= "addToCard2" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                          <i class="fa fa-shopping-cart ml-1"></i>
@@ -392,7 +400,7 @@
 
               <div>
                 <form action="" class="d-flex justify-content-center"  >
-                  <input charset="utf-8" id = "inp3" type="text" maxlength="3" value="1" aria-label="Search:"
+                  <input charset="utf-8" id = "inp3" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                   style="width:40%;" class="form-control">
                   <button id= "addToCard3" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                      <i class="fa fa-shopping-cart ml-1"></i>
@@ -436,7 +444,7 @@
 
                   <div>
                     <form action="" class="d-flex justify-content-center"  >
-                      <input charset="utf-8" id = "inp4" type="text" maxlength="3" value="1" aria-label="Search:"
+                      <input charset="utf-8" id = "inp4" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                       style="width:40%;" class="form-control">
                       <button id= "addToCard4" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                          <i class="fa fa-shopping-cart ml-1"></i>
@@ -476,7 +484,7 @@
 
                     <div>
                       <form action="" class="d-flex justify-content-center"  >
-                        <input charset="utf-8" id = "inp5" type="text" maxlength="3" value="1" aria-label="Search:"
+                        <input charset="utf-8" id = "inp5" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                         style="width:40%;" class="form-control">
                         <button id= "addToCard5" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                            <i class="fa fa-shopping-cart ml-1"></i>
@@ -517,7 +525,7 @@
 
                       <div>
                         <form action="" class="d-flex justify-content-center"  >
-                          <input charset="utf-8" id = "inp6" type="text" maxlength="3" value="1" aria-label="Search:"
+                          <input charset="utf-8" id = "inp6" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                           style="width:40%;" class="form-control">
                           <button id= "addToCard6" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                              <i class="fa fa-shopping-cart ml-1"></i>
@@ -558,7 +566,7 @@
 
                         <div>
                           <form action="" class="d-flex justify-content-center"  >
-                            <input charset="utf-8" id = "inp7" type="text" maxlength="3" value="1" aria-label="Search:"
+                            <input charset="utf-8" id = "inp7" type="number" min="1" max ="100000" value="1" aria-label="Search:"
                             style="width:40%;" class="form-control">
                             <button id= "addToCard7" type="submit" class="btn btn-primary btn-md my-0 ml-0 mr-0 p" style ="width:60%;">
                                <i class="fa fa-shopping-cart ml-1"></i>
@@ -608,23 +616,8 @@
 
 
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
-    <div class="pt-4">
-      <a  role="button" class="btn btn-outline-white">Online Shop 
-        <i class="fa fa-graduation-cap ml-2"></i></a>
-        <a role="button" class="btn btn-outline-white">FAQ 
-            <i class="fa fa-graduation-cap ml-2"></i></a>
-    </div>
-
-    <hr class="my-4">
-    <div class="pb-4">
-        <a  class="waves-effect">
-            <i class="fab fa-instagram mr-3"></i>
-        </a>
-        <a  class="waves-effect">
-            <i class="fab fa-facebook mr-3"></i>
-        </a>
-    </div>
-    <div class="footer-copyright py-3">
+    
+    <div class="footer-copyright py-3 black-text" style="background-color: #e3f2fd;">
       Online Shop Доставка по Кирову
     </div>
   </footer>

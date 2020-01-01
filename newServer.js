@@ -34,7 +34,18 @@ const server = http.createServer((req, res) => {
         }else if (req.url.includes('.css')){
             res.setHeader('Content-Type','text/css');
             sendFile(__dirname + req.url,res)
-        } else{
+        } else{if(req.url.indexOf('item')!==-1){
+                if( Number(req.url.substr(req.url.lastIndexOf('item')+4,req.url.length))<23){
+                    if(Number(req.url.substr(req.url.lastIndexOf('item')+4,req.url.length))>0){
+                    sendFile(__dirname + '/shop-page.html', res);
+                    }else{
+                        notFound(res);
+                    }
+                }
+                else{
+                    notFound(res);
+                }
+        }else{
             switch(req.url){
                 case "/": { sendFile(__dirname + '/index.html', res); break; }
                 case "/auth": { sendFile(__dirname + '/registrandauth.html', res); break; }
@@ -49,9 +60,12 @@ const server = http.createServer((req, res) => {
                 case "/font/roboto/Roboto-Bold.woff2": { res.setHeader('Content-Type', 'text/woff2'); sendFile(__dirname + '/font/roboto/Roboto-Bold.woff2', res); break; }
                 case "/font/roboto/Roboto-Light.woff": { res.setHeader('Content-Type', 'text/woff'); sendFile(__dirname + '/font/roboto/Roboto-Light.woff', res); break; }
                 case "/font/roboto/Roboto-Light.woff2": { res.setHeader('Content-Type', 'text/woff2'); sendFile(__dirname + '/font/roboto/Roboto-Light.woff2', res); break; }
+                case "/font/roboto/Roboto-Medium.woff": { res.setHeader('Content-Type', 'text/woff'); sendFile(__dirname + '/font/roboto/Roboto-Medium.woff', res); break; }
+                case "/font/roboto/Roboto-Medium.woff2": { res.setHeader('Content-Type', 'text/woff2'); sendFile(__dirname + '/font/roboto/Roboto-Medium.woff2', res); break; }
                 
                 default: { notFound(res); break;}
             }
+        }
         }
  
     }
@@ -585,7 +599,7 @@ if(req.url ==='/registrationUser'){//регистрация нового пол�
                 })
     req.on('end',function() {
         console.log('сервер зарегистрировал попытку создания нового пользователя')
-        let maxID = 'SELECT MAX(id_buyer)  FROM   buyers'
+        let inquiry = 'SELECT MAX(id_buyer)  FROM   buyers'
         db.any(inquiry).then(data => {
             var id_nextUser=data[0]["max"]+1
         let inquiry = 'INSERT INTO public.buyers(id_buyer, first_name, last_name, email, password_user, address) VALUES ('+

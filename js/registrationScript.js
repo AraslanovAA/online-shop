@@ -87,7 +87,7 @@ document.getElementById("signUp").addEventListener("click", function (e) {//вы
                             req.setRequestHeader("Content-Type", "application/json");
                             req.addEventListener("load", function(){
                                 let recieved = JSON.parse(req.response);
-                                console.log(recieved)//вывожу в консоль id пользователя, зачем информация утеряна конечно
+
                                 document.cookie = "outhNShop=" + passw;
                                 document.location.href = '/'
                                 })
@@ -122,7 +122,7 @@ document.getElementById("signIn").addEventListener("click", function (e) {
     e.preventDefault();
     
     if(CheckEmptySignIn()){
-        console.log("данные клиента вроде как не пустые")
+
         //------------------------------------------------проверка, что пацан есть в базе
                 let cur_email = document.getElementById("signInUsername").value
                 let signInPassword = document.getElementById("signInPassword").value
@@ -136,7 +136,7 @@ document.getElementById("signIn").addEventListener("click", function (e) {
                     var recievedSHIT = JSON.parse(request.response);
                     if(recievedSHIT ==="true"){
                         document.cookie = "outhNShop=" + signInPassword+';';
-                        console.log(request.response)
+
                         document.location.href = '/'
                     }
                     else{

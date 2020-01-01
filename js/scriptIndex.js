@@ -25,7 +25,7 @@ function funcOnLoad(){
 
             let useCookie = 'net'
             let cookieString = document.cookie
-            console.log(cookieString)
+
                 var cookieSplited0 = cookieString.split(';')
                 for(let i =0;i<cookieSplited0.length;i++){
                     if(cookieSplited0[i].indexOf('Cookie')!==-1){
@@ -74,7 +74,7 @@ document.getElementById("button_reset").addEventListener("click", function (e) {
     e.preventDefault();//чистим куки текущей выбранной категории, вызываем без фильтров
     document.querySelector('#input_minimum').value = ''.toString()
     document.querySelector('#input_maximum').value = ''.toString()
-    if(document.getElementById('all_class').getAttribute('class') ==='nav-item active'){
+    if(document.getElementById('all').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
         document.cookie = "Amin="
         document.cookie = "Amax="
         document.cookie = "Arder="
@@ -96,7 +96,7 @@ document.getElementById("button_reset").addEventListener("click", function (e) {
         request.send();
 
     }
-    if(document.getElementById('waffles_class').getAttribute('class') ==='nav-item active'){
+    if(document.getElementById('waffles').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
         document.cookie = "Wmin="
         document.cookie = "Wmax="
         document.cookie = "Wrder="
@@ -119,7 +119,7 @@ document.getElementById("button_reset").addEventListener("click", function (e) {
 
         
     }
-    if(document.getElementById('marmalade_class').getAttribute('class') ==='nav-item active'){
+    if(document.getElementById('marmalade').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
         document.cookie = "Mmin="
         document.cookie = "Mmax="
         document.cookie = "Mrder="
@@ -142,7 +142,7 @@ document.getElementById("button_reset").addEventListener("click", function (e) {
 
         
     }
-    if(document.getElementById('croissants_class').getAttribute('class') ==='nav-item active'){
+    if(document.getElementById('croissants').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
         document.cookie = "Cmin="
         document.cookie = "Cmax="
         document.cookie = "Crder="
@@ -236,16 +236,16 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
             numTextMax = numTextMin
         }
         let category = ''
-        if(document.getElementById('all_class').getAttribute('class') ==='nav-item active'){
+        if(document.getElementById('all').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
             category = 'all'
         }
-        if(document.getElementById('waffles_class').getAttribute('class') ==='nav-item active'){
+        if(document.getElementById('waffles').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
             category = 'вафли'
         }
-        if(document.getElementById('marmalade_class').getAttribute('class') ==='nav-item active'){
+        if(document.getElementById('marmalade').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
             category = 'мармелад'
         }
-        if(document.getElementById('croissants_class').getAttribute('class') ==='nav-item active'){
+        if(document.getElementById('croissants').getAttribute('class') ==='myactive nav-link black-text waves-effect waves-indigo'){
             category = 'круасаны'
         }
         var request = new XMLHttpRequest();
@@ -351,6 +351,12 @@ document.getElementById('button_accept').addEventListener("click", function (e) 
 }
     );
 
+
+    function isInteger(num) {
+        return (num ^ 0) === num;
+      }
+
+
     for (let i = 0; i < 8; i++){//обработка нажатия на элемент, отправляем серверу запрос получаем id продукта его пихаем url чтоб потом знать какую загрузить страницу
         let item_name = 'item'+i
         let pressed_item = 'item'+i.toString()+'_img'
@@ -394,6 +400,57 @@ for(let i=0;i<8;i++){//обработка нажатия на элемент, о
         );
 }
 
+$('#inp0').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp1').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp2').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp3').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp4').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp5').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp6').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#inp7').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#input_minimum').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+$('#input_maximum').on('input', function() {
+    const $this = $(this);
+    $this.val(Math.max($this.attr('min'), Math.min($this.attr('max'), $this.val())));
+  });
+
+
 for(let i=0;i<8;i++){
     let item_name='item'+i.toString()
     let pressed_item = 'addToCard'+i.toString()
@@ -421,7 +478,11 @@ for(let i=0;i<8;i++){
                 showAlert('некорректно указано количество товаров')
                 flag = false
             }
-            if((count_product > 0 )&&(flag ===true)){
+            if( !isInteger(count_product)){
+                flag = false
+                showAlert('некорректно указано количество товаров')
+            }
+            if((count_product > 0 )&&(count_product < 100000)&&(flag ===true)){
         
                 var cookieString = document.cookie;
                 var cookieParsed = cookieString.split(';')
@@ -440,7 +501,7 @@ for(let i=0;i<8;i++){
             request.setRequestHeader("Content-Type", "application/json");
             request.addEventListener("load", function(){
                 let recieved = JSON.parse(request.response);
-                console.log(recieved)
+
                 if(recieved !==''){
             //TODO обработать получить prod_name Нормальный
 
@@ -451,9 +512,9 @@ var request2 = new XMLHttpRequest();
 request2.open('POST', "/addToCard",true);
 request2.setRequestHeader("Content-Type", "application/json");
 request2.addEventListener("load", function(){
-    console.log(request2.response)
+
     let res2 = JSON.parse(request2.response)
-    console.log(res2)
+
 calculateNumOfGoods()
 calculateNumOfGoods()
 }
@@ -632,10 +693,10 @@ document.getElementById("croissants").addEventListener("click", function (e) {//
 // обработчики кнопок страниц товаров
 document.getElementById("buttonPrevLi").addEventListener("click", function (e) {
     e.preventDefault();
-    if(document.getElementById('waffles_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(1)
     }
-    if(document.getElementById('all_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         if(document.getElementById('buttonPageLi3').getAttribute('class') === "page-item active"){
             showAll(2)
         }
@@ -647,10 +708,10 @@ document.getElementById("buttonPrevLi").addEventListener("click", function (e) {
     );
 document.getElementById("buttonPageLi1").addEventListener("click", function (e) {
     e.preventDefault();
-    if(document.getElementById('waffles_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(1)
     }
-    if(document.getElementById('all_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showAll(1)
     }
 }
@@ -658,24 +719,24 @@ document.getElementById("buttonPageLi1").addEventListener("click", function (e) 
 
 document.getElementById("buttonPageLi2").addEventListener("click", function (e) {
     e.preventDefault();
-    if(document.getElementById('waffles_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(2)
     }
-    if(document.getElementById('all_class').getAttribute('class') === "nav-item active"){
+    if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showAll(2)
     }});
 
 document.getElementById("buttonPageLi3").addEventListener("click", function (e) {
         e.preventDefault();
-        if(document.getElementById('all_class').getAttribute('class') === "nav-item active"){
+        if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
             showAll(3)
         }});
 document.getElementById("buttonNextLi").addEventListener("click", function (e) {
             e.preventDefault();
-if(document.getElementById('waffles_class').getAttribute('class') === "nav-item active"){
+if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
                 showWaffles(2)
     }
-if(document.getElementById('all_class').getAttribute('class') === "nav-item active"){
+if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
     if(document.getElementById('buttonPageLi1').getAttribute('class') === "page-item active"){
                     showAll(2)
                 }
@@ -1206,10 +1267,10 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
    
 
     function showWaffles(numPage){
-        document.getElementById('marmalade_class').setAttribute('class', 'nav-item')
-        document.getElementById('croissants_class').setAttribute('class', 'nav-item')
-        document.getElementById('all_class').setAttribute('class', 'nav-item')
-        document.getElementById('waffles_class').setAttribute('class', 'nav-item active')
+        document.getElementById('marmalade').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('croissants').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('all').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('waffles').setAttribute('class', 'myactive nav-link black-text waves-effect waves-indigo')
 
         let category= 'вафли'
         let minCost= 0
@@ -1299,10 +1360,10 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
         
 
         function showMarmalade(numPage){
-            document.getElementById('croissants_class').setAttribute('class', 'nav-item')
-            document.getElementById('all_class').setAttribute('class', 'nav-item')
-            document.getElementById('waffles_class').setAttribute('class', 'nav-item')
-            document.getElementById('marmalade_class').setAttribute('class', 'nav-item active')
+            document.getElementById('croissants').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+            document.getElementById('all').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+            document.getElementById('waffles').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+            document.getElementById('marmalade').setAttribute('class', 'myactive nav-link black-text waves-effect waves-indigo')
 
             let category= 'мармелад'
             let minCost= 0
@@ -1386,10 +1447,10 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
     }
 
             function showCroissants(numPage){
-                document.getElementById('all_class').setAttribute('class', 'nav-item')
-                document.getElementById('waffles_class').setAttribute('class', 'nav-item')
-                document.getElementById('marmalade_class').setAttribute('class', 'nav-item')
-                document.getElementById('croissants_class').setAttribute('class', 'nav-item active')
+                document.getElementById('all').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+                document.getElementById('waffles').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+                document.getElementById('marmalade').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+                document.getElementById('croissants').setAttribute('class', 'myactive nav-link black-text waves-effect waves-indigo')
                
                 let category= 'круасаны'
                 let minCost= 0
@@ -1473,10 +1534,10 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
     }
 
     function showAll(numPage){
-        document.getElementById('waffles_class').setAttribute('class', 'nav-item')
-        document.getElementById('marmalade_class').setAttribute('class', 'nav-item')
-        document.getElementById('croissants_class').setAttribute('class', 'nav-item')
-        document.getElementById('all_class').setAttribute('class', 'nav-item active')
+        document.getElementById('waffles').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('marmalade').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('croissants').setAttribute('class', 'nav-link black-text waves-effect waves-indigo')
+        document.getElementById('all').setAttribute('class', 'myactive nav-link black-text waves-effect waves-indigo')
 
         let category= 'all'
         let minCost= 0
@@ -1507,12 +1568,7 @@ if(document.getElementById('all_class').getAttribute('class') === "nav-item acti
                 vkus = parsingArr[1]
             }}
         }
-        /*
-        console.log('minCost: '+minCost)
-        console.log('maxCost: '+maxCost)
-        console.log('sortOrder: '+sortOrder)
-        console.log('vkus: '+vkus)
-        */
+
         let cur_category = JSON.stringify({category: category, minCost : minCost, maxCost : maxCost, sortOrder : sortOrder, vkus : vkus});
     var request = new XMLHttpRequest();
     let recieved = ''
