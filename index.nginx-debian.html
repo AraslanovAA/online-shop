@@ -6,14 +6,12 @@
   <title>сайтик</title>
     </head>
 <body>
-    <button id="save">сoхранить</button>
+<div id="content">
+    <button id="back">На главную</button>
     <script>
         window.onload = function(){
-            document.getElementById('save').onclick = function(){
-              var a = document.createElement("a")
-              a.setAttribute("href", "data:text/plain," + document.getElementById('content').innerHTML.replace(/<br>/g, encodeURIComponent("\r\n")));
-              a.setAttribute("download", "polite.txt");
-              a.click();
+            document.getElementById('back').onclick = function(){
+              document.location.href="https://score-guitars.tk/"
             };
         };
         </script>
@@ -55,6 +53,17 @@
 <h3>8. Условия использования аналога собственноручной подписи</h3>
 </div>
 <div><em>Раздел включает порядок использования логина и пароля или адреса электронной почты в качестве ключа простой электронной подписи. Данное условие необходимо для придания юридической силы всем действиям сторон и упрощения возможного документооборота.</em></div>
-
+<br>custom<br>text</div>
+<button id="save">сoхранить</button>
+    <script>
+        window.onload = function(){
+            document.getElementById('save').onclick = function(){
+              var a = document.createElement("a")
+              a.setAttribute("href", "data:text/plain," + document.getElementById('content').innerHTML.replace(/<br>/g, encodeURIComponent("\r\n")));
+              a.setAttribute("download", "polite.txt");
+              a.click();
+            };
+        };
+        </script>
 </body>
 </html>

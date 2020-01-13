@@ -12,6 +12,11 @@ function notFound(res) {
 
 var pgp = require('pg-promise')();
 var cn = {host: 'localhost', port: 5432, database: 'postgres', user: 'postgres', password: '1'};
+//var cn = { host: 'rc1a-2dvbvmj3xva9c5zg.mdb.yandexcloud.net',
+//	   port: 6432,
+//	   database: 'postgresDB',
+//	   user: 'denis',
+//	   password: 'Aezakmi100500984310'};
 var db = pgp(cn); 
 
 function sendFile(filename, res) {
@@ -76,11 +81,9 @@ const server = http.createServer((req, res) => {
                             body.push(chunk);
                         })
             req.on('end',function() {
-                console.log('попытка считать всех производителей для всех категорий: ')
                 let inquiry = 'SELECT DISTINCT proizvoditel , food_type FROM gsd'
                 db.any(inquiry).then(data => {
                     var thisUserCard = JSON.stringify(data)
-                    console.log("из бд получили всех производителей для всех категорий: " + thisUserCard)
                     res.writeHead(200, {'Content-Type': 'application/json'});
                     res.end(thisUserCard);
                     }) 
@@ -94,11 +97,11 @@ const server = http.createServer((req, res) => {
                             body.push(chunk);
                         })
             req.on('end',function() {
-                console.log('попытка считать все вкусы для всех категорий: ')
+                
                 let inquiry = 'SELECT DISTINCT vkus , food_type FROM gsd'
                 db.any(inquiry).then(data => {
                     var thisUserCard = JSON.stringify(data)
-                    console.log("из бд получили всех производителей для всех категорий: " + thisUserCard)
+                   
                     res.writeHead(200, {'Content-Type': 'application/json'});
                     res.end(thisUserCard);
                     }) 
@@ -113,7 +116,7 @@ const server = http.createServer((req, res) => {
                             body.push(chunk);
                         })
             req.on('end',function() {
-                console.log('попытка посчитать всех производителей для всех категорий: ')
+                
                 let inquiry = 'SELECT DISTINCT proizvoditel , food_type FROM gsd'
                 db.any(inquiry).then(data => {
                     var thisUserCard = JSON.stringify(data)
@@ -147,8 +150,7 @@ const server = http.createServer((req, res) => {
                     }
                     numAll = result.length
                     let numsEachCategory = numWaffs.toString()+';'+numMarm.toString()+';'+numCrois.toString()+';'+numAll.toString()
-                    console.log("из бд получили всех производителей для всех категорий: " + thisUserCard)
-                    console.log('количество произвоидтелей для каждой категории: '+numsEachCategory)
+                    
                     let numsEachCategoryJSON = JSON.stringify(numsEachCategory)
                     res.writeHead(200, {'Content-Type': 'application/json'});
                     res.end(numsEachCategoryJSON);
@@ -164,7 +166,7 @@ const server = http.createServer((req, res) => {
                             body.push(chunk);
                         })
             req.on('end',function() {
-                console.log('попытка посчитать всевкусы для всех категорий: ')
+          
                 let inquiry = 'SELECT DISTINCT vkus , food_type FROM gsd'
                 db.any(inquiry).then(data => {
                     var thisUserCard = JSON.stringify(data)
@@ -198,8 +200,7 @@ const server = http.createServer((req, res) => {
         }
         numAll = result.length
         let numsEachCategory = numWaffs.toString()+';'+numMarm.toString()+';'+numCrois.toString()+';'+numAll.toString()
-        console.log("из бд получили все вкусы для всех категорий: " + thisUserCard)
-        console.log('количество вкусов для каждой категории: '+numsEachCategory)
+   
         let numsEachCategoryJSON = JSON.stringify(numsEachCategory)
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(numsEachCategoryJSON);
@@ -215,7 +216,7 @@ if(req.url ==='/vkusLoad'){//спрашиваем у бд, а какие воо�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('попытка считать все вкусы для категории: '+JSON.parse(body).category)
+        
     let inquiry = ''
     if(JSON.parse(body).category ==='all'){
         inquiry = 'SELECT DISTINCT vkus FROM gsd'
@@ -225,7 +226,7 @@ if(req.url ==='/vkusLoad'){//спрашиваем у бд, а какие воо�
     }
         db.any(inquiry).then(data => {
             var thisUserCard = JSON.stringify(data)
-            console.log("из бд получили все вкусы для ктаегории пацана: " + thisUserCard)
+            
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(thisUserCard);
             }) 
@@ -240,12 +241,11 @@ if(req.url ==='/giveThisUserDelivery'){//получаем все заказы п
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку получить все заказы пацана: ')
-        console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
+      
     let inquiry = 'SELECT buyer_id, items, "when", address	FROM public.orders where buyer_id='+"'"+JSON.parse(body).hash+"'"
         db.any(inquiry).then(data => {
             var thisUserCard = JSON.stringify(data)
-            console.log("из бд получили все заказы пацана: " + thisUserCard)
+         
             let thisUserCardJSON = JSON.stringify(thisUserCard)
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(thisUserCardJSON);
@@ -263,8 +263,7 @@ if(req.url ==='/makeOrder'){//добавляем заказ в таблицу з
         body.push(chunk);
     })
 req.on('end',function() {
-console.log('сервер зарегистрировал попытку оформить заказ: ')
-console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
+
 //взять количество товара из таблицы корзина, стоимость из таблицы товаров связанные по описание в таблицах
 //  cоответствующие указанному хэшу в таблице корзины
 //сформировать строку товаров для таблицы заказов и пополнить таблицу заказов
@@ -275,9 +274,7 @@ let inquiry = 'SELECT gsd.additional_params, card.count_prod, gsd.current_cost, 
 ' gsd.product_name = card.product_description AND card.user_h = '+"'" +JSON.parse(body).hash+"'"
 db.any(inquiry).then(data => {
 var thisUserCard = JSON.stringify(data)
-console.log("из бд получили корзину пользователя: " + data)
-console.log("из бд получили корзину пользователя: " + thisUserCard)
-console.log(data.length)
+
 var itemList= ''
 var now = new Date();
 var when = now.toString()
@@ -308,11 +305,11 @@ if(req.url ==='/giveThisUserCard'){//получаем корзину пацан�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
+      
     let inquiry = 'SELECT product_description, count_prod FROM card where user_h = ' + "'" +JSON.parse(body).hash+"'"
         db.any(inquiry).then(data => {
             var thisUserCard = JSON.stringify(data)
-            console.log("из бд получили корзину пользователя: " + thisUserCard)
+         
             let thisUserCardJSON = JSON.stringify(thisUserCard)
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(thisUserCardJSON);
@@ -329,9 +326,7 @@ if(req.url ==='/deleteCartItem'){//удаляем строку из таблиц
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку удалить строку из таблицы "корзина": ')
-    console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
-    console.log('короткое имя удаляемого товара: ' + JSON.parse(body).addName)
+        
     //в gcd по addit_param получаем product_name = product_description в card
     let inquiry = 'SELECT product_name FROM gsd where additional_params = ' + "'" +JSON.parse(body).addName+"'"
         db.any(inquiry).then(data => {
@@ -359,11 +354,9 @@ if(req.url ==='/giveTableInfo'){//получаем описание товара
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку получить описание товаров для корзины: ')
-    console.log('рассматриваемые продукты:  ' + JSON.parse(body).listProductName)
+        
     var splitedProducts = JSON.parse(body).listProductName.split(';')
-    console.log('splitedProducts1: ' + splitedProducts[0])
-    console.log('splitedProducts11: ' + splitedProducts[1])
+    
     let inquiry = 'SELECT product_name,additional_params, current_cost FROM gsd where product_name = ' + "'" +splitedProducts[0]+"'"
     k=0
     var flag = false
@@ -375,11 +368,11 @@ if(req.url ==='/giveTableInfo'){//получаем описание товара
         flag=true
     }
     inquiry+=';'
-    console.log('сформированный для бд запрос: '+inquiry)
+   
     if(flag===true){
         db.any(inquiry).then(data => {
             var thisProductInfo = JSON.stringify(data)
-            console.log("из бд получили данные о товаре для корзины: " + thisProductInfo)
+            
             let thisProductInfoJSON = JSON.stringify(thisProductInfo)
             res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(thisProductInfoJSON);
@@ -396,13 +389,12 @@ if(req.url ==='/giveNumGoods'){//получаем имя пацана по ег�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку получить количество позиций дял конкретного человека: ')
-    console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
+        
     let inquiry = 'SELECT Count(*) FROM card where user_h = ' + "'" +JSON.parse(body).hash+"'"
         db.any(inquiry).then(data => {
             var numGoods = JSON.stringify(data)
             let numGoodsJSON = JSON.stringify(numGoods)
-            console.log("из бд получили количество позиций: " + numGoods)
+            
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(numGoodsJSON);
             }) 
@@ -417,12 +409,11 @@ if(req.url ==='/giveFoolName'){//получаем полное имя товар
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('---Поптыка получить фулл имя---')
-    console.log('нам дали '+ JSON.parse(body).prod_name)
+      
     let inquiry = 'SELECT product_name FROM public.gsd where additional_params = ' + "'" +JSON.parse(body).prod_name+"'"
         db.any(inquiry).then(data => {
             var prod_name = JSON.stringify(data[0]["product_name"])
-            console.log('----result '+ data[0]["product_name"])
+          
              res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(prod_name);
             }) 
@@ -437,10 +428,7 @@ if(req.url ==='/addToCard'){//добавляем инфу о новых зака
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку добавить новый заказ в корзинку: ')
-    console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
-    console.log('prod descr: ' + JSON.parse(body).prod_name)
-    console.log('count: ' + JSON.parse(body).count_product)
+        
 
     //1 - проверяем, что такого заказа уже нет в корзине, если есть увеличиваем у него count
     let inquiry = 'SELECT count_prod FROM card where user_h = ' +
@@ -448,7 +436,7 @@ if(req.url ==='/addToCard'){//добавляем инфу о новых зака
         db.any(inquiry).then(data => {
             var already_count = JSON.stringify(data)
         if(already_count.length ===2){//вот тут мы не нашли такого товара в таблице корзина, значит добавляем его туда
-            console.log('не нашли такой товар в таблице корзина, добавляем его туда')
+      
             
             let inquiry2 = 'INSERT INTO public.card( user_h, product_description, count_prod) VALUES (' +
             "'" +JSON.parse(body).hash +"'" +
@@ -459,11 +447,11 @@ if(req.url ==='/addToCard'){//добавляем инфу о новых зака
                 })
         }
         else{//апдейтим инфу в таблице корзина, так как такая строка уже имеется
-            console.log('этот человек уже добавлял такой товар в корзину, тупо инкрементим соответственно')
+        
             var already_count2 = JSON.parse(already_count)
-            console.log(already_count2[0]["count_prod"])
+         
             var newCount = JSON.parse(body).count_product + already_count2[0]["count_prod"]
-            console.log(newCount)
+      
             let inquiry3 = 'UPDATE public.card SET user_h=' +"'"+JSON.parse(body).hash+"'"+
             ',  product_description=' +"'"+JSON.parse(body).prod_name+"'"+
             ', count_prod='+newCount+'  WHERE user_h=' +"'"+JSON.parse(body).hash+"'"+
@@ -489,12 +477,11 @@ if(req.url ==='/giveNameByHash'){//получаем имя пацана по е�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку получить хеш по имени: ')
-        console.log('hash kotoriy prishel:  ' + JSON.parse(body).hash)
+
     let inquiry = 'SELECT first_name FROM buyers where password_user = ' + "'" +JSON.parse(body).hash+"'"
         db.any(inquiry).then(data => {
             var first_name = JSON.stringify(data)
-            console.log("из бд получили имя пацана: " + first_name)
+
             let first_nameJSON = JSON.stringify(first_name)
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(first_nameJSON);
@@ -511,11 +498,11 @@ if(req.url ==='/giveIdProduct'){//получаем id_product товара по 
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал нажатие itema: ')
+
         let inquiry = 'SELECT id_product FROM gsd where additional_params = ' + "'" +JSON.parse(body).cur_additional_param+"'"
         db.any(inquiry).then(data => {
             var id_product = JSON.stringify(data)
-            console.log("из бд получили id продукта: " + id_product)
+
             let id_productJSON = JSON.stringify(id_product)
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(id_productJSON);
@@ -531,7 +518,7 @@ if(req.url ==='/allProductInfo'){//возвращаем всю инфу о то�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал загрузку страницы с товаром: ')
+ 
         let inquiry = 'SELECT * FROM gsd where id_product = ' +JSON.parse(body).IDProduct
         db.any(inquiry).then(data => {
             var id_product = JSON.stringify(data)
@@ -570,10 +557,10 @@ if(req.url ==='/loadMainPage'){//подгрузка страницы товар�
     if(JSON.parse(body).sortOrder ==='DESC'){
         inquiry = inquiry + ' ORDER BY current_cost DESC'
     }
-    console.log('конечный запрос: ' + inquiry)
+
         db.any(inquiry).then(data => {
             if(data[0] == null){
-                console.log("Доказано, что налл")
+            
                 var abc = JSON.stringify(false)
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
@@ -598,7 +585,7 @@ if(req.url ==='/registrationUser'){//регистрация нового пол�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку создания нового пользователя')
+
         let inquiry = 'SELECT MAX(id_buyer)  FROM   buyers'
         db.any(inquiry).then(data => {
             var id_nextUser=data[0]["max"]+1
@@ -626,19 +613,19 @@ if(req.url ==='/checkRegistratedEmail'){//проверка незанятост�
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку проверки email')
+
         let inquiry = 'SELECT id_buyer  FROM   buyers where email=' + "'"+JSON.parse(body).email+"'"
         db.any(inquiry).then(data => {
             if(data[0] == null){
                 var abc = JSON.stringify(true)//мыло свободно
-                console.log('res s ervera true = ' +abc)
+
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(abcJSON);
             }
             else{
                 var abc = JSON.stringify(false)//уже мыльно
-                console.log('res s ervera false = ' +abc)
+
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(abcJSON);
@@ -657,15 +644,15 @@ if(req.url ==='/author'){//получение из базы хэша по соо
                     body.push(chunk);
                 })
     req.on('end',function() {
-        console.log('сервер зарегистрировал попытку авторизации пацана')
+
     let inquiry = 'SELECT password_user  FROM   buyers where email=' + "'"+JSON.parse(body).email+"'"
         db.any(inquiry).then(data => {
             
             let strData = JSON.stringify(data)
-            console.log('data na pacana:' + strData)
+
             if(data[0] == null){
                 var abc = JSON.stringify(false)
-                console.log('res s ervera false = ' +abc)
+
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(abcJSON);
@@ -673,14 +660,14 @@ if(req.url ==='/author'){//получение из базы хэша по соо
             else{
                 if(JSON.parse(body).password === data[0]["password_user"]){
                     var abc = JSON.stringify(true)
-                console.log('res s ervera true = ' +abc)
+
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(abcJSON);
                 }
                 else{
                     var abc = JSON.stringify(false)
-                console.log('res s ervera false2 = ' +abc)
+
                 let abcJSON = JSON.stringify(abc)
                 res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(abcJSON);

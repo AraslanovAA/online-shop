@@ -1,3 +1,9 @@
+function makeOne(){
+    for(let i=0;i<8;i++){
+        let name ='inp' +i.toString()
+        document.getElementById(name).value = '1';
+    }
+}
 function funcOnLoad(){
     createVkusDropDownFull()
 
@@ -482,7 +488,7 @@ for(let i=0;i<8;i++){
                 flag = false
                 showAlert('некорректно указано количество товаров')
             }
-            if((count_product > 0 )&&(count_product < 100000)&&(flag ===true)){
+            if((count_product > 0 )&&(count_product <= 100000)&&(flag ===true)){
         
                 var cookieString = document.cookie;
                 var cookieParsed = cookieString.split(';')
@@ -693,6 +699,7 @@ document.getElementById("croissants").addEventListener("click", function (e) {//
 // обработчики кнопок страниц товаров
 document.getElementById("buttonPrevLi").addEventListener("click", function (e) {
     e.preventDefault();
+    makeOne();
     if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(1)
     }
@@ -708,6 +715,7 @@ document.getElementById("buttonPrevLi").addEventListener("click", function (e) {
     );
 document.getElementById("buttonPageLi1").addEventListener("click", function (e) {
     e.preventDefault();
+    makeOne();
     if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(1)
     }
@@ -719,6 +727,7 @@ document.getElementById("buttonPageLi1").addEventListener("click", function (e) 
 
 document.getElementById("buttonPageLi2").addEventListener("click", function (e) {
     e.preventDefault();
+    makeOne();
     if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
         showWaffles(2)
     }
@@ -728,11 +737,13 @@ document.getElementById("buttonPageLi2").addEventListener("click", function (e) 
 
 document.getElementById("buttonPageLi3").addEventListener("click", function (e) {
         e.preventDefault();
+        makeOne();
         if(document.getElementById('all').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
             showAll(3)
         }});
 document.getElementById("buttonNextLi").addEventListener("click", function (e) {
             e.preventDefault();
+            makeOne();
 if(document.getElementById('waffles').getAttribute('class') === "myactive nav-link black-text waves-effect waves-indigo"){
                 showWaffles(2)
     }

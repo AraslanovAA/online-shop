@@ -47,7 +47,7 @@ function CheckEmptySignUp(){
 
 document.getElementById("politeAccess").addEventListener("click", function (e) {//выбор категории вафли
     e.preventDefault();
-    document.location.href = '/polite'
+    document.location.href = 'http://add.score-guitars.tk/'
 })
 
 
